@@ -33,6 +33,7 @@
               <label class="font-medium">Email</label>
               <input
                 type="email"
+                v-model="email"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -41,6 +42,7 @@
               <label class="font-medium">Password</label>
               <input
                 type="password"
+                v-model="password"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -50,6 +52,7 @@
               <label class="font-medium">Entreprise name</label>
               <input
                 type="text"
+                v-model="name"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -58,6 +61,7 @@
               <label class="font-medium">Secteur</label>
               <input
                 type="text"
+                v-model="secteur"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -67,6 +71,7 @@
               <label class="font-medium">Description</label>
               <textarea
                 required
+                v-model="description"
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               ></textarea>
             </div>
@@ -75,6 +80,7 @@
               <input
                 type="text"
                 required
+                v-model="link"
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
@@ -89,3 +95,64 @@
       </div>
     </main>
   </template>
+
+
+<script>
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      name: "",
+      secteur: "",
+      logo: "test.jpg",
+      description: "",
+      link: "",
+    };
+  },
+  methods: {
+
+    async signUp() {
+      
+          const myjson = {
+          email: this.email,
+          password: this.password,
+          name:this.name,
+          secteur:this.secteur,
+          logo:this.logo,
+          description:this.description,
+          link:this.link
+        };
+        console.log(myjson);
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/signupEntreprise",
+            myjson,
+            
+          );
+          if (response.data.check === true) {
+            toast.success("Account created succesfully !", {
+              autoClose: 2000, 
+            });
+            //window.location.href = "/signin";
+          } else {
+            toast.error("Email already exists!", {
+              autoClose: 2000, 
+            });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      
+    },
+    
+  },
+  mounted() {
+   
+  },
+};
+</script>
