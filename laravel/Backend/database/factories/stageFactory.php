@@ -4,7 +4,10 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class userFactory extends Factory
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\stage>
+ */
+class stageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +18,8 @@ class userFactory extends Factory
     {
         return [
             'id' => fake()->unique()->numberBetween(1, 100),
-            'nom' => fake()->name,
-            'email' => fake()->unique()->safeEmail,
-            'mdp' => fake()->sha256(), // return hashed password
-            'role' => fake()->jobTitle(),
+            'dateDebut' => fake()->date,
+            'dateFin' => fake()->date,
         ];
     }
 }

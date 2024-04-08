@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// creating or deleting tables
+Route::get('/', [Controller::class,"InitializeDB"]);
+Route::get('/deletetables', [Controller::class,"deleteTables"]);
+// filling the database
+Route::get('/seeddb', [Controller::class,"SeedDB"]);
