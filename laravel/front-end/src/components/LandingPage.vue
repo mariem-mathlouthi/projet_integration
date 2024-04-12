@@ -37,7 +37,7 @@
                   <router-link to="/signupEntreprise" class="flex items-center justify-center gap-x-2 py-2 px-4 text-white font-medium text-sm bg-gray-800 duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg md:inline-flex">
                       Entreprise
                     </router-link>
-                  <router-link to="/signup" class="block py-2 px-4 text-gray-700 hover:text-gray-500 font-medium duration-150 text-sm active:bg-gray-100 border rounded-lg">
+                  <router-link to="/signupEtudiant" class="block py-2 px-4 text-gray-700 hover:text-gray-500 font-medium duration-150 text-sm active:bg-gray-100 border rounded-lg">
                       Etudiant
                   </router-link>
               </div>

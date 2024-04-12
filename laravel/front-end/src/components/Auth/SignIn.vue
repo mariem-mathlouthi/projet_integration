@@ -5,11 +5,11 @@
                 
                 <div class="mt-5 space-y-2">
                     <h3 class="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
-                    <p class="">Don't have an account? <router-link to="/signup" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</router-link></p>
+                    
                 </div>
             </div>
             <form
-                onsubmit="event.preventDefault()"
+            @submit.prevent="Signin"
                 class="mt-8 space-y-5"
             >
                 <div>
@@ -18,6 +18,7 @@
                     </label>
                     <input
                         type="email"
+                        v-model="email"
                         required
                         class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                     />
@@ -28,6 +29,7 @@
                     </label>
                     <input
                         type="password"
+                        v-model="password"
                         required
                         class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                     />
@@ -44,3 +46,64 @@
         </div>
     </main>
 </template>
+
+
+
+<script>
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+
+    async Signin() {
+    let myjson = {
+        email:this.email,
+        password:this.password,
+      }
+      console.log(myjson);
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/login",
+            myjson,
+            
+          );
+          if (response.data.check === true) {
+
+            if(response.data.role === "entreprise"){
+                toast.success("Account Entreprise exist !", {
+              autoClose: 2000, 
+            });
+            }
+            if(response.data.role === "student"){
+                toast.success("Account student exist !", {
+              autoClose: 2000, 
+            });
+            }
+        
+          } else {
+            toast.error("Invalid email or password !", {
+              autoClose: 2000, 
+            });
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+        
+    
+
+    }
+    
+  },
+  mounted() {
+   
+  },
+};
+</script>

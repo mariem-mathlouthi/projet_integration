@@ -26,44 +26,45 @@
          
          
           <form   @submit.prevent="signUp" class="space-y-5">
-            
+            <div class="grid grid-cols-2 gap-x-3">
             <div>
-              <label class="font-medium">Domaine d'etudes</label>
+              <label class="font-medium">Entreprise name</label>
               <input
-            
+               v-model="name"
                 type="texts"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
-            <div class="grid grid-cols-2 gap-x-3">
-            <div>
-              <label class="font-medium">Type de stage chercher</label>
-              <input
             
+            <div>
+              <label class="font-medium">Secteur</label>
+              <input
+             v-model="secteur"
+                type="text"
+                required
+                class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+            </div>
+           
+           
+            </div>
+            <div>
+              <label class="font-medium">link</label>
+              <input
+             v-model="link"
                 type="text"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
             <div>
-              <label class="font-medium">Specialite</label>
-              <input
-            
-                type="text"
-                required
-                class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            </div>
-            <div>
-              <label class="font-medium">Nom de l'etablissement</label>
-              <input
-             v-model="etablissement"
-                type="text"
-                required
-                class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
+              <label class="font-medium">description</label>
+              <textarea
+                  v-model="description"
+                  required
+                  class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                ></textarea>
             </div>
 
             <div class="max-w-lg mx-auto px-4 sm:px-0">
@@ -105,23 +106,68 @@ export default {
     return {
       stepsCount: [1, 2],
       currentStep: 2,
+      numeroSIRET:"",
+      email: "",
+      password: "",
       etablissement:"",
+      name: "",
+      secteur: "",
+      logo: "test.jpg",
+      description: "",
+      link: "",
      
     };
   },
   methods: {
 
     async signUp() {
-      window.location.href = "/signin";
+
+      let storedData = localStorage.getItem("Entreprise");
+      this.numeroSIRET = JSON.parse(storedData).numeroSIRET;
+      this.email = JSON.parse(storedData).email;
+      this.password = JSON.parse(storedData).password;  
+
+
+    let myjson = {
+      numeroSIRET:this.numeroSIRET,
+      email:this.email,
+      password:this.password,
+      name:this.name,
+      secteur:this.secteur,
+      logo:this.logo,
+      description:this.description,
+      link:this.link,
+    }
+    console.log(myjson);
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/signupEntreprise",
+          myjson,
+          
+        );
+        if (response.data.check === true) {
+          toast.success("Account created succesfully !", {
+            autoClose: 2000, 
+          });
+
+        } else {
+          toast.error("Email already exists!", {
+            autoClose: 2000, 
+          });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
       
-    },
+
+},
 
   },
   mounted() {
   
   },
   watch:{
-    etablissement(value) {
+    description(value) {
     if (value != "") {
       this.currentStep++;
     }

@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class authController extends Controller
 {
     //
-    
-    public function signUpStudent(Request $request){
+
+    public function signUpEtudiant(Request $request){
         $requestData = $request->all();
         // Check if email already exists
         $existingUser = Etudiant::where('email', $requestData['email'])->first();
@@ -40,15 +40,15 @@ class authController extends Controller
         $newUser->etablissement = $requestData['etablissement'];
         $newUser->image = $requestData['image'];
         $newUser->save();
-    
+
         return response()->json([
             'message' => 'Account created successfully',
             'check' => true,
         ]);
     }
-    
 
-    
+
+
 
     public function signUpEntreprise(Request $request){
         $requestData = $request->all();
@@ -71,20 +71,20 @@ class authController extends Controller
         $newUser->description = $requestData['description'];
         $newUser->link = $requestData['link'];
         $newUser->save();
-    
+
         return response()->json([
             'message' => 'Account created successfully',
             'check' => true,
         ]);
     }
 
-    
+
     public function LoginUser(Request $request)
     {
         $requestData = $request->all();
         $email = $requestData['email'];
         $password = $requestData['password'];
-    
+
         // Check if the user exists as a student
         $student = Etudiant::where('email', $email)->first();
         if ($student && Hash::check($password, $student->password)) {
@@ -113,7 +113,7 @@ class authController extends Controller
             'check' => false,
         ]);
     }
-    
+
 
 
 }

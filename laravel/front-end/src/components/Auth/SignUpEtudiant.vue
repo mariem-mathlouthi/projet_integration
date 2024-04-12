@@ -54,7 +54,7 @@
               Or continue with
             </p>
           </div>
-          <form   @submit.prevent="signUp" class="space-y-5">
+          <form   @submit.prevent="next" class="space-y-5">
             <div class="grid grid-cols-2 gap-x-3">
             <div>
               <label class="font-medium">Full Name</label>
@@ -68,7 +68,7 @@
             <div>
               <label class="font-medium">Niveau</label>
               <input
-              v-model="classe"
+              v-model="niveau"
                 type="text"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
@@ -78,7 +78,7 @@
           <div>
               <label class="font-medium">Cin</label>
               <input
-             
+               v-model="cin"
                 type="text"
                 required
                 class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
@@ -150,52 +150,35 @@ export default {
       stepsCount: [1, 2],
       currentStep: 1,
       fullname: "",
-      classe: "",
+      niveau: "",
+      cin:"",
       email: "",
       password: "",
       confirmPassword: "",
-      image: "",
     };
   },
   methods: {
 
-    async signUp() {
-      window.location.href = "/signupPart2";
-        /*if (this.password === this.confirmPassword) {
-          const myjson = {
-          name: this.fullname,
-          email: this.email,
-          password: this.password,  
-          image:"test.jpg",
-          classe: this.classe,
-        };
-        console.log(myjson);
-        try {
-          const response = await axios.post(
-            "http://localhost:8000/api/signupStudent",
-            myjson,
-            
-          );
-          if (response.data.check === true) {
-            toast.success("Account created succesfully !", {
+    async next() {
+      if(this.password==this.confirmPassword){
+        let etudiant = {
+        fullname:this.fullname,
+        niveau:this.niveau,
+        cin:this.cin,
+        email:this.email,
+        password:this.password,
+      }
+      console.log(etudiant);
+      localStorage.setItem("Etudiant",JSON.stringify(etudiant));
+      window.location.href = "/signupEtudiantPart2";
+      }
+      else{
+        toast.error("Confirm your passwordd !", {
               autoClose: 2000, 
-            });
-           
-            
-          } else {
-            toast.error("Email already exists!", {
-              autoClose: 2000, 
-            });
-          }
-        } catch (error) {
-          console.error("Error:", error);
-        }}
-        else{
-          toast.error("Confirm your password!", {
-              autoClose: 2000, 
-            });
-        }
-      */
+        });
+      }
+     
+       
     },
     
   },

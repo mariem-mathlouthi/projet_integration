@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\auth\authController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\authController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => '/auth'], function () {
-    Route::post('/singUp', [authController::class, 'singUp']);
-    Route::post('/LoginUser', [authController::class, 'LoginUser']);
-    
+Route::group(['middleware' => 'cors'], function () {
+    Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
+    Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
+    Route::post('/login', [authController::class, 'LoginUser']);
 });
-
-
