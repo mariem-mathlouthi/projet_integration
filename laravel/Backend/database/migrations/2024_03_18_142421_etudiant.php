@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('etudiant', function ($table) {
-            $table->unsignedBigInteger('nce')->primary();
-            $table->unsignedBigInteger('idUser'); // foreign
-            $table->string('domaineEtude');
-            $table->enum('typeStage',['initiation','perfectionnement','PFE']);
-            $table->string('specialite');
+            $table->id('id');
+            $table->string('fullname');
             $table->string('niveau');
-            $table->integer('ncin');
-            // linking the foreign key
-            $table->foreign('idUser')->references('id')->on('user')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('cin')->unique();
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('domaine');
+            $table->string('typeStage');
+            $table->string('specialite');
+            $table->string('etablissement');
+            $table->string('image');
+            $table->timestamps();
         });
     }
 

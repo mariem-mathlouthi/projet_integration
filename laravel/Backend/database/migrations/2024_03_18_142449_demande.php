@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('DateSoumission');
             $table->integer('cv');
             // linking the foreign key
-            $table->foreign('idEtudiant')->references('nce')->on('etudiant')->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreign('idEtudiant')->references('nce')->on('etudiant')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idOffreDeStage')->references('id')->on('offre')->onDelete('cascade')->onUpdate('cascade');
         });
     }

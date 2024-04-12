@@ -9,11 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('entreprise', function ($table) {
-            $table->string('numeroSIRET')->primary();
-            $table->unsignedBigInteger('idUser'); // foreign
-            $table->string('secteurActivite');
-            // linking the foreign key
-            $table->foreign('idUser')->references('id')->on('user')->onDelete('cascade')->onUpdate('cascade');
+            $table->id('entreprise_id');
+            $table->string('numeroSIRET');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('name');
+            $table->string('secteur');
+            $table->string('logo');
+            $table->text('description');
+            $table->string('link');
+            $table->timestamps();
         });
     }
 
