@@ -16,3 +16,4 @@ to run the backend =>
 3-    Copy the .env.example file and rename it to .env
 4-    Create a new database with your specified name and put it in the .env file using XAMPP or another database management tool.
 5-    php artisan migrate   => to migrate all the migrations
+6-     php artisan serve 
