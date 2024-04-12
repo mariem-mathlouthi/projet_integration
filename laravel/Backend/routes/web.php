@@ -14,6 +14,11 @@ use App\Http\Controllers\Controller;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
 // creating or deleting tables
 Route::get('/', [Controller::class,"InitializeDB"]);
 Route::get('/deletetables', [Controller::class,"deleteTables"]);

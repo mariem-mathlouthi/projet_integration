@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offre', function ($table) {
+        Schema::create('offres', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idEntreprise'); // foreign
             $table->enum('status',['disponible','non disponible']); // modif to apply later
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offre');
+        Schema::dropIfExists('offres');
     }
 };

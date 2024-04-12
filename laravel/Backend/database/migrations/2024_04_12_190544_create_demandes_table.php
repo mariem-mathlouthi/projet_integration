@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('demande', function ($table) {
+        Schema::create('demandes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idEtudiant'); // foreign
             $table->unsignedBigInteger('idCandidature'); // foreign
@@ -19,9 +19,9 @@ return new class extends Migration
             $table->integer('statut');
             $table->date('DateSoumission');
             $table->integer('cv');
-            // linking the foreign key
-            //$table->foreign('idEtudiant')->references('nce')->on('etudiant')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idOffreDeStage')->references('id')->on('offre')->onDelete('cascade')->onUpdate('cascade');
+            
+            $table->foreign('idEtudiant')->references('id')->on('etudiants')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idOffreDeStage')->references('id')->on('offres')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('demande');
+        Schema::dropIfExists('demandes');
     }
 };
