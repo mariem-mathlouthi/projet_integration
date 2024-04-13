@@ -82,10 +82,12 @@ export default {
               autoClose: 2000, 
             });
             }
-            if(response.data.role === "student"){
+            if (response.data.role === "student") {
                 toast.success("Account student exist !", {
-              autoClose: 2000, 
-            });
+                    autoClose: 2000,
+                });
+
+                this.$router.push({ name: 'StudentDashboard' });
             }
         
           } else {

@@ -6,6 +6,7 @@ import SignupEntreprise from "../components/Auth/SignUpEntreprise.vue";
 import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue";
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
+import StudentDashboard from "../components/StudentDash/StudentDashboard.vue";
 
 const routes = [
    {
@@ -43,8 +44,11 @@ const routes = [
     name: "signin",
     component: Signin,
   },
- 
-  // Other routes...
+  {
+    path: '/student-dashboard',
+    name: 'StudentDashboard',
+    component: StudentDashboard,
+  }
 ];
 
 const router = createRouter({
