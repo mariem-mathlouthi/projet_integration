@@ -6,7 +6,7 @@ import SignupEntreprise from "../components/Auth/SignUpEntreprise.vue";
 import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue";
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
-import StudentDashboard from "../components/StudentDash/StudentDashboard.vue";
+import StudentDash from "../components/StudentDash/StudentDashboard.vue";
 
 const routes = [
    {
@@ -14,6 +14,11 @@ const routes = [
     name: "landingPage",
     component: LandingPage,
     },
+    {
+      path: "/StudentDash",
+      name: "StudentDash",
+      component: StudentDash,
+      },
   {
     path: "/signupEtudiant",
     name: "signupEtudiant",
@@ -44,11 +49,8 @@ const routes = [
     name: "signin",
     component: Signin,
   },
-  {
-    path: '/student-dashboard',
-    name: 'StudentDashboard',
-    component: StudentDashboard,
-  }
+ 
+  // Other routes...
 ];
 
 const router = createRouter({

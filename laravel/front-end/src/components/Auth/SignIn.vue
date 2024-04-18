@@ -80,14 +80,11 @@ export default {
             if(response.data.role === "entreprise"){
                 toast.success("Account Entreprise exist !", {
               autoClose: 2000, 
+
             });
             }
-            if (response.data.role === "student") {
-                toast.success("Account student exist !", {
-                    autoClose: 2000,
-                });
-
-                this.$router.push({ name: 'StudentDashboard' });
+            if(response.data.role === "student"){
+            this.$router.push('/StudentDash');
             }
         
           } else {

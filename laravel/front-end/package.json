@@ -11,13 +11,11 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^1.6.8",
-    "bootstrap": "^5.3.3",
-    "bootstrap-vue": "^2.23.1",
+    "flowbite": "^2.3.0",
     "lottie-web": "^5.12.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue3-carousel": "^0.3.1",
-    "vue3-particles": "^2.12.0",
     "vue3-toastify": "^0.2.1"
   },
   "devDependencies": {
