@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\Offre\OffreController;
 use App\Http\Controllers\Stage\StageController;
 
 /*
@@ -27,4 +28,7 @@ Route::group(['middleware' => 'cors'], function () {
 });
 Route::group(['prefix'=>'/stage'],function(){
     Route::get('/GetAllStage',[StageController::class,'GetAllStage']);
+});
+Route::group(['prefix'=>'/offre'],function(){
+    Route::get('/GetAllOffre',[OffreController::class,'GetAllOffre']);
 });
