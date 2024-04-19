@@ -78,12 +78,8 @@ export default {
           if (response.data.check === true) {
 
             if(response.data.role === "entreprise"){
-                toast.success("Account Entreprise exist !", {
-              autoClose: 2000,
-
-
-
-            });
+              toast.success("Account Entreprise exist !", { autoClose: 2000 });
+              this.$router.push('/EntrepriseDash'); // Redirection vers le tableau de bord de l'entreprise
             }
             if(response.data.role === "student"){
               let StudentAccount = {
