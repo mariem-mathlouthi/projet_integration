@@ -24,7 +24,6 @@ import AOS from "aos";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import Sidebar from "./Sidebar.vue"
-
 export default {
   data: function () {
     return {

@@ -7,6 +7,7 @@ import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue"
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
 import StudentDash from "../components/StudentDash/StudentDashboard.vue";
+import StudentAccount from "../components/StudentDash/ModifyAccount.vue";
 
 const routes = [
    {
@@ -18,7 +19,12 @@ const routes = [
       path: "/StudentDash",
       name: "StudentDash",
       component: StudentDash,
-      },
+    },
+    {
+        path: "/StudentAccount",
+        name: "StudentAccount",
+        component: StudentAccount,
+  },
   {
     path: "/signupEtudiant",
     name: "signupEtudiant",

@@ -16,7 +16,7 @@
                   type="text"
                   placeholder="Search"
                   class="w-full md:w-96 px-2 py-2 text-gray-500 bg-transparent rounded-md outline-none"
-                  v-model="searchQuery"
+                  
                />
       </div>
       <div class="">
@@ -125,7 +125,7 @@
        <ul class="space-y-4 font-medium">
          <li data-aos="fade-up">
            <router-link
-             to="#"
+             to="/StudentDash"
              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
            >
              <svg
@@ -201,7 +201,7 @@
          <li>
            <router-link
            data-aos="fade-up"
-             to="#"
+             to="/StudentAccount"
              class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
            >
              <svg
@@ -255,7 +255,7 @@
      return {
        isSidebarOpen: false, // Track the sidebar visibility
        state: false, // Initial state for visibility of additional information
-       imageUrl: 'https://randomuser.me/api/portraits/men/46.jpg'
+       imageUrl: 'https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg'
      };
    },
    methods: {

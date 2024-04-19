@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\studentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,6 @@ Route::group(['middleware' => 'cors'], function () {
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
     Route::post('/login', [authController::class, 'LoginUser']);
+    Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
+
 });

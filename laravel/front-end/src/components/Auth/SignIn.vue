@@ -79,11 +79,24 @@ export default {
 
             if(response.data.role === "entreprise"){
                 toast.success("Account Entreprise exist !", {
-              autoClose: 2000, 
+              autoClose: 2000,
+
+
 
             });
             }
             if(response.data.role === "student"){
+              let StudentAccount = {
+                fullname:response.data.user.fullname,
+                email:response.data.user.email,
+                niveau:response.data.user.niveau,
+                domaine:response.data.user.domaine,
+                specialite:response.data.user.specialite,
+                typeStage:response.data.user.typeStage,
+                etablissement:response.data.user.etablissement,
+                
+              }
+            localStorage.setItem("StudentAccountInfo",JSON.stringify(StudentAccount));
             this.$router.push('/StudentDash');
             }
         
