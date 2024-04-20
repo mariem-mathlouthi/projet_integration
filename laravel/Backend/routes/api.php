@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\Demande\DemandeController;
 use App\Http\Controllers\Offre\OffreController;
 use App\Http\Controllers\Stage\StageController;
 
@@ -31,4 +32,8 @@ Route::group(['prefix'=>'/stage'],function(){
 });
 Route::group(['prefix'=>'/offre'],function(){
     Route::get('/GetAllOffre',[OffreController::class,'GetAllOffre']);
+    Route::get('/GetoffreById/{id}',[OffreController::class,'GetoffreById']);
 });
+/*Route::group(['prefix'=>'/demande'],function(){
+    Route::post('/AddDemande',[DemandeController::class,'AddDemande']);
+});*/
