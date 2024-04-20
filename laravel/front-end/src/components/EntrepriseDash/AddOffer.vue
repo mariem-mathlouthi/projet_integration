@@ -68,28 +68,17 @@
     </div>
 </div>
 
-                        
-                        <div class="flex items-center col-span-full">
-                            <input id="checkbox1" type="checkbox"
-                                class="w-4 h-4 mr-3" />
-                            <label for="checkbox1" class="text-sm text-gray-400">I agree to the <a href="javascript:void(0);" class="underline">Terms and Conditions</a> and <a href="javascript:void(0);" class="underline">Privacy Policy</a></label>
-                        </div>
-                        <div class="flex justify-between">
-                        <button type='button'
-                                class="text-white bg-[#007bff] hover:bg-blue-600 font-semibold rounded text-sm px-6 py-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill='#fff' class="mr-2 inline" viewBox="0 0 548.244 548.244">
-                                <path fill-rule="evenodd" d="M392.19 156.054 211.268 281.667 22.032 218.58C8.823 214.168-.076 201.775 0 187.852c.077-13.923 9.078-26.24 22.338-30.498L506.15 1.549c11.5-3.697 24.123-.663 32.666 7.88 8.542 8.543 11.577 21.165 7.879 32.666L390.89 525.906c-4.258 13.26-16.575 22.261-30.498 22.338-13.923.076-26.316-8.823-30.728-22.032l-63.393-190.153z" clip-rule="evenodd" data-original="#000000" />
-                            </svg>
-                            Add offer
-                        </button>
-                        <router-link to="/OffersList">
-                            <button type='button'
-                                    class="text-white bg-gray-500 hover:bg-gray-600 font-semibold rounded text-sm px-6 py-3 ml-2">
-                                Back
-                          </button>
-</router-link>
-
-                    </div>
+<div class="flex px-4 py-4 sm:px-6">
+    <button type="button"
+        class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+        Save
+    </button>
+    <router-link to="/OffersList"> <button type="button"
+        class="inline-flex items-center ml-4 px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">     
+Cancel
+    </button></router-link>
+</div>
+                     
 
                         
                     </form>

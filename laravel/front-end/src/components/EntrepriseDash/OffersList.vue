@@ -9,6 +9,7 @@
 
         
         <div class="col-span-9 mt-24  mr-12">
+            <h2 class="text-2xl font-bold mb-8 mt-8">Offers List</h2>
             <div class="overflow-x-auto">
                 <div class="flex justify-end mb-4">
                 <router-link to="/AddOffer">

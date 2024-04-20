@@ -60,8 +60,8 @@
                   </div>
                 </div>
                 <div class="flex items-center">
-                  <button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button>
-                  <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                    <router-link to="/detailoffre"><button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button></router-link>
+                 
                 </div>
               </li>
               <li  class="py-6 flex justify-between items-center">
@@ -77,8 +77,8 @@
                   </div>
                 </div>
                 <div class="flex items-center">
-                  <button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button>
-                  <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                    <router-link to="/detailoffre"><button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button></router-link>
+          
                 </div>
               </li>
               <li class="py-6 flex justify-between items-center">
@@ -94,8 +94,8 @@
                   </div>
                 </div>
                 <div class="flex items-center">
-                  <button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button>
-                  <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                    <router-link to="/detailoffre"><button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button></router-link>
+                 
                 </div>
               </li>
               <li class="py-6 flex justify-between items-center">
@@ -111,8 +111,8 @@
                   </div>
                 </div>
                 <div class="flex items-center">
-                  <button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button>
-                  <button class="text-red-500 hover:text-red-700">Supprimer</button>
+                    <router-link to="/detailoffre"><button class="text-blue-500 hover:text-blue-700 mr-4">Détails</button></router-link>
+             
                 </div>
               </li>
               

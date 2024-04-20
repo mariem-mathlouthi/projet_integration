@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white shadow-xl h-screen fixed top-0 left-0 min-w-[250px] py-6 font-[sans-serif] overflow-auto" style="margin-top:30px">
+  <nav class="bg-blue-100 shadow-xl h-screen fixed top-0 left-0 min-w-[250px] py-6 font-[sans-serif] overflow-auto" style="margin-top:30px">
       <div class="relative flex flex-col h-full">
         <ul class="space-y-3 my-10 flex-1">
          <li>
@@ -56,6 +56,7 @@
 
 
 
+
 <li>
     <router-link to="/EntrepriseAccount" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
       <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke='currentColor'
@@ -77,6 +78,16 @@
         <span> Account</span>
     </router-link>
 </li>
+
+<li>
+    <router-link to="/SignIn" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+</svg>
+        <span> Log Out</span>
+    </router-link>
+</li>
+
 
 
         </ul>

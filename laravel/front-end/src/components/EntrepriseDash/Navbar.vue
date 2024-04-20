@@ -1,8 +1,9 @@
 <template>
-<header class='border-b font-[sans-serif] tracking-wide relative z-50 bg-blue-50'>
+  <div class="border-blue-500">
+    <header class='border-b border-blue-500 font-[sans-serif] tracking-wide relative z-50 bg-blue-200'>
  
 
-  <div class='flex flex-wrap items-center gap-4 px-10 py-4 relative bg-white min-h-[70px] bg-blue-50'>
+  <div class='flex flex-wrap items-center gap-4 px-10 py-4 relative bg-white min-h-[70px] '>
     <a href='javascript:void(0)' class='hidden max-lg:block'><img src="https://readymadeui.com/readymadeui.svg"
         alt="logo" class='w-36' /></a>
 
@@ -26,7 +27,7 @@
 
         <a href='javascript:void(0)'
           class='m-auto absolute lg:left-2/4 lg:top-1/4 lg:-translate-x-1/2 max-lg:hidden'><img
-            src="https://readymadeui.com/readymadeui.svg" alt="logo" class='w-36' /></a>
+            src="./logo.png" alt="logo" class='w-36' /></a>
 
      
       </div>
@@ -42,7 +43,8 @@
       </button>
     </div>
   </div>
-</header>
+  
+</header></div>
   </template>
   
   <script>

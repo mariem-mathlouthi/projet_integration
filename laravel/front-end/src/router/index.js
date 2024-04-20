@@ -15,12 +15,18 @@ import EditOffre from "../components/EntrepriseDash/EditOffre.vue";
 import TreatedRequest from "../components/EntrepriseDash/TreatedRequest.vue";
 import EntrepriseAccount from "../components/EntrepriseDash/Account.vue";
 import StudentsList from "../components/EntrepriseDash/StudentsList.vue";
+import DetailStudent from "../components/EntrepriseDash/DetailStudent.vue";
 const routes = [
    {
     path: "/",
     name: "landingPage",
     component: LandingPage,
     },
+    {
+      path: "/DetailStudent",
+      name: "DetailStudent",
+      component: DetailStudent,
+      },
     {
       path: "/EntrepriseAccount",
       name: "EntrepriseAccount",

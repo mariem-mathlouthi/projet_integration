@@ -28,7 +28,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">pfe</td>
               <td class="px-6 py-4 text-sm text-[#333]">
             <button class="text-green-500 hover:text-green-700 mr-4">
-            <router-link to="/detailoffre">Details</router-link>
+            <router-link to="/DetailStudent">Details</router-link>
             </button>
           <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
           <button class="text-red-500 hover:text-red-700">Delete</button>--> 
@@ -44,7 +44,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">pfe</td>
               <td class="px-6 py-4 text-sm text-[#333]">
             <button class="text-green-500 hover:text-green-700 mr-4">
-            <router-link to="/detailoffre">Details</router-link>
+            <router-link to="/DetailStudent">Details</router-link>
             </button>
           <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
           <button class="text-red-500 hover:text-red-700">Delete</button>--> 
@@ -58,7 +58,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">pfe</td>
               <td class="px-6 py-4 text-sm text-[#333]">
             <button class="text-green-500 hover:text-green-700 mr-4">
-            <router-link to="/detailoffre">Details</router-link>
+            <router-link to="/DetailStudent">Details</router-link>
             </button>
           <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
           <button class="text-red-500 hover:text-red-700">Delete</button>--> 
@@ -71,7 +71,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">pfe</td>
               <td class="px-6 py-4 text-sm text-[#333]">
             <button class="text-green-500 hover:text-green-700 mr-4">
-            <router-link to="/detailoffre">Details</router-link>
+            <router-link to="/DetailStudent">Details</router-link>
             </button>
           <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
           <button class="text-red-500 hover:text-red-700">Delete</button>--> 
