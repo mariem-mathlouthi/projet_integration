@@ -8,9 +8,11 @@ import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
 import StudentDash from "../components/StudentDash/StudentDashboard.vue";
 import NavBarStd from "../components/StudentDash/NavBarStd.vue";
-import PosltulerCond from "../components/StudentDash/PosltulerCond.vue";
 import DetailsOffreStd from "../components/StudentDash/DetailsOffreStd.vue";
-
+import PostulerCondidature from "../components/StudentDash/PostulerCondidature.vue";
+import ListeStagesAcceptés from "../components/StudentDash/ListeStagesAcceptés.vue";
+import Consulternotif from "../components/StudentDash/Consulternotif.vue";
+import EtudiantAccount from "../components/StudentDash/EtudiantAccount.vue";
 
 import EntrepriseDash from "../components/EntrepriseDash/EntrepriseDashbord.vue";
 import OffersList from "../components/EntrepriseDash/OffersList.vue";
@@ -29,9 +31,25 @@ const routes = [
     component: LandingPage,
     },
     {
-      path: "/PosltulerCond",
-      name: "PosltulerCond",
-      component: PosltulerCond,
+      path: "/EtudiantAccount",
+      name: "EtudiantAccount",
+      component: EtudiantAccount,
+      },
+
+    {
+      path: "/Consulternotif",
+      name: "Consulternotif",
+      component: Consulternotif,
+      },
+    {
+      path: "/ListeStagesAcceptés",
+      name: "ListeStagesAcceptés",
+      component: ListeStagesAcceptés,
+      },
+    {
+      path: "/PostulerCondidature",
+      name: "PostulerCondidature",
+      component: PostulerCondidature,
       },
       {
         path: "/DetailsOffreStd",
