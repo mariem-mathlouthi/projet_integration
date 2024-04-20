@@ -13,4 +13,12 @@ class OffreController extends Controller
         $ofres = Offre::all();
         return response()->json(["data" => $ofres], 200);
     }
+    public function GetoffreById($id){
+        $offre=Offre::find($id);
+        if($offre){
+            return response()->json(["data"=>$offre],200);
+        }else{
+            return response()->json(["message"=>"NOt Found"],404);
+        }
+    }
 }
