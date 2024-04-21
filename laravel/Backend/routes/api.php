@@ -7,6 +7,7 @@ use App\Http\Controllers\Demande\DemandeController;
 use App\Http\Controllers\Offre\OffreController;
 use App\Http\Controllers\Stage\StageController;
 use App\Http\Controllers\studentController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +25,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'cors'], function () {
+    // authentification
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
     Route::post('/login', [authController::class, 'LoginUser']);
-    Route::get('/GetAllStage',[StageController::class,'GetAllStage']);
-    Route::get('/GetAllOffre',[OffreController::class,'GetAllOffre']);
-    Route::get('/GetoffreById/{id}',[OffreController::class,'GetoffreById']);
-    Route::post('/AddDemande',[DemandeController::class,'AddDemande']);
+    // stage
+    Route::get('/getAllStage',[StageController::class,'GetAllStage']);
+    Route::get('/selectStage/{idOffre}', function ($idOffre) {
+        StageController::selectStage($idOffre);
+    });
+    // offre
+        // pay attention to order of variables, to ignore variable set it to "all"
+    Route::get('/offre/{id}/{domaine}/{type}/{titre}', function ($id,$domaine,$type,$titre) {
+        OffreController::chercherOffres($id,$domaine,$type,$titre);
+    });
+    Route::get('/getAllOffre',[OffreController::class,'GetAllOffre']);
+    Route::get('/getoffreById/{id}',[OffreController::class,'GetoffreById']);
+    // demande
+    Route::post('/addDemande',[DemandeController::class,'AddDemande']);
+    // student
     Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
-
+    // file management
+    Route::get('/download/cahierEntreprise/{nomFichier}', [Controller::class,'downloadCahierEntreprise']);
+    Route::post('/upload/cv', [Controller::class,'uploadCV']);
 });
