@@ -3,7 +3,7 @@
     
       <nav class="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6">
         <a href="javascript:void(0)" data-aos="fade-left">
-          <img src="../assets/logo.jpg" width="120" height="50" alt="Float UI logo" />
+          <img src="../assets/logo.png" width="120" height="50" alt="Float UI logo" />
         </a>
         <ul class="py-4 flex-1 items-center flex space-x-3 sm:space-x-6 sm:justify-end" data-aos="fade-right">
           <li v-for="link in navigation" :key="link.id" class="text-gray-900">

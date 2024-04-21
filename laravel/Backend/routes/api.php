@@ -6,6 +6,7 @@ use App\Http\Controllers\authController;
 use App\Http\Controllers\Demande\DemandeController;
 use App\Http\Controllers\Offre\OffreController;
 use App\Http\Controllers\Stage\StageController;
+use App\Http\Controllers\studentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,6 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/GetAllOffre',[OffreController::class,'GetAllOffre']);
     Route::get('/GetoffreById/{id}',[OffreController::class,'GetoffreById']);
     Route::post('/AddDemande',[DemandeController::class,'AddDemande']);
+    Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
+
 });
