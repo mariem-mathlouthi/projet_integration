@@ -13,7 +13,7 @@
             <h2 class="text-2xl font-bold mb-8 mt-8">Offers List</h2>
             <div class="overflow-x-auto">
                 <div class="flex justify-end mb-4">
-                <router-link to="/AddOffer">
+                <router-link to="/AddOfferAdmin">
                     <button type="button"
                             class="px-6 py-2 rounded-full text-black text-sm tracking-wider font-medium outline-none border-2 border-purple-600 hover:bg-purple-600 hover:text-white transition-all duration-300 flex items-center gap-2">
                         <i class="fas fa-plus"></i> <!-- Add icon -->

@@ -7,13 +7,12 @@ import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue"
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
 import StudentDash from "../components/StudentDash/StudentDashboard.vue";
-import StudentAccount from "../components/StudentDash/ModifyAccount.vue";
 import AdminDashboard from "../components/Admin/AdminDash.vue";
 import OffresList from "../components/Admin/OffresList.vue";
 import MessagesList from "../components/Admin/MessagesList.vue";
 import UsersList from "../components/Admin/UsersList.vue";
 import AccountSetting from "../components/Admin/AccountSetting.vue";
-import AddOffer from "../components/Admin/AddOffer.vue";
+import AddOfferAdmin from "../components/Admin/AddOffer.vue";
 import NavBarStd from "../components/StudentDash/NavBarStd.vue";
 import DetailsOffreStd from "../components/StudentDash/DetailsOffreStd.vue";
 import PostulerCondidature from "../components/StudentDash/PostulerCondidature.vue";
@@ -179,9 +178,9 @@ const routes = [
     component: AccountSetting, 
   },
   {
-    path: "/AddOffer",
-    name: "AddOffer",
-    component: AddOffer,
+    path: "/AddOfferAdmin",
+    name: "AddOfferAdmin",
+    component: AddOfferAdmin,
     },
 
   // Other routes...
