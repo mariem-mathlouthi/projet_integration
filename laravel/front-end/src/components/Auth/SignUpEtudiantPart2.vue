@@ -1,7 +1,7 @@
 <template>
     <main class="w-full flex">
       <div class="flex-1 hidden lg:block">
-      <img src="https://images.unsplash.com/photo-1697135807547-5fa9fd22d9ec?auto=format&fit=crop&q=80&w=3387&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-screen object-cover" />
+      <img src="./std.jpg" class="w-full h-screen object-cover" />
     </div>
       <div class="flex-1 flex items-center justify-center h-screen">
         <div
