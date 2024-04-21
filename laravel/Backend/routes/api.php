@@ -26,14 +26,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
     Route::post('/login', [authController::class, 'LoginUser']);
-});
-Route::group(['prefix'=>'/stage'],function(){
     Route::get('/GetAllStage',[StageController::class,'GetAllStage']);
-});
-Route::group(['prefix'=>'/offre'],function(){
     Route::get('/GetAllOffre',[OffreController::class,'GetAllOffre']);
     Route::get('/GetoffreById/{id}',[OffreController::class,'GetoffreById']);
 });
-/*Route::group(['prefix'=>'/demande'],function(){
-    Route::post('/AddDemande',[DemandeController::class,'AddDemande']);
-});*/
