@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idEtudiant'); // foreign
-            $table->unsignedBigInteger('idCandidature'); // foreign
-            $table->unsignedBigInteger('idOffreDeStage'); // foreign
+            $table->foreignId('idEtudiant'); // foreign
+            $table->foreignId('idOffreDeStage'); // foreign
             $table->integer('statut');
             $table->date('DateSoumission');
-            $table->integer('cv');
-            
+            $table->string('cv');
             $table->foreign('idEtudiant')->references('id')->on('etudiants')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idOffreDeStage')->references('id')->on('offres')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
