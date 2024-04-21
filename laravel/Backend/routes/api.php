@@ -29,4 +29,5 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/GetAllStage',[StageController::class,'GetAllStage']);
     Route::get('/GetAllOffre',[OffreController::class,'GetAllOffre']);
     Route::get('/GetoffreById/{id}',[OffreController::class,'GetoffreById']);
+    Route::post('/AddDemande',[DemandeController::class,'AddDemande']);
 });
