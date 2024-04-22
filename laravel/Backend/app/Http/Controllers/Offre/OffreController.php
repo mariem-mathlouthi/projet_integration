@@ -44,6 +44,18 @@ class OffreController extends Controller
             return response()->json(["message" => "Offre non trouvée"], 404);
         }
     }
+    public function DeleteOffre($id)
+{
+    $offre = Offre::find($id);
+
+    if ($offre) {
+        $offre->delete();
+        return response()->json(["message" => "Offre supprimée"], 200);
+    } else {
+        return response()->json(["message" => "Non trouvé"], 404);
+    }
+}
+
     
         static public function chercherOffres($id,$domaine,$type,$titre) {
         if ($id == "all" && $domaine == "all" && $type == "all" && $titre == "all") {
