@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Demande extends Model
 {
-    
+    use HasFactory;
     protected $guarded=[];
+    public $timestamps = false;
 }
