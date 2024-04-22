@@ -43,6 +43,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/getoffreById/{id}',[OffreController::class,'GetoffreById']);
     Route::post('/AddOffre',[OffreController::class,'AddOffre']);
     Route::post('/UpdateOffre/{id}',[OffreController::class,'UpdateOffre']);
+    Route::delete('/DeleteOffre/{id}',[OffreController::class,'DeleteOffre']);
     // demande
     Route::post('/addDemande',[DemandeController::class,'AddDemande']);
     // student
