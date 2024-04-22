@@ -41,6 +41,7 @@ Route::group(['middleware' => 'cors'], function () {
     });
     Route::get('/getAllOffre',[OffreController::class,'GetAllOffre']);
     Route::get('/getoffreById/{id}',[OffreController::class,'GetoffreById']);
+    Route::post('/AddOffre',[OffreController::class,'AddOffre']);
     // demande
     Route::post('/addDemande',[DemandeController::class,'AddDemande']);
     // student
@@ -48,4 +49,5 @@ Route::group(['middleware' => 'cors'], function () {
     // file management
     Route::get('/download/cahierEntreprise/{nomFichier}', [Controller::class,'downloadCahierEntreprise']);
     Route::post('/upload/cv', [Controller::class,'uploadCV']);
+    
 });
