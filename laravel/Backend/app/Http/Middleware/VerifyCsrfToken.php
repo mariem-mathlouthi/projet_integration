@@ -22,7 +22,8 @@ class VerifyCsrfToken extends Middleware
         'api/AddDemande',
         'api/modifyStudent',
         'api/AddOffre',
-        'api/UpdateOffre'
+        'api/UpdateOffre',
+        'api/DeleteOffre'
         
     ];
 }
