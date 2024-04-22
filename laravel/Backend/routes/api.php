@@ -46,6 +46,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::delete('/DeleteOffre/{id}',[OffreController::class,'DeleteOffre']);
     // demande
     Route::post('/addDemande',[DemandeController::class,'AddDemande']);
+    Route::put('/acceptDemande/{id}',[DemandeController::class,'acceptDemande']);
     // student
     Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
     // file management
