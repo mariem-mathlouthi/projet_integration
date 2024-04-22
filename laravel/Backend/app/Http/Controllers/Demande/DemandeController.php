@@ -21,5 +21,19 @@ class DemandeController extends Controller
         'message' => 'Demande Added successfully', 'check' => true,
         ]);
     }
+    public function acceptDemande($id)
+{
+    $demande = Demande::find($id);
+
+    if ($demande) {
+        $demande->update([
+            "statut"=> 1
+        ]);
+        return response()->json(["data" => $demande], 200);
+    } else {
+        return response()->json(["message" => "Non trouvé"], 404);
+    }
+}
+
     
 }
