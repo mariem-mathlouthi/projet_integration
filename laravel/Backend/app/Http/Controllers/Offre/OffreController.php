@@ -22,8 +22,30 @@ class OffreController extends Controller
             return response()->json(["message"=>"NOt Found"],404);
         }
     }
-
-    static public function chercherOffres($id,$domaine,$type,$titre) {
+    public function UpdateOffre(Request $request, $id)
+    {
+        $offre = Offre::find($id);
+    
+        if ($offre) {
+            $offre->update([
+                'idEntreprise' => $request->idEntreprise,
+                'status' => $request->status,
+                'titre' => $request->titre,
+                'description' => $request->description,
+                'domaine' => $request->domaine,
+                'dateDebut' => $request->dateDebut,
+                'dateFin' => $request->dateFin,
+                'typeOffre' => $request->typeOffre,
+                'cahierCharge' => $request->cahierCharge,
+            ]);
+    
+            return response()->json(["message" => "Offre mise à jour"], 200);
+        } else {
+            return response()->json(["message" => "Offre non trouvée"], 404);
+        }
+    }
+    
+        static public function chercherOffres($id,$domaine,$type,$titre) {
         if ($id == "all" && $domaine == "all" && $type == "all" && $titre == "all") {
              $data = Offre::all(); 
          }
