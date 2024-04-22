@@ -45,4 +45,28 @@ class OffreController extends Controller
          return $data;
          //print($data); // for testing
      }
+
+
+     public function AddOffre(Request $request)
+{
+    $requestData = $request->all();
+
+    $newOffre = new Offre();
+    $newOffre->idEntreprise = $requestData['idEntreprise'];
+    $newOffre->status = $requestData['status'];
+    $newOffre->titre = $requestData['titre'];
+    $newOffre->description = $requestData['description'];
+    $newOffre->domaine = $requestData['domaine'];
+    $newOffre->dateDebut = $requestData['dateDebut'];
+    $newOffre->dateFin = $requestData['dateFin'];
+    $newOffre->typeOffre = $requestData['typeOffre'];
+    $newOffre->cahierCharge = $requestData['cahierCharge'];
+
+    $newOffre->save();
+
+    return response()->json([
+        'message' => 'Offre ajoutée avec succès',
+        'check' => true,
+    ]);
+}
 }
