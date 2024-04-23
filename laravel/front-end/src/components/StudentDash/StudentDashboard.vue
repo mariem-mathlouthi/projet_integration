@@ -1,21 +1,36 @@
 <template>
-    <Sidebar></Sidebar>
-    <br><br><br>
-    <div class="relative md:left-72  md:w-4/5 "
-    
-    >
-    <div class="h-96" data-aos="fade-down">
-      <br><br><br><br>
-      <h2 class="text-4xl text-gray-800 text-center font-extrabold mx-auto md:text-5xl">
-                welcome To <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-[#E114E5]">Student Dashboard</span>
-      </h2>
-    
-       
+     <Navbar/>
+    <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-3">
+      <Sidebar />
     </div>
-    
-       
+    <div class="col-span-9 mt-24 mr-24">
+      <div class="bg-gray-100 px-6 py-12 font-[sans-serif]">
+      <div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <img src="https://readymadeui.com/management-img.webp" alt="Image" class="rounded-md object-cover w-full h-full" />
+          </div>
+          <div>
+            <h2 class="text-3xl font-extrabold text-purple-700 mb-4">Immerse Yourself in Creativity</h2>
+            <p class="text-gray-700 text-sm leading-6">
+              Unleash your imagination and explore a world of endless possibilities. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <ul class="list-disc text-sm text-gray-700 space-y-2 pl-4 mt-6">
+              <li>Discover innovative ideas.</li>
+              <li>Create unique projects.</li>
+              <li>Collaborate with like-minded individuals.</li>
+              <li>Transform your visions into reality.</li>
+            </ul>
+            <div class="mt-6">
+              <a href="javascript:void(0);" class="text-purple-600 text-sm font-semibold hover:underline">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+    </div>
+    </div>
 
 </template>
 <script>
@@ -23,7 +38,8 @@ import "aos/dist/aos.css";
 import AOS from "aos";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-import Sidebar from "./Sidebar.vue"
+import Sidebar from "./Sidebar.vue";
+import Navbar from "./NavBarStd.vue";
 export default {
   data: function () {
     return {
@@ -31,7 +47,7 @@ export default {
     }
   },
   components:{
-    Sidebar,
+    Sidebar,Navbar
   },
   
   methods:{
