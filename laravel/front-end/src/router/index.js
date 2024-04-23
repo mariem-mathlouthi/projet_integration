@@ -13,6 +13,7 @@ import PostulerCondidature from "../components/StudentDash/PostulerCondidature.v
 import ListeStagesAcceptés from "../components/StudentDash/ListeStagesAcceptés.vue";
 import Consulternotif from "../components/StudentDash/Consulternotif.vue";
 import EtudiantAccount from "../components/StudentDash/EtudiantAccount.vue";
+
 import EntrepriseDash from "../components/EntrepriseDash/EntrepriseDashbord.vue";
 import OffersList from "../components/EntrepriseDash/OffersList.vue";
 import AddOffer from "../components/EntrepriseDash/AddOffer.vue";
