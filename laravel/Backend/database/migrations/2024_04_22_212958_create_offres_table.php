@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('offres', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idEntreprise'); // foreign
-            $table->enum('status',['disponible','non disponible']); // modif to apply later
+            $table->enum('status',['en attente','accepté','refusé']); // modif to apply later
             $table->string('titre');
             $table->string('description',255);
             $table->string('domaine');
@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('dateFin');
             $table->string('typeOffre');
             $table->string('cahierCharge'); // file path?
+            $table->timestamps();
+            $table->foreign('idEntreprise')->references('id')->on('entreprises')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

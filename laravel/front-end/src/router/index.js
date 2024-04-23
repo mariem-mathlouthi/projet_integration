@@ -7,18 +7,6 @@ import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue"
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
 import StudentDash from "../components/StudentDash/StudentDashboard.vue";
-import AdminDashboard from "../components/Admin/AdminDash.vue";
-import OffresList from "../components/Admin/OffresList.vue";
-import MessagesList from "../components/Admin/MessagesList.vue";
-import UsersList from "../components/Admin/UsersList.vue";
-import AccountSetting from "../components/Admin/AccountSetting.vue";
-import AddOfferAdmin from "../components/Admin/AddOffer.vue";
-import NavBarStd from "../components/StudentDash/NavBarStd.vue";
-import DetailsOffreStd from "../components/StudentDash/DetailsOffreStd.vue";
-import PostulerCondidature from "../components/StudentDash/PostulerCondidature.vue";
-import ListeStagesAcceptés from "../components/StudentDash/ListeStagesAcceptés.vue";
-import Consulternotif from "../components/StudentDash/Consulternotif.vue";
-import EtudiantAccount from "../components/StudentDash/EtudiantAccount.vue";
 import EntrepriseDash from "../components/EntrepriseDash/EntrepriseDashbord.vue";
 import OffersList from "../components/EntrepriseDash/OffersList.vue";
 import AddOffer from "../components/EntrepriseDash/AddOffer.vue";
@@ -28,50 +16,20 @@ import TreatedRequest from "../components/EntrepriseDash/TreatedRequest.vue";
 import EntrepriseAccount from "../components/EntrepriseDash/Account.vue";
 import StudentsList from "../components/EntrepriseDash/StudentsList.vue";
 import DetailStudent from "../components/EntrepriseDash/DetailStudent.vue";
-import OffersListStd from "../components/StudentDash/OffersListStd.vue";
+import AdminDashboard from "../components/Admin/AdminDash.vue";
+import UsersListEtudiants from "../components/Admin/UsersListEtudiants.vue";
+import OffresListAdmin from "../components/Admin/OffresListAdmin.vue";
+import MessagesList from "../components/Admin/MessagesList.vue";
+import DetailOffreAdmin from "../components/Admin/DetailOffreAdmin.vue";
+import UsersList from "../components/Admin/UsersList.vue";
+import AccountSetting from "../components/Admin/AccountSetting.vue";
+import AddOfferAdmin from "../components/Admin/AddOffer.vue";
 const routes = [
    {
     path: "/",
     name: "landingPage",
     component: LandingPage,
     },
-    {
-      path: "/EtudiantAccount",
-      name: "EtudiantAccount",
-      component: EtudiantAccount,
-      },
-
-    {
-      path: "/Consulternotif",
-      name: "Consulternotif",
-      component: Consulternotif,
-      },
-    {
-      path: "/ListeStagesAcceptés",
-      name: "ListeStagesAcceptés",
-      component: ListeStagesAcceptés,
-      },
-    {
-      path: "/PostulerCondidature",
-      name: "PostulerCondidature",
-      component: PostulerCondidature,
-      },
-      {
-        path: "/DetailsOffreStd",
-        name: "DetailsOffreStd",
-        component: DetailsOffreStd,
-        },
-      
-    {
-      path: "/OffersListStd",
-      name: "OffersListStd",
-      component: OffersListStd,
-      },
-    {
-      path: "/NavBarStd",
-      name: "NavBarStd",
-      component: NavBarStd,
-      },
     {
       path: "/DetailStudent",
       name: "DetailStudent",
@@ -158,9 +116,9 @@ const routes = [
     component: AdminDashboard, // Specify the component for the admin page
   },
   {
-    path: "/OffresList",
-    name: "OffresList",
-    component: OffresList, 
+    path: "/OffresListAdmin",
+    name: "OffresListAdmin",
+    component: OffresListAdmin, 
   },
   {
     path: "/MessagesList",
@@ -182,7 +140,18 @@ const routes = [
     name: "AddOfferAdmin",
     component: AddOfferAdmin,
     },
-
+    {
+      path: "/DetailOffreAdmin",
+      name: "DetailOffreAdmin",
+      component: DetailOffreAdmin,
+      },
+      {
+        path: "/UsersListEtudiants",
+        name: "UsersListEtudiants",
+        component: UsersListEtudiants,
+        }
+  
+ 
   // Other routes...
 ];
 

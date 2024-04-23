@@ -15,8 +15,12 @@ class VerifyCsrfToken extends Middleware
         //
         'api/singupEtudiant',
         'api/signupEntreprise',
+        'api/admin',
         'api/login',
         'api/modifyStudent',
+        'api/modifyEntreprise',
+        'api/addDemande',
+        'api/addOffre',
         
     ];
 }
