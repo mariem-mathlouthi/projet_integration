@@ -1,81 +1,94 @@
 <template>
-    <Navbar/>
+  <div>
+    <Navbar />
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-3">
         <Sidebar />
       </div>
       <div class="col-span-9 mt-24 mr-24">
         <div>
-            <router-link to="/OffersListStd"> <button type="button"
-                class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-600 relative active:top-[1px]">     
-                Cancel
-               </button></router-link>
+          <router-link to="/OffersListStd">
+            <button type="button" class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-600 relative active:top-[1px]">
+              Annuler
+            </button>
+          </router-link>
         </div>
         <div>
-  <header class="text-center mb-8">
-    <h1 class="text-3xl font-bold text-gray-800">Détails de l'offre</h1>
-  </header>
-  <div class="bg-purple-100 rounded-lg shadow-md p-6">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ offer.title }}</h2>
-    <p class="text-gray-600 mb-4">{{ offer.description }}</p>
-    <div class="flex flex-col md:flex-row items-center justify-between mb-4">
-      <div class="flex items-center">
-        <p class="text-gray-500">{{ offer.company }}</p>
-       
+          <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Détails de l'offre</h1>
+          </header>
+          <div class="bg-purple-100 rounded-lg shadow-md p-6" v-if="offre">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ offre.titre }}</h2>
+            <p class="text-gray-600 mb-4">{{ offre.description }}</p>
+            <div class="flex flex-col md:flex-row items-center justify-between mb-4">
+              <div class="flex items-center">
+                <p class="text-gray-500">{{ offre.idEntreprise }}</p>
+              </div>
+              <!-- Bouton pour importer le CV -->
+              <label for="uploadFile1" class="mt-4 md:mt-0 bg-gray-800 hover:bg-gray-700 text-white text-sm px-4 py-2.5 outline-none rounded w-max cursor-pointer block font-[sans-serif]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 mr-2 fill-white inline" viewBox="0 0 32 32">
+                  <path
+                    d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                    data-original="#000000" />
+                  <path
+                    d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                    data-original="#000000" />
+                </svg>
+                Télécharger Cahier de charge
+                <input type="file" id="uploadFile1" class="hidden" />
+              </label>
+            </div>
+            <router-link to="/PostulerCondidature">
+              <button class="ml-4 px-2 py-2 min-w-[140px] shadow-lg shadow-purple-200 rounded-full text-black text-sm tracking-wider font-medium outline-none border-2 border-purple-600 active:shadow-inner">
+                Postuler
+              </button>
+            </router-link>
+          </div>
+          <div v-else>
+            <p>Chargement en cours...</p>
+          </div>
+        </div>
       </div>
-      <!-- Bouton pour importer le CV -->
-      <label for="uploadFile1" class="mt-4 md:mt-0 bg-gray-800 hover:bg-gray-700 text-white text-sm px-4 py-2.5 outline-none rounded w-max cursor-pointer block font-[sans-serif]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 mr-2 fill-white inline" viewBox="0 0 32 32">
-          <path
-            d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
-            data-original="#000000" />
-          <path
-            d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
-            data-original="#000000" />
-        </svg>
-        Télécharger Cahier de charge
-        <input type="file" id='uploadFile1' class="hidden" />
-      </label>
     </div>
-    <router-link to="/PostulerCondidature">
-          <button class="ml-4 px-2 py-2 min-w-[140px] shadow-lg shadow-purple-200 rounded-full text-black text-sm tracking-wider font-medium outline-none border-2 border-purple-600 active:shadow-inner">
-            Postuler
-          </button>
-        </router-link>
   </div>
-</div>
+</template>
 
-      </div>
-    </div>
-  </template>
+<script>
+import Sidebar from "./Sidebar.vue";
+import Navbar from "./NavBarStd.vue";
+import OffreService from "../../service/offreService/OffreService";
+
+export default {
   
-  <script>
-  import "aos/dist/aos.css";
-  import "vue3-toastify/dist/index.css";
-  import Sidebar from "./Sidebar.vue";
-  import Navbar from "./NavBarStd.vue";
-  
-  export default {
-    data() {
-      return {
-        offer: {
-          title: "Développeur Full Stack",
-          description: "Nous recherchons un développeur Full Stack pour rejoindre notre équipe dynamique et travailler sur des projets passionnants.",
-          company: "AwesomeTech Inc.",
-          // Autres détails de l'offre...
-        }
-      };
-    },
-    methods: {
-      apply() {
-        // Logique pour postuler à l'offre
-        alert("Vous avez postulé à cette offre !");
-      }
-    },
-    components: {
-      Sidebar,
-      Navbar
-    }
+  data() {
+    return {
+      offre: null,
+      id: -1
+    };
+  },
+  created() {
+
+    this.id = this.$route.params.id;
+
+    this.fetchOffre(this.id);
+  },
+  methods: {
+    fetchOffre(id) {
+  console.log("Fetching offre with ID:", id);
+  OffreService.getoffreById(id)
+    .then(response => {
+      console.log("Response data:", response.data);
+      this.offre = response.data.data; 
+    })
+    .catch(error => {
+      console.error("Error fetching offre", error);
+    });
+}
+
+  },
+  components: {
+    Sidebar,
+    Navbar
   }
-  </script>
-  
+};
+</script>
