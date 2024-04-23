@@ -57,7 +57,7 @@ const routes = [
       component: PostulerCondidature,
       },
       {
-        path: "/DetailsOffreStd/:id",
+        path: "/DetailsOffreStd",
         name: "DetailsOffreStd",
         component: DetailsOffreStd,
         },

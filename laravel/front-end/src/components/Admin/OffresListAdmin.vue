@@ -8,28 +8,41 @@
     <section id="content">
       <!-- NAVBAR -->
       <NavbarOne></NavbarOne>
-<div class="col-span-9 mt-24 mr-24 ml-24">
-   <h1 class="text-center font-weight-bold my-4">Liste des Entreprises</h1>
-      <table class="min-w-full divide-y divide-gray-200 font-[sans-serif]">
+        
+        <div class="col-span-9 mt-24  mr-12">
+            <h2 class="text-2xl font-bold mb-8 mt-8">Offers List</h2>
+            <div class="overflow-x-auto">
+                <div class="flex justify-end mb-4">
+                <router-link to="/AddOfferAdmin">
+                    <button type="button"
+                            class="px-6 py-2 rounded-full text-black text-sm tracking-wider font-medium outline-none border-2 border-purple-600 hover:bg-purple-600 hover:text-white transition-all duration-300 flex items-center gap-2">
+                        <i class="fas fa-plus"></i> <!-- Add icon -->
+                        <span>Add new Offer</span>
+                    </button>
+                </router-link>
+
+                </div>
+                <div class="overflow-x-auto">
+  <table class="min-w-full divide-y divide-gray-200 font-[sans-serif]">
     <thead class="bg-gray-100 whitespace-nowrap">
       <tr>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        NomEntreprise
+        id
         </th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Email
+            idEntreprise
         </th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          secteur
+          status
         </th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            numeroSIRET
+            titre
         </th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            logo
+            description
         </th>
         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Action
+          Actions
         </th>
       </tr>
     </thead>
@@ -53,9 +66,11 @@
             Développement Web
         </td>
         <td class="px-6 py-4 text-sm text-[#333]">
-             <button class="text-red-500 hover:text-red-700">Supprimer</button>
+            <button class="text-green-500 hover:text-green-700 mr-4">
+            <router-link to="/DetailOffreAdmin">Details</router-link>
+            </button>
          <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
-          <button class="text-red-500 hover:text-red-700">Supprimer</button>--> 
+          <button class="text-red-500 hover:text-red-700">Delete</button>--> 
         </td>
       </tr>
       <tr>
@@ -75,7 +90,9 @@
             Développement Web
         </td>
         <td class="px-6 py-4 text-sm text-[#333]">
-             <button class="text-red-500 hover:text-red-700">Supprimer</button>
+            <button class="text-green-500 hover:text-green-700 mr-4">
+            <router-link to="/DetailOffreAdmin">Details</router-link>
+            </button>
           <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
           <button class="text-red-500 hover:text-red-700">Delete</button>--> 
         </td>
@@ -97,32 +114,35 @@
             Développement Web
         </td>
         <td class="px-6 py-4 text-sm text-[#333]">
-            
+            <button class="text-green-500 hover:text-green-700 mr-4">
+            <router-link to="/DetailOffreAdmin">Details</router-link>
+            </button>
           <!--<button class="text-blue-500 hover:text-blue-700 mr-4">Edit</button>
-          <button class="text-red-500 hover:text-red-700">Supprimer</button>--> 
-          <button class="text-red-500 hover:text-red-700">Supprimer</button>
+          <button class="text-red-500 hover:text-red-700">Delete</button>--> 
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+            </div>
+        </div>
     </section>
-    <!-- CONTENT -->
-  </div>
+    </div>
+
 </template>
 
-
 <script>
-import NavbarOne from "./NavbarOne.vue";
-import SidebarMenu from "./SidebarMenu.vue";
-import DashboardContent from "./DashboardContent.vue";
+import NavbarOne from "../Admin/NavbarOne.vue";
+import SidebarMenu from "../Admin/SidebarMenu.vue";
+import DashboardContent from "../Admin/DashboardContent.vue";
+
 
 export default {
   name: 'App',
   components: {
     NavbarOne,
     SidebarMenu,
-    DashboardContent
+    DashboardContent,
   },
 mounted() {
     // Call the method to set up toggle sidebar functionality

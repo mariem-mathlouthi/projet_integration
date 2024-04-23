@@ -92,7 +92,7 @@
 
         </ul>
         <div class="flex flex-wrap items-center cursor-pointer border-t border-gray-200 px-4 py-4">
-          <img src='https://readymadeui.com/profile.webp' class="w-9 h-9 rounded-full border-white" />
+          <img :src="logoURL" class="w-9 h-9 rounded-full border-white" />
           <div class="ml-4">
             <p class="text-sm text-[#333]">Entreprise</p>
             <p class="text-xs text-gray-400 mt-1">Active free account</p>
@@ -104,7 +104,24 @@
   
   <script>
   export default {
-    name: 'Sidebar',  
+    name: 'Sidebar',
+    data(){
+      return{
+        logoURL:"https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
+      }
+    },
+    methods:{
+      getLogoUrl(){
+        let storedLogoUrl= localStorage.getItem("EntrepriseLogo");
+        if (storedLogoUrl) {
+          this.logoURL = JSON.parse(storedLogoUrl).logo;
+        }
+      }
+
+    },
+    mounted(){
+      this.getLogoUrl();
+    }
   }
   </script>
   

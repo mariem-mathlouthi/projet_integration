@@ -13,20 +13,23 @@
             <div class="-mt-28 mb-6 px-4">
                 <div class="mx-auto max-w-6xl shadow-lg py-8 px-6 relative bg-white rounded">
                     <h2 class="text-xl text-[#333] font-bold">Product or Service Inquiry</h2>
-                    <form class="mt-8 grid sm:grid-cols-2 gap-6">
+                    <form class="mt-8 grid sm:grid-cols-2 gap-6" @submit.prevent="addOffre">
                         <div>
                             <label class="font-semibold text-sm">Offer titre</label>
                             <input type='text' placeholder='Enter Name'
+                                v-model="titre"
                                 class="w-full rounded py-2.5 px-4 mt-2 border-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
                             <label class="font-semibold text-sm">Company Email</label>
                             <input type='email' placeholder='Email'
+                                v-model="email"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
                             <label class="font-semibold text-sm">Domain</label>
-                            <input type='email' placeholder='Phone No.'
+                            <input type='text' placeholder='Phone No.'
+                                 v-model="domaine"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
@@ -37,16 +40,19 @@
                         <div>
                             <label class="font-semibold text-sm">DateDebut</label>
                             <input type='date' placeholder='Company'
+                                v-model="dateDebut"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
                             <label class="font-semibold text-sm">DateFin</label>
                             <input type='date' placeholder='Subject'
+                                v-model="dateFin"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
-                            <label class="font-semibold text-sm">TpeOffre</label>
+                            <label class="font-semibold text-sm">TypeOffre</label>
                             <input type='text' placeholder='Subject'
+                                v-model="typeOffre"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
@@ -59,7 +65,7 @@
             <div class="flex text-sm text-gray-600">
                 <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-[#007bff] hover:text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#007bff]">
                     <span>Upload a file</span>
-                    <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                    <input id="file-upload" name="file-upload"  type="file" class="sr-only">
                 </label>
                 <p class="pl-1">or drag and drop</p>
             </div>
@@ -69,14 +75,14 @@
 </div>
 
 <div class="flex px-4 py-4 sm:px-6">
-    <button type="button"
-        class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+    <button type="submit"
+        class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
         Save
     </button>
-    <router-link to="/OffersList"> <button type="button"
-        class="inline-flex items-center ml-4 px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">     
+    <button type="submit"
+        class="inline-flex items-center ml-4 px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">     
 Cancel
-    </button></router-link>
+    </button>
 </div>
                      
 
@@ -96,15 +102,84 @@ Cancel
   </div>
   </template>
   
-  <script>
+<script>
+    
+  import { toast } from "vue3-toastify";
+  import "vue3-toastify/dist/index.css";
+  import axios from "axios";
   import Navbar from './Navbar.vue';
   import Sidebar from './SideBar.vue';
   export default {
-    name: 'EntrepriseDashboard',
+    data() {
+    return {
+        idEntreprise:"",
+        status:"en attente",
+        titre:"",
+        description:"description test",
+        domaine:"",
+        dateDebut:"",
+        dateFin:"",
+        typeOffre:"",
+        cahierCharge:"test.pdf",
+        email:"",
+    };
+  },
     components: {
       Navbar,
       Sidebar
-    }
+    },
+  methods: {
+
+
+    async addOffre() {
+        
+        console.log("hello");
+        let storedData = localStorage.getItem("EntrepriseAccountInfo");
+        this.idEntreprise = JSON.parse(storedData).id;
+
+        let myjson = {
+        idEntreprise:this.idEntreprise,
+        status:this.status,
+        titre:this.titre,
+        description:this.description,
+        domaine:this.domaine,
+        dateDebut:this.dateDebut,
+        dateFin:this.dateFin,
+        typeOffre:this.typeOffre,
+        cahierCharge:this.cahierCharge,
+        }
+        console.log(myjson);
+        
+        try {
+        const response = await axios.post(
+            "http://localhost:8000/api/addOffre",
+            myjson,
+            
+        );
+        if (response.data.check === true) {
+            toast.success("Offre added succesfully !", {
+            autoClose: 2000, 
+            });
+
+        } else {
+            toast.error("Something went wrong !", {
+            autoClose: 2000, 
+            });
+        }
+        } catch (error) {
+        console.error("Error:", error);
+        }
+  },
+        getAccountData() {
+            let storedData = localStorage.getItem("EntrepriseAccountInfo");
+            this.email = JSON.parse(storedData).email;
+            },
+
+},
+    
+  mounted() {
+   this.getAccountData();
+  },
   }
   </script>
   

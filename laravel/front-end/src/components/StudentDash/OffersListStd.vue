@@ -48,6 +48,7 @@ import Navbar from './NavBarStd.vue';
 import Sidebar from './Sidebar.vue';
 import OffreService from "../../service/offreService/OffreService";
 
+
 export default {
   created() {
     this.getAllOffre();

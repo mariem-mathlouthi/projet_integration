@@ -78,10 +78,19 @@ export default {
           if (response.data.check === true) {
 
             if(response.data.role === "entreprise"){
-              toast.success("Account Entreprise exist !", { autoClose: 2000 });
-              this.$router.push('/EntrepriseDash'); // Redirection vers le tableau de bord de l'entreprise
+              let EntrepriseAccount = {
+                id:response.data.user.id,
+                numeroSIRET:response.data.user.numeroSIRET,
+                email:response.data.user.email,
+                name:response.data.user.name,
+                secteur:response.data.user.secteur,
+                description:response.data.user.description,
+              }
+            localStorage.setItem("EntrepriseAccountInfo",JSON.stringify(EntrepriseAccount));
+            this.$router.push('/EntrepriseDash'); // Redirection vers le tableau de bord de l'entreprise
+             
             }
-            if(response.data.role === "student"){
+            else if(response.data.role === "student"){
               let StudentAccount = {
                 fullname:response.data.user.fullname,
                 email:response.data.user.email,
@@ -94,6 +103,13 @@ export default {
               }
             localStorage.setItem("StudentAccountInfo",JSON.stringify(StudentAccount));
             this.$router.push('/StudentDash');
+            }
+            else if(response.data.role === "admin"){
+              this.$router.push('/Admin');
+              toast.success("Admin Account Exist !", {
+              autoClose: 2000, 
+            });
+
             }
         
           } else {

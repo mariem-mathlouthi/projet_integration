@@ -17,7 +17,7 @@
 			<li>
 				<a href="#">
 					<i class='bx bxs-shopping-bag-alt'></i>
-					<router-link to="/OffresList"><span class="text">Offres</span></router-link>
+					<router-link to="/OffresListAdmin"><span class="text">Offres</span></router-link>
 				</a>
 			</li>
 
@@ -28,9 +28,15 @@
 				</a>
 			</li>
 			<li>
+    <a href="#">
+        <i class='bx bxs-building'></i> <!-- Changer la classe d'icône pour une icône d'entreprise -->
+        <router-link to="/UsersList"><span class="text">Entreprises</span></router-link>
+    </a>
+</li>
+			<li>
 				<a href="#">
 					<i class='bx bxs-group'></i>
-					<router-link to="/UsersList"><span class="text">Users</span></router-link>
+					<router-link to="/UsersListEtudiants"><span class="text">Etudiants</span></router-link>
 				</a>
 			</li>
 		</ul>
@@ -44,7 +50,7 @@
 			<li>
 				<a href="#" class="logout">
 					<i class='bx bxs-log-out-circle'></i>
-					<span class="text">Logout</span>
+					<router-link to="/signin"><span class="text">Logout</span></router-link>
 				</a>
 			</li>
 		</ul>

@@ -1,106 +1,253 @@
 <template>
-
-  <nav class="bg-blue-100 shadow-xl h-screen fixed top-0 left-0 min-w-[250px] py-6 font-[sans-serif] overflow-auto" style="margin-top:72px">
-      <div class="relative flex flex-col h-full">
-        <ul class="space-y-3 my-10 flex-1">
-         <li>
-        <router-link to="/StudentDash" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 512 512">
-                <path
-                  d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zm160 480h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zm160-74.664h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0"
-                  data-original="#000000" />
-              </svg>
-          <span>Dashboard</span>
-        </router-link>
-      </li>
-
-
-
-
-      <li>
-    <router-link to="/OffersListStd" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4" viewBox="0 0 512 512">
-            <path
-                d="M122.39 165.78h244.87c10.49 0 19-8.51 19-19s-8.51-19-19-19H122.39c-10.49 0-19 8.51-19 19s8.51 19 19 19zm164.33 99.44c0-10.49-8.51-19-19-19H122.39c-10.49 0-19 8.51-19 19s8.51 19 19 19h145.33c10.49 0 19-8.51 19-19z"
-                data-original="#000000" />
-            <path
-                d="M486.63 323.71c2.04-22.33 3.41-48.35 3.44-78.68-.06-57.07-4.85-98.86-9.96-129.57-8.94-50.6-54.9-96.56-105.5-105.5C343.9 4.85 302.11.06 245.03 0c-57.07.06-98.87 4.85-129.58 9.96C64.86 18.9 18.9 64.86 9.96 115.46 4.85 146.17.07 187.96 0 245.03c.07 57.07 4.85 98.87 9.96 129.58 8.94 50.6 54.9 96.56 105.5 105.5 30.71 5.11 72.5 9.89 129.58 9.96 30.32-.03 56.34-1.4 78.66-3.44 19.84 15.87 45 25.37 72.38 25.37 64.02 0 115.93-51.9 115.93-115.92 0-27.38-9.5-52.54-25.37-72.37zM245.04 452.07c-45.02-.05-85.3-3.13-123.13-9.41-16.81-3.01-33.84-12.44-47.95-26.55s-23.53-31.13-26.55-47.95c-6.28-37.79-9.35-78.07-9.41-123.13.05-45.04 3.13-85.32 9.41-123.13 3.01-16.81 12.44-33.83 26.55-47.94s31.13-23.53 47.95-26.55C159.72 41.13 200 38.06 245.04 38c45.02.05 85.3 3.13 123.13 9.41 16.81 3.01 33.83 12.44 47.95 26.55 14.11 14.11 23.53 31.13 26.55 47.95 6.28 37.83 9.35 78.1 9.41 123.13-.02 16.9-.48 33.11-1.36 48.79-16.28-8.72-34.88-13.66-54.64-13.66-64.02 0-115.93 51.9-115.93 115.92 0 19.76 4.95 38.35 13.66 54.63-15.68.88-31.89 1.34-48.78 1.35zM396.08 474c-42.97 0-77.93-34.95-77.93-77.92s34.96-77.92 77.93-77.92 77.93 34.95 77.93 77.92S439.05 474 396.08 474z"
-                data-original="#000000" />
-            <path
-                d="M406.28 418.24c-2.42-.4-5.71-.78-10.2-.78s-7.78.38-10.2.78c-3.98.7-7.6 4.32-8.31 8.31-.4 2.42-.78 5.71-.78 10.2s.38 7.78.78 10.2c.7 3.98 4.32 7.6 8.31 8.31 2.42.4 5.71.78 10.2.78s7.78-.38 10.2-.78c3.98-.7 7.6-4.32 8.31-8.31.4-2.42.78-5.71.78-10.2s-.38-7.78-.78-10.2c-.7-3.98-4.32-7.6-8.31-8.31zm-10.21-12.61c10.49 0 19-8.51 19-19v-31.7c0-10.49-8.51-19-19-19s-19 8.51-19 19v31.7c0 10.49 8.51 19 19 19z"
-                data-original="#000000" />
-        </svg>
-        <span> Offers List</span>
-    </router-link>
-</li>
-
-
-          <li>
-        <router-link to="/ListeStagesAcceptés" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4" viewBox="0 0 16 16">
-            <path d="M13 .5H3A2.503 2.503 0 0 0 .5 3v10A2.503 2.503 0 0 0 3 15.5h10a2.503 2.503 0 0 0 2.5-2.5V3A2.503 2.503 0 0 0 13 .5ZM14.5 13a1.502 1.502 0 0 1-1.5 1.5H3A1.502 1.502 0 0 1 1.5 13v-.793l3.5-3.5 1.647 1.647a.5.5 0 0 0 .706 0L10.5 7.207V8a.5.5 0 0 0 1 0V6a.502.502 0 0 0-.5-.5H9a.5.5 0 0 0 0 1h.793L7 9.293 5.354 7.647a.5.5 0 0 0-.707 0L1.5 10.793V3A1.502 1.502 0 0 1 3 1.5h10A1.502 1.502 0 0 1 14.5 3Z"
-              data-original="#000000" />
-          </svg>
-          <span>Liste Des Stages acceptés </span>
-        </router-link>
-      </li>
-    
-
-        
-          <li>
-    <router-link to="/Consulternotif" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 511.414 511.414">
-                <path
-                  d="M497.695 108.838a16.002 16.002 0 0 0-9.92-14.8L261.787 1.2a16.003 16.003 0 0 0-12.16 0L23.639 94.038a16 16 0 0 0-9.92 14.8v293.738a16 16 0 0 0 9.92 14.8l225.988 92.838a15.947 15.947 0 0 0 12.14-.001c.193-.064-8.363 3.445 226.008-92.837a16 16 0 0 0 9.92-14.8zm-241.988 76.886-83.268-34.207L352.39 73.016l88.837 36.495zm-209.988-51.67 71.841 29.513v83.264c0 8.836 7.164 16 16 16s16-7.164 16-16v-70.118l90.147 37.033v257.797L45.719 391.851zM255.707 33.297l55.466 22.786-179.951 78.501-61.035-25.074zm16 180.449 193.988-79.692v257.797l-193.988 79.692z"
-                  data-original="#000000" />
-              </svg>
-        <span> Consulter notifications</span>
-    </router-link>
-</li>
-
-<li>
-    <router-link to="/EtudiantAccount" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke='currentColor'
-                class="w-[18px] h-[18px] mr-4" viewBox="0 0 682.667 682.667">
-                <defs>
-                  <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                    <path d="M0 512h512V0H0Z" data-original="#000000" />
-                  </clipPath>
-                </defs>
-                <g clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
-                  <path fill="none" stroke-miterlimit="10" stroke-width="40"
-                    d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
-                    data-original="#000000" />
-                  <path
-                    d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z"
-                    data-original="#000000" />
-                </g>
-              </svg>
-        <span> Account</span>
-    </router-link>
-</li>
-
-<li>
-    <router-link to="/SignIn" class="text-[#333] text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-</svg>
-        <span> Log Out</span>
-    </router-link>
-</li>
-
-
-
-        </ul>
-     
+   <nav class=" md:w-2/3 relative md:left-72" :style="{
+        background: 'linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 121, 249, 0.26) 40.92%, rgba(204, 171, 238, 0) 70.35%)',
+      }">
+    <div class="items-center px-4 max-w-screen-xl mx-auto lg:flex lg:px-8">
+      <div class="flex items-center justify-between py-3 py-4 block">
+         
+      <div class="flex items-center   rounded-lg">
+            <a href="#">
+               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+            </a>
+           
+               <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full md:w-96 px-2 py-2 text-gray-500 bg-transparent rounded-md outline-none"
+                  
+               />
       </div>
-    </nav>
+      <div class="">
+         <ul class="md:hidden flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row">
+            <li class=" -mt-2">
+              <a href="#">
+               <span class="inline-block w-4 h-4 rounded-full bg-red-600 text-white text-xs flex items-center justify-center ml-4 mt-1">0</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+               <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+               </svg>
+            </a>
+            </li>
+         </ul>
+      </div>
+      
+      <div class="md:hidden flex items-center space-x-4">
+         <button
+            ref="profileRef"
+            class="w-8 h-8 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600"
+            @click="toggleState"
+         >
+            <img
+            :src="imageUrl"
+            alt="Profile"
+            class="w-full h-full rounded-full"
+            />
+         </button>
+         
+     </div>
 
 
 
+        <div class="lg:hidden">
+          <button class="text-gray-700 outline-none p-2 rounded-md"
+          data-drawer-target="logo-sidebar"
+   data-drawer-toggle="logo-sidebar"
+   aria-controls="logo-sidebar"
+   @click="toggleSidebar" type="button" >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"
+              :class="[open ? 'block' : 'hidden']">
+              <path fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              :class="[open ? 'hidden' : 'block']" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16M4 16h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto" :class="[open ? 'h-screen pb-20 overflow-auto pr-4' : 'hidden']">
+        <div>
+          <ul class="flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row">
+            <li class=" -mt-1">
+              <a href="#">
+               <span class="inline-block w-4 h-4 rounded-full bg-red-600 text-white text-xs flex items-center justify-center ml-4 mt-1">0</span>
+               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+               <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+               </svg>
+            </a>
+            </li>
 
+            <div class="flex items-center space-x-4">
+         <button
+            ref="profileRef"
+            class="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600"
+            @click="toggleState"
+         >
+            <img
+            :src="imageUrl"
+            alt="Profile"
+            class="w-full h-full rounded-full"
+            />
+         </button>
+         
+     </div>
+           
+            
+          </ul>
+        </div>
+       
+      </div>
+    </div>
+  </nav>
+   
+
+   <aside
+   
+     id="logo-sidebar"
+     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-900 dark:border-gray-700"
+     aria-label="Sidebar"
+     :class="{
+       'translate-x-0': isSidebarOpen,
+     }"
+   >
+   <router-link to="/">
+      <span class="relative -top-14 left-10 self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Logo</span>
+   </router-link>
+   
+     <div class="h-full px-3 pb-4 overflow-y-auto dark:bg-gray-900"
+     :style="{
+        background: 'linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 121, 249, 0.26) 40.92%, rgba(204, 171, 238, 0) 70.35%)',
+      }">
+      
+       <ul class="space-y-4 font-medium">
+         <li data-aos="fade-up">
+           <router-link
+             to="/StudentDash"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <svg
+               class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+               aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               fill="currentColor"
+               viewBox="0 0 22 21"
+             >
+               <path
+                 d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
+               />
+               <path
+                 d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+               />
+             </svg>
+             <span class="ms-3">Dashboard</span>
+           </router-link>
+         </li>
+ 
+         <li data-aos="fade-up">
+           <a
+             href="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+            
+             <span class="flex-1 ms-3 whitespace-nowrap">Accepted Stages</span>
+           </a>
+         </li>
+         <li data-aos="fade-up">
+           <router-link
+             to="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <span class="flex-1 ms-3 whitespace-nowrap">Apply For Stages</span>
+           </router-link>
+         </li>
+         <li data-aos="fade-up">
+           <router-link
+             to="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <span class="flex-1 ms-3 whitespace-nowrap">Consult Stages</span>
+           </router-link>
+         </li>
+         <li data-aos="fade-up">
+           <router-link
+             to="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <span class="flex-1 ms-3 whitespace-nowrap">Filter Stages</span>
+           </router-link>
+         </li>
+         <li>
+           <router-link
+            data-aos="fade-up"
+             to="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <span class="flex-1 ms-3 whitespace-nowrap">Offer Details</span>
+           </router-link>
+         </li>
+         <li>
+           <router-link
+            data-aos="fade-up"
+             to="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <span class="flex-1 ms-3 whitespace-nowrap">Submit Cv</span>
+           </router-link>
+         </li>
+ 
+         <li>
+           <router-link
+           data-aos="fade-up"
+             to="/StudentAccount"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <svg
+               xmlns="http://www.w3.org/2000/svg"
+               width="16"
+               height="16"
+               fill="currentColor"
+               class="bi bi-person-check-fill"
+               viewBox="0 0 16 16"
+             >
+               <path
+                 fill-rule="evenodd"
+                 d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"
+               />
+               <path
+                 d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+               />
+             </svg>
+             <span class="flex-1 ms-3 whitespace-nowrap">Account</span>
+           </router-link>
+         </li>
+         <li data-aos="fade-up">
+           <router-link
+             to="#"
+             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           >
+             <svg
+               xmlns="http://www.w3.org/2000/svg"
+               width="16"
+               height="16"
+               fill="currentColor"
+               class="bi bi-door-closed-fill"
+               viewBox="0 0 16 16"
+             >
+               <path
+                 d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"
+               />
+             </svg>
+             <span class="flex-1 ms-3 whitespace-nowrap">Log out</span>
+            </router-link>
+         </li>
+         <li></li>
+         
+       </ul>
+     </div>
+   </aside>
  </template>
  <script>
  export default {
