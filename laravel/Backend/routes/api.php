@@ -7,7 +7,14 @@ use App\Http\Controllers\Demande\DemandeController;
 use App\Http\Controllers\Offre\OffreController;
 use App\Http\Controllers\Stage\StageController;
 use App\Http\Controllers\studentController;
+
+use App\Http\Controllers\entrepriseController;
+
+use App\Http\Controllers\adminController;
+
+
 use App\Http\Controllers\Controller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +35,7 @@ Route::group(['middleware' => 'cors'], function () {
     // authentification
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
+    Route::post('/admin', [adminController::class, 'signUpAdmin']);
     Route::post('/login', [authController::class, 'LoginUser']);
     // stage
     Route::get('/getAllStage',[StageController::class,'GetAllStage']);
@@ -49,8 +57,15 @@ Route::group(['middleware' => 'cors'], function () {
     Route::put('/acceptDemande/{id}',[DemandeController::class,'acceptDemande']);
     // student
     Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
+
+    Route::post('/modifyEntreprise', [entrepriseController::class, 'ModifyEntrepriseInfo']);
+    Route::post('/addDemande', [demandeController::class, 'addDemande']);
+    Route::post('/addOffre', [offreController::class, 'addOffre']);
+
+});
+
     // file management
     Route::get('/download/cahierEntreprise/{nomFichier}', [Controller::class,'downloadCahierEntreprise']);
     Route::post('/upload/cv', [Controller::class,'uploadCV']);
     
-});
+

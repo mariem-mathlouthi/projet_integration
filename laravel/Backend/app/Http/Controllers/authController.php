@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Entreprise;
 use App\Models\Etudiant;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class authController extends Controller
@@ -104,6 +105,16 @@ class authController extends Controller
                 'message' => 'Entreprise login successful',
                 'user' => $entreprise,
                 'role' => 'entreprise',
+                'check' => true,
+            ]);
+        }
+        $admin = Admin::where('email', $email)->first();
+        if ($admin && Hash::check($password, $admin->password)) {
+            // If the user exists and the password matches, return success
+            return response()->json([
+                'message' => 'Admin login successful',
+                'admin' => $admin,
+                'role' => 'admin',
                 'check' => true,
             ]);
         }
