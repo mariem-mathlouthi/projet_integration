@@ -11,8 +11,12 @@ class StageController extends Controller
 {
     public function GetAllStage()
     {
-        $stages = Stage::all();
-        return response()->json(["data" => $stages], 200);
+        $stages = Offre::select('offres.titre', 'offres.description', 'entreprises.name')
+                        ->join('stages', 'stages.id', '=', 'offres.id')
+                        ->join('entreprises', 'entreprises.id', '=', 'offres.idEntreprise')
+                        ->get();
+        return $stages;
+        //return response()->json(["data" => $stages], 200);
     }
 
      static public function selectStage($idOffre) {
