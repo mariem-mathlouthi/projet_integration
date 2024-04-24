@@ -57,23 +57,23 @@ class OffreController extends Controller
 }
 
     
-        static public function chercherOffres($id,$domaine,$type,$titre) {
-        if ($id == "all" && $domaine == "all" && $type == "all" && $titre == "all") {
+        static public function chercherOffres($idEntreprise,$domaine,$description,$titre) {
+        if ($idEntreprise == "all" && $domaine == "all" && $description == "all" && $titre == "all") {
              $data = Offre::all(); 
          }
          else {
              $data = Offre::query()
-             ->when($id != "all", function ($query) use ($id) {
-                 return $query->where('id', $id);
+             ->when($idEntreprise != "all", function ($query) use ($idEntreprise) {
+                 return $query->where('idEntreprise', 'LIKE' , '%'.$idEntreprise.'%');
              })
              ->when($domaine != "all", function ($query) use ($domaine) {
-                 return $query->where('domaine', $domaine);
+                 return $query->where('domaine', 'LIKE' , '%'.$domaine.'%');
              })
-             ->when($type != "all", function ($query) use ($type)  {
-                 return $query->where('typeOffre', $type);
+             ->when($description != "all", function ($query) use ($description)  {
+                 return $query->where('description', 'LIKE' , '%'.$description.'%');
              })
              ->when($titre != "all", function ($query) use ($titre) {
-                 return $query->where('titre', $titre);
+                 return $query->where('titre', 'LIKE' , '%'.$titre.'%');
              })->get();
          }
          return $data;
