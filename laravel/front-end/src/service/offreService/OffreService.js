@@ -20,7 +20,18 @@ export default {
         return axios.post('http://localhost:8000/api/getAllOffre',data,config);
     },
 
-
-    
+    searchOffre(key,searchValue) {
+        if (searchValue == "" || key == "") {
+            return axios.get("http://localhost:8000/api/offre/all/all/all/all");
+        };
+        switch (key) {
+            case "title":
+                return axios.get("http://localhost:8000/api/offre/all/all/all/" + searchValue);
+            case "description":
+                return axios.get("http://localhost:8000/api/offre/all/all/"+ searchValue + "/all");
+            case "company":
+                return axios.get("http://localhost:8000/api/offre/" + searchValue + "/all/all/all");
+        }
+    },  
     
 }
