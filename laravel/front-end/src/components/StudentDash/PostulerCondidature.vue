@@ -14,38 +14,26 @@
           <form @submit.prevent="submitApplication">
             <div class="mb-4">
               <label
-                for="fullname"
+                for="description"
                 class="block text-sm font-medium text-gray-700"
-                >Nom complet</label
+                >description *</label
               >
-              <input
-                type="text"
-                id="fullname"
-                v-model="fullname"
-                placeholder="Entrez votre nom complet"
+              <textarea
+                rows="4"
+                id="description"
+                v-model="reqData.description"
+                placeholder="Entrez description"
                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div class="mb-4">
-              <label for="email" class="block text-sm font-medium text-gray-700"
-                >Adresse e-mail</label
-              >
-              <input
-                type="email"
-                id="email"
-                v-model="email"
-                placeholder="Entrez votre adresse e-mail"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
+              ></textarea>
             </div>
             <label
-              for="fullname"
+              for="uploadFile"
               class="block text-sm font-medium text-gray-700"
               >Importer votre CV</label
             >
             <div class="mb-4">
               <label
-                for="uploadFile1"
+                for="uploadFile"
                 class="bg-white text-center rounded w-full sm:w-[360px] min-h-[160px] py-4 px-4 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 mx-auto font-[sans-serif] m-4"
               >
                 <svg
@@ -66,9 +54,14 @@
                   Drag & Drop or
                   <span class="text-[#007bff]">Choose file</span> to upload
                 </p>
-                <input type="file" id="uploadFile1" class="hidden" />
+                <input
+                  type="file"
+                  id="uploadFile"
+                  class="hidden"
+                  @change="assignCV"
+                />
                 <p class="text-xs text-gray-400 mt-2">
-                  PNG, JPG SVG, WEBP, and GIF are Allowed.
+                  only PDF files are Allowed.
                 </p>
               </label>
             </div>
@@ -77,17 +70,17 @@
               <button
                 type="button"
                 class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                @click="submitApplication(reqData)"
               >
                 Save
               </button>
-              <router-link to="/DetailsOffreStd">
-                <button
-                  type="button"
-                  class="inline-flex items-center ml-4 px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Cancel
-                </button></router-link
+              <button
+                type="button"
+                class="inline-flex items-center ml-4 px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                @click="previousPage()"
               >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
@@ -99,6 +92,7 @@
 <script>
 import Navbar from "./NavBarStd.vue";
 import Sidebar from "./Sidebar.vue";
+import DemandeService from "../../service/demandeService/DemandeService";
 
 export default {
   components: {
@@ -107,21 +101,34 @@ export default {
   },
   data() {
     return {
-      fullname: "",
-      email: "",
-      cv: null,
+      reqData: {
+        description: "",
+        idEtudiant: 5,
+        idOffreDeStage: 40,
+        status: "en attend",
+        DateSoumission: new Date().toLocaleDateString(),
+        cv: null,
+      },
     };
   },
   methods: {
-    handleFileUpload(event) {
-      this.cv = event.target.files[0];
+    submitApplication(data) {
+      console.log("uploading file...");
+      DemandeService.addDemande(data)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    submitApplication() {
-      // Logique pour soumettre la candidature
-      console.log("Nom complet:", this.fullname);
-      console.log("E-mail:", this.email);
-      console.log("CV:", this.cv);
-      // Ici, vous pouvez ajouter la logique pour envoyer les données au backend
+    assignCV(e) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.reqData.cv = files[0];
+    },
+    previousPage() {
+      this.$router.go(-1);
     },
   },
 };

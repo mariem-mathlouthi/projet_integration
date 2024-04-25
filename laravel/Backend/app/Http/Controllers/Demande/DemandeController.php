@@ -11,12 +11,15 @@ class DemandeController extends Controller
     public function AddDemande (Request $request){
         $requestData = $request->all();
         $new = new Demande();
-        $new->idEtudiant = $requestData['idEtudiant']; $new->idoffreDeStage = $requestData['idOffreDeStage']; $new->statut= $requestData['statut'];
+        $new->description = $requestData['description']; 
+        $new->idEtudiant = $requestData['idEtudiant']; 
+        $new->idoffreDeStage = $requestData['idOffreDeStage']; 
+        $new->status= $requestData['status'];
         $date = $requestData['DateSoumission'];;
-        $formattedDate
-        =
-        date('Y-m-d', strtotime($date));
-        $new->DateSoumission = $formattedDate; $new->cv = $requestData['cv']; $new->save();
+        $formattedDate = date('Y-m-d', strtotime($date));
+        $new->DateSoumission = $formattedDate;
+        $new->cv = $request->file('file')->getClientOriginalName();
+        $new->save();
         return response()->json([
         'message' => 'Demande Added successfully', 'check' => true,
         ]);

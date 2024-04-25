@@ -4,10 +4,12 @@ export default {
     getAllOffre(){
         return axios.get("http://localhost:8000/api/getAllOffre");
     },
+
     getoffreById(id) {
         return axios.get(`http://localhost:8000/api/getoffreById/${id}`);
 
     },
+
     AddOffre(res){
         let data =new FormData();
         data.append('photo',res.photo);
@@ -32,6 +34,10 @@ export default {
             case "company":
                 return axios.get("http://localhost:8000/api/offre/" + searchValue + "/all/all/all");
         }
-    },  
+    },
+
+    downloadCahierEntreprise(nomFichier) {
+        return axios.get("http://localhost:8000/api/download/cahierEntreprise/" + nomFichier);
+    }
     
 }

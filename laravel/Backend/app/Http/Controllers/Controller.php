@@ -7,7 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 // upload && download management classes
 use Illuminate\Support\Facades\Storage;
 
@@ -33,17 +33,18 @@ class Controller extends BaseController
         }
     }
 
-    public function uploadCV(Request $request) {
+    public function uploadFile(Request $request) {
         /* request param :
            {
+              data...
               'file' : file input value
-              'nomFichier' : file name
+              'filetype' : acceptable file extension
            }
         */
-        $nomFichier = $request->all()['nomFichier'];
+        $nomFichier = $request->file('file')->getClientOriginalName();
         // Validate the uploaded file
-        if ($request->file('file')->getClientOriginalExtension() == 'pdf') {
-            $request->file('file')->storeAs('public/files',$nomFichier.'.pdf');
+        if ($request->file('file')->getClientOriginalExtension() == $request->all()['filetype']) {
+            $request->file('file')->storeAs('public/files',$nomFichier);
             return response()->json([
                 'message' => "File uploaded successfully",
                 'check' => true,
@@ -51,9 +52,9 @@ class Controller extends BaseController
         }
         else {
             return response()->json([
-                'message' => "File extention must be .pdf",
+                'error' => "File extention must be .".$request->all()['filetype'],
                 'check' => false,
-            ]);
+            ],Response::HTTP_BAD_REQUEST);
         }
     }
 }

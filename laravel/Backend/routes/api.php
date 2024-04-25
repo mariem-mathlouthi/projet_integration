@@ -53,7 +53,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::post('/modifyEntreprise', [entrepriseController::class, 'ModifyEntrepriseInfo']);
     // file management
     Route::get('/download/cahierEntreprise/{nomFichier}', [Controller::class,'downloadCahierEntreprise']);
-    Route::post('/upload/cv', [Controller::class,'uploadCV']);
+    Route::post('/uploadfile', [Controller::class,'uploadFile']);
 });
     
 

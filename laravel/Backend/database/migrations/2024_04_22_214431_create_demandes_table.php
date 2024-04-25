@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('idEtudiant'); // foreign
             $table->unsignedBigInteger('idOffreDeStage'); // foreign
-            $table->integer('statut');
+            $table->enum('status',['en attend','acceptée']);;
+            $table->String('description');
             $table->date('DateSoumission');
             $table->String('cv');
     
