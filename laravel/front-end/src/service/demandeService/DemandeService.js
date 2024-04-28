@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default {
-    addDemande(res){
+ addDemande(res){
     let data =new FormData();
     data.append('description',res.description);
     data.append('idEtudiant',res.idEtudiant);
@@ -19,5 +19,9 @@ export default {
     const uploadCV = axios.post('http://localhost:8000/api/uploadfile',data,config),
           addDemande = axios.post('http://localhost:8000/api/addDemande',data,config);
     return Promise.all([uploadCV, addDemande]); // send requests in parallele
-},
+ },
+ 
+ getIdEtudiant(email) {
+    return axios.get("http://localhost:8000/api/getuseridbyemail/" + email);
+ }
 }

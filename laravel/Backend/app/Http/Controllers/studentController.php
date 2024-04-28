@@ -19,7 +19,9 @@ class studentController extends Controller
             $existingUser->typeStage = $requestData['typeStage'];
             $existingUser->specialite = $requestData['specialite']; // Corrected typo from 'specailite' to 'specialite'
             $existingUser->etablissement = $requestData['etablissement'];
-            $existingUser->image = $requestData['image'];
+            if ($requestData['imageChanged'] == "true") {
+                $existingUser->image = $request->file('file')->getClientOriginalName();
+            }
             $existingUser->save();
             return response()->json([
                 'message' => 'Account updated successfully',
@@ -32,7 +34,5 @@ class studentController extends Controller
                 'update' => false,
             ], 404);
         }
-
     }
-
 }

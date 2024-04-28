@@ -54,7 +54,7 @@
                 Télécharger Cahier de charge
               </label>
             </div>
-            <router-link to="/PostulerCondidature">
+            <router-link :to="'/PostulerCondidature/' + this.id">
               <button
                 class="ml-4 px-2 py-2 min-w-[140px] shadow-lg shadow-purple-200 rounded-full text-black text-sm tracking-wider font-medium outline-none border-2 border-purple-600 active:shadow-inner"
               >

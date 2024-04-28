@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'cors'], function () {
+    Route::get('/getuseridbyemail/{email}',[authController::class,'GetUserIdByEmail']);
     // authentification
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'cors'], function () {
     // file management
     Route::get('/download/cahierEntreprise/{nomFichier}', [Controller::class,'downloadCahierEntreprise']);
     Route::post('/uploadfile', [Controller::class,'uploadFile']);
+    Route::get('/getpath/{nomFichierComplete}', [Controller::class,'getFilePath']);
 });
     
 

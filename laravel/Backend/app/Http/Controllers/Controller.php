@@ -7,7 +7,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 // upload && download management classes
 use Illuminate\Support\Facades\Storage;
 
@@ -43,7 +42,7 @@ class Controller extends BaseController
         */
         $nomFichier = $request->file('file')->getClientOriginalName();
         // Validate the uploaded file
-        if ($request->file('file')->getClientOriginalExtension() == $request->all()['filetype']) {
+        if (strpos($request->all()['filetype'], $request->file('file')->getClientOriginalExtension()) !==false) {
             $request->file('file')->storeAs('public/files',$nomFichier);
             return response()->json([
                 'message' => "File uploaded successfully",
@@ -54,7 +53,18 @@ class Controller extends BaseController
             return response()->json([
                 'error' => "File extention must be .".$request->all()['filetype'],
                 'check' => false,
-            ],Response::HTTP_BAD_REQUEST);
+            ]);
+        }
+    }
+
+    public function getFilePath($nomFichierComplete) {
+        $path = storage_path('app/public/files/' . $nomFichierComplete);
+
+        if (file_exists($path)) {
+            return response()->file($path);
+        } 
+        else {
+            abort(404);
         }
     }
 }

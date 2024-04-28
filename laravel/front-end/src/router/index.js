@@ -47,7 +47,7 @@ const routes = [
       component: ListeStagesAcceptés,
       },
     {
-      path: "/PostulerCondidature",
+      path: "/PostulerCondidature/:idoffre",
       name: "PostulerCondidature",
       component: PostulerCondidature,
       },

@@ -99,6 +99,7 @@ export default {
                 specialite:response.data.user.specialite,
                 typeStage:response.data.user.typeStage,
                 etablissement:response.data.user.etablissement,
+                image:response.data.user.image,
                 
               }
             localStorage.setItem("StudentAccountInfo",JSON.stringify(StudentAccount));

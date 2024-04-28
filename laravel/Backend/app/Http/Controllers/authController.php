@@ -125,6 +125,22 @@ class authController extends Controller
         ]);
     }
 
-
-
+    public function GetUserIdByEmail($email) {
+        $userEtudiant = Etudiant::where('email', $email)->first();
+        if ($userEtudiant) {
+            return $userEtudiant->id;
+        };
+        $userEntreprise = Entreprise::where('email', $email)->first();
+        if ($userEntreprise) {
+            return $userEntreprise->id;
+        };
+        $userAdmin = Admin::where('email', $email)->first();
+        if ($userAdmin) {
+            return $userAdmin->id;
+        };
+        return response()->json([
+            'message' => 'Invalid email',
+            'check' => false,
+        ]);
+    }
 }

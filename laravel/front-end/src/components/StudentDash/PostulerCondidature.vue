@@ -93,6 +93,7 @@
 import Navbar from "./NavBarStd.vue";
 import Sidebar from "./Sidebar.vue";
 import DemandeService from "../../service/demandeService/DemandeService";
+import { toast } from "vue3-toastify";
 
 export default {
   components: {
@@ -103,8 +104,8 @@ export default {
     return {
       reqData: {
         description: "",
-        idEtudiant: 5,
-        idOffreDeStage: 40,
+        idEtudiant: -1,
+        idOffreDeStage: this.$route.params.idoffre,
         status: "en attend",
         DateSoumission: new Date().toLocaleDateString(),
         cv: null,
@@ -116,10 +117,19 @@ export default {
       console.log("uploading file...");
       DemandeService.addDemande(data)
         .then((response) => {
-          console.log(response);
+          toast.success("Offre sent !", {
+            autoClose: 2000,
+          });
         })
         .catch((error) => {
-          console.error(error);
+          toast.error("Error occured while sending offre !", {
+            autoClose: 2000,
+          });
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.previousPage();
+          }, 3000);
         });
     },
     assignCV(e) {
@@ -130,6 +140,17 @@ export default {
     previousPage() {
       this.$router.go(-1);
     },
+  },
+  created() {
+    let storedData = localStorage.getItem("StudentAccountInfo"),
+      email = JSON.parse(storedData).email;
+    DemandeService.getIdEtudiant(email)
+      .then((response) => {
+        this.reqData.idEtudiant = response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
 };
 </script>
