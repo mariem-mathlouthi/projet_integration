@@ -1,17 +1,20 @@
 <template>
-  <div>
-    <Sidebar />
+    <div>
+      <NavBarStd class="w-full fixed z-50 "></NavBarStd>
+
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-3">
+            <Sidebar />
+          </div>
+          <div class="col-span-9 mt-24 mr-24">
     <div
-      class="relative md:left-40 md:w-3/4 my-4 border px-4 shadow-xl sm:mx-4 sm:rounded-xl sm:px-4 sm:py-4 md:mx-auto"
+      class="relative md:left-10  md:w-3/4 my-4 border px-4 shadow-xl sm:mx-4 sm:rounded-xl sm:px-4 sm:py-4 md:mx-auto"
       data-aos="fade-down"
     >
       <div class="flex flex-col border-b py-4 sm:flex-row sm:items-start">
         <div class="shrink-0 mr-auto sm:py-3">
           <p class="font-medium">Account Details</p>
           <p class="text-sm text-gray-600">Edit your account details</p>
-          <p class="text-sm text-red-600">
-            You need to re-SignIn after modifying you account details
-          </p>
         </div>
       </div>
       <div class="flex flex-col gap-4 border-b py-4 sm:flex-row">
@@ -19,7 +22,6 @@
         <input
           v-model="fullname"
           placeholder="Full Name"
-          type="text"
           class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
         />
         <p class="shrink-1 w-32 font-medium">Niveau</p>
@@ -33,47 +35,41 @@
         <p class="shrink-0 w-32 font-medium">Email</p>
         <input
           v-model="email"
-          type="email"
           placeholder="your.email@domain.com"
           class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
-          readonly
         />
       </div>
-
+  
       <div class="flex flex-col gap-4 border-b py-4 sm:flex-row">
         <p class="shrink-0 w-32 font-medium">Domaine</p>
         <input
           v-model="domaine"
-          type="text"
           placeholder="Technologie Informatique"
           class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
         />
         <p class="shrink-1 w-32 font-medium">Specialite</p>
         <input
           v-model="specialite"
-          type="text"
           placeholder="DSI"
           class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
         />
       </div>
-
+  
       <div class="flex flex-col gap-4 border-b py-4 sm:flex-row">
         <p class="shrink-0 w-32 font-medium">Etablissement</p>
         <input
           v-model="etablissement"
-          type="text"
           placeholder="Technologie Informatique"
           class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
         />
         <p class="shrink-1 w-32 font-medium">TypeStage</p>
         <input
           v-model="typeStage"
-          type="text"
           placeholder="DSI"
           class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
         />
       </div>
-
+      
       <div class="flex flex-col gap-4 py-4 lg:flex-row">
         <div class="shrink-0 w-32 sm:py-4">
           <p class="mb-auto font-medium">Avatar</p>
@@ -82,13 +78,10 @@
         <div
           class="flex h-70 w-full flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-gray-300 p-5 text-center"
         >
-          <div v-if="imageBase64 == 'test.jpg'" class="h-16 w-16 rounded-full">
-            <img class="h-16 w-16 rounded-ful" :src="imageUrl" alt="" />
-          </div>
           <img
-            v-if="imageBase64 != 'test.jpg'"
+            
             class="h-16 w-16 rounded-full"
-            :src="'http://localhost:8000/api/getpath/' + this.imageBase64"
+            :src="imageUrl"
             alt=""
           />
           <p class="text-sm text-gray-600">
@@ -112,120 +105,123 @@
         </button>
       </div>
     </div>
-  </div>
-</template>
-<script>
-import "aos/dist/aos.css";
-import AOS from "aos";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
-import axios from "axios";
-import Sidebar from "./Sidebar.vue";
-export default {
-  data() {
-    return {
-      fullname: "",
-      niveau: "",
-      email: "",
-      domaine: "",
-      specialite: "",
-      typeStage: "",
-      etablissement: "",
-      imageBase64: null,
-      imageChanged: false,
-      imageUrl:
-        "https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
-    };
-  },
-  components: {
-    Sidebar,
-  },
-
-  methods: {
-    getAccountData() {
-      let storedData = localStorage.getItem("StudentAccountInfo");
-      this.fullname = JSON.parse(storedData).fullname;
-      this.niveau = JSON.parse(storedData).niveau;
-      this.email = JSON.parse(storedData).email;
-      this.domaine = JSON.parse(storedData).domaine;
-      this.specialite = JSON.parse(storedData).specialite;
-      this.typeStage = JSON.parse(storedData).typeStage;
-      this.etablissement = JSON.parse(storedData).etablissement;
-      this.imageBase64 = JSON.parse(storedData).image;
+    </div>
+    </div>
+    </div>
+  </template>
+  <script>
+  
+  import "aos/dist/aos.css";
+  import AOS from "aos";
+  import { toast } from "vue3-toastify";
+  import "vue3-toastify/dist/index.css";
+  import NavBarStd from "./NavBarStd.vue";
+  import axios from "axios";
+  import Sidebar from "./Sidebar.vue";
+  export default {
+    data() {
+      return {
+        fullname: "",
+        niveau: "",
+        email: "",
+        domaine: "",
+        specialite:"",
+        typeStage:"",
+        etablissement:"",
+        update: false,
+        storedImage: "",
+        imageUrl:"https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
+  
+      };
     },
-    handleImageChange(e) {
-      const files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.imageBase64 = files[0];
-      this.imageChanged = true;
-      console.log(this.imageBase64);
+    components:{
+        NavBarStd,
+        Sidebar,
     },
-    async saveChanges() {
-      let data = new FormData();
-      data.append("fullname", this.fullname);
-      data.append("niveau", this.niveau);
-      data.append("email", this.email);
-      data.append("domaine", this.domaine);
-      data.append("typeStage", this.typeStage);
-      data.append("specialite", this.specialite);
-      data.append("etablissement", this.etablissement);
-      data.append("file", this.imageBase64);
-      data.append("imageChanged", this.imageChanged);
-      data.append("filetype", "png,jpg");
-
-      if (this.imageChanged) {
-        await axios
-          .post("http://localhost:8000/api/uploadfile", data)
-          .then((response) => {
-            if (response.data.check === true) {
-              toast.success("Account Avatar updated succesfully !", {
-                autoClose: 2000,
-              });
-            } else {
-              toast.error("Error occured, Account Avatar is not updated !", {
-                autoClose: 2000,
-              });
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching image:", error);
-          });
+  
+    methods: {
+     
+      getAccountData() {
+        let storedData = localStorage.getItem("StudentAccountInfo");
+        this.fullname = JSON.parse(storedData).fullname;
+        this.niveau = JSON.parse(storedData).niveau;
+        this.email = JSON.parse(storedData).email;
+        this.domaine =JSON.parse(storedData).domaine;
+        this.specialite=JSON.parse(storedData).specialite;
+        this.typeStage=JSON.parse(storedData).typeStage;
+        this.etablissement=JSON.parse(storedData).etablissement;
+  
+      },
+      async handleImageChange(event) {
+        const file = event.target.files[0];
+      if (file) {
+        // Read the file and set the logoURL
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
-      await axios
-        .post("http://localhost:8000/api/modifyStudent", data)
-        .then((response) => {
+      },
+
+      getImageUrl(){
+        let storedImageUrl= localStorage.getItem("EtudiantLogo");
+        if (storedImageUrl) {
+          this.imageUrl = JSON.parse(storedImageUrl).image;
+        }
+      },
+
+      async saveChanges() {
+        let jsonUrl ={
+        image:this.imageUrl,
+      }
+      localStorage.setItem("EtudiantLogo",JSON.stringify(jsonUrl));
+  
+        let myjson = {
+        fullname:this.fullname,
+        niveau:this.niveau,
+        email:this.email,
+        domaine:this.domaine,
+        typeStage:this.typeStage,
+        specialite:this.specialite,
+        etablissement:this.etablissement,
+        image:"test.jpg",
+      }
+      console.log(myjson);
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/modifyStudent",
+            myjson,
+            
+          );
           if (response.data.update === true) {
-            toast.success("Account Details updated succesfully !", {
-              autoClose: 2000,
+            toast.success("Account updated succesfully !", {
+              autoClose: 2000, 
             });
+  
           } else {
-            toast.error("Error occured, Account Details is not updated !", {
-              autoClose: 2000,
+            toast.error("Email not found !", {
+              autoClose: 2000, 
             });
           }
-        })
-        .catch((error) => {
-          console.error("Error fetching image:", error);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.$router.push("/SignIn");
-          }, 3000);
-        });
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      },
     },
-  },
-  mounted() {
-    this.getAccountData();
-  },
-  created() {
-    this.$nextTick(() => {
-      AOS.init({
-        duration: 2500,
-        easing: "ease-in-out",
-        once: true,
-        mirror: false,
+    mounted() {
+     this.getAccountData();
+     this.getImageUrl();
+    },
+    created() {
+      this.$nextTick(() => {
+        AOS.init({
+          duration: 2500,
+          easing: "ease-in-out",
+          once: true,
+          mirror: false,
+        });
       });
-    });
-  },
-};
-</script>
+    },
+  };
+  </script>

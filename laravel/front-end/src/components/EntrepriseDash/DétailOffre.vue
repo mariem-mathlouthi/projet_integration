@@ -20,12 +20,15 @@
     <div class="flex space-x-4">
 
 
-        <router-link to="/EditOffre">
+        <router-link :to="'/EditOffre/'+idEntreprise+'/'+offerId">
             <button type="button"
             class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-green-600 hover:bg-green-600  hover:text-white transition-all duration-300">Edit</button>
         </router-link>
-        <button type="button"
+        <form @submit.prevent="deleteOffre">
+          <button type="submit"
             class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-300">Delete</button>
+        </form>
+       
     </div>
 </div>
 
@@ -33,43 +36,43 @@
         <dl>
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">ID</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">1</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.id }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">ID de l'entreprise</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">123</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.idEntreprise }}</dd>
           </div>
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Statut</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">Active</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.status }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Titre</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">Développeur Web</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.titre }}</dd>
           </div>
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Description</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">'Recherche un développeur web expérimenté pour rejoindre notre équipe.'</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.description }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Domaine</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">Technologie</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.domaine }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">dateDebut</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">2024-06-01</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.dateDebut }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">dateFin</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">Technologie</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.dateFin }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">typeOffre</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">type</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.typeOffre }}</dd>
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">CahierCharhe</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">file</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ offerDetails.cahierCharge }}</dd>
           </div>
           <!-- Ajoutez plus de paires de termes et de définitions pour afficher d'autres détails de l'offre -->
         </dl>
@@ -88,13 +91,74 @@
   </template>
   
   <script>
+  
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+import axios from "axios";
   import Navbar from './Navbar.vue';
   import Sidebar from './SideBar.vue';
   export default {
+    data() {
+        return {
+            offerDetails:"",
+            idEntreprise:"",
+            offerId:"",
+          
+        };
+    },
     name: 'EntrepriseDashboard',
     components: {
       Navbar,
       Sidebar
+    },
+    
+    created() {
+        // Fetch offer details based on route parameter (offer ID)
+        this.fetchOfferDetails(this.$route.params.id);
+        this.offerId=this.$route.params.id;
+    },
+    methods: {
+        async fetchOfferDetails(id) {
+          let storedData = localStorage.getItem("EntrepriseAccountInfo");
+          this.idEntreprise = JSON.parse(storedData).id;
+          console.log(this.idEntreprise);
+          console.log(id);
+          try {
+          const response = await axios.get(`http://localhost:8000/api/offreDetail/${this.idEntreprise}/${id}`);
+          
+          if (response.data.check === true) {
+              this.offerDetails=response.data.offre;
+              console.log(this.offerDetails);
+          } else {
+              // Handle if check is false
+              console.error("Error fetching offer details:", response.data.message);
+          }
+      } catch (error) {
+          console.error("Error fetching offer details:", error);
+      }
+          
+        },
+
+      async deleteOffre(){
+        let myjson2 = {
+          id:this.offerId,
+        }
+        try {
+          const response = await axios.post("http://localhost:8000/api/deleteOffre",myjson2);
+          if (response.data.delete === true) {
+            this.$router.push('/OffersList');
+          } else {
+            toast.error("Something went wrong !", {
+            autoClose: 2000, 
+            });
+          }
+      } catch (error) {
+          console.error("Error", error);
+      }
+        
+      }
+
+
     }
   }
   </script>

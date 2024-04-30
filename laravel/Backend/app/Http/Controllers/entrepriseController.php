@@ -35,5 +35,31 @@ class entrepriseController extends Controller
 
     }
 
+    public function getEntreprise(Request $request, $idEntreprise)
+    {
+        // Fetch the specific offer for the given idEntreprise and id
+        $entreprise = Entreprise::where('id', $idEntreprise)->first();
+    
+        if (!$entreprise) {
+            // Return a 404 Not Found response if the offer is not found
+            return response()->json([
+                'message' => 'Entreprise not found',
+                'check' => false,
+            ], 404);
+        }
+    
+        // Return the details of the offer
+        return response()->json([
+            'entreprise' => $entreprise,
+            'message' => 'Offer details fetched successfully',
+            'check' => true,
+        ]);
+    }
+    
+
+
+
+    
+
 
 }

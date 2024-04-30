@@ -3,14 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
-use App\Http\Controllers\Demande\DemandeController;
-use App\Http\Controllers\Offre\OffreController;
-use App\Http\Controllers\Stage\StageController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\entrepriseController;
+use App\Http\Controllers\demandeController;
 use App\Http\Controllers\adminController;
-use App\Http\Controllers\Controller;
-
+use App\Http\Controllers\offreController;
+use App\Http\Controllers\notificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,34 +26,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'cors'], function () {
-    Route::get('/getuseridbyemail/{email}',[authController::class,'GetUserIdByEmail']);
-    // authentification
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
     Route::post('/admin', [adminController::class, 'signUpAdmin']);
     Route::post('/login', [authController::class, 'LoginUser']);
-    // stage
-    Route::get('/getAllStage',[StageController::class,'GetAllStage']);
-    Route::get('/selectStage/{idOffre}', [StageController::class,'selectStage']);
-    // offre
-        // pay attention to order of variables, to ignore variable set it to "all"
-    Route::get('/offre/{idEntreprise}/{domaine}/{description}/{titre}',[OffreController::class,'chercherOffres']);
-    Route::get('/getAllOffre',[OffreController::class,'GetAllOffre']);
-    Route::get('/getoffreById/{id}',[OffreController::class,'GetoffreById']);
-    Route::post('/AddOffre',[OffreController::class,'AddOffre']);
-    Route::post('/UpdateOffre/{id}',[OffreController::class,'UpdateOffre']);
-    Route::delete('/DeleteOffre/{id}',[OffreController::class,'DeleteOffre']);
-    // demande
-    Route::post('/addDemande',[DemandeController::class,'AddDemande']);
-    Route::put('/acceptDemande/{id}',[DemandeController::class,'acceptDemande']);
-    // student
     Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
-    // entreprise
     Route::post('/modifyEntreprise', [entrepriseController::class, 'ModifyEntrepriseInfo']);
-    // file management
-    Route::get('/download/cahierEntreprise/{nomFichier}', [Controller::class,'downloadCahierEntreprise']);
-    Route::post('/uploadfile', [Controller::class,'uploadFile']);
-    Route::get('/getpath/{nomFichierComplete}', [Controller::class,'getFilePath']);
-});
-    
+    Route::get('/getStudentDetail/{id}', [studentController::class, 'getStudentDetail']);
+    Route::get('/getEntreprise/{idEntreprise}', [entrepriseController::class, 'getEntreprise']);
+    Route::post('/addDemande', [demandeController::class, 'addDemande']);
+    Route::post('/updateSatutDemande/{id}', [demandeController::class, 'updateStatut']);
+    Route::delete('/deleteDemande/{id}', [demandeController::class, 'deleteDemande']);
+    Route::get('/getDemandes/{idEtudiant}', [demandeController::class, 'getAllDemandes']);
+    Route::get('/getDemandeById/{id}', [demandeController::class, 'getDemandeById']);
+    Route::get('/getDemandeByOfferId/{offerId}', [demandeController::class, 'getDemandeByOfferId']);
+    Route::get('/Demandes', [demandeController::class, 'Demandes']);
+    Route::post('/addOffre', [offreController::class, 'addOffre']);
+    Route::get('/getOffres/{idEntreprise}', [offreController::class, 'getAllOffres']);
+    Route::get('/allOffres', [offreController::class, 'AllOffres']);
+    Route::get('/offreDetail/{idEntreprise}/{id}', [offreController::class, 'getOffreDetail']);
+    Route::get('/offreDetail2/{id}', [offreController::class, 'OffreDetail']);
+    Route::post('/updateOffre', [offreController::class, 'updateOffre']);
+    Route::post('/deleteOffre', [offreController::class, 'deleteOffre']);
 
+});
+
+
+Route::group(['middleware' => 'cors'], function () {
+    Route::post('/notification', [notificationController::class, 'notification']);
+    Route::get('/getAllNotifications', [notificationController::class, 'getAllNotifications']);
+});

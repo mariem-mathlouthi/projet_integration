@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dbController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 // creating or deleting tables
-Route::get('/db/init', [dbController::class,"InitializeDB"]);
-Route::get('/db/deletetables', [dbController::class,"deleteTables"]);
+Route::get('/', [Controller::class,"InitializeDB"]);
+Route::get('/deletetables', [Controller::class,"deleteTables"]);
 // filling the database
-Route::get('/db/seed', [dbController::class,"SeedDB"]);
+Route::get('/seeddb', [Controller::class,"SeedDB"]);

@@ -19,9 +19,7 @@ class studentController extends Controller
             $existingUser->typeStage = $requestData['typeStage'];
             $existingUser->specialite = $requestData['specialite']; // Corrected typo from 'specailite' to 'specialite'
             $existingUser->etablissement = $requestData['etablissement'];
-            if ($requestData['imageChanged'] == "true") {
-                $existingUser->image = $request->file('file')->getClientOriginalName();
-            }
+            $existingUser->image = $requestData['image'];
             $existingUser->save();
             return response()->json([
                 'message' => 'Account updated successfully',
@@ -34,5 +32,30 @@ class studentController extends Controller
                 'update' => false,
             ], 404);
         }
+
     }
+
+
+    public function getStudentDetail($id)
+    {
+        // Fetch the specific offer for the given idEntreprise and id
+        $student = Etudiant::where('id', $id)->first();
+    
+        if (!$student) {
+            // Return a 404 Not Found response if the offer is not found
+            return response()->json([
+                'message' => 'Student not found',
+                'check' => false,
+            ], 404);
+        }
+    
+        // Return the details of the offer
+        return response()->json([
+            'student' => $student,
+            'message' => 'Student detail fetched successfully',
+            'check' => true,
+        ]);
+    }
+    
+
 }

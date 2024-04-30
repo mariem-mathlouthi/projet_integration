@@ -17,9 +17,11 @@
                         <div>
                             <label class="font-semibold text-sm">Offer titre</label>
                             <input type='text' placeholder='Enter Name'
+                               required
                                 v-model="titre"
                                 class="w-full rounded py-2.5 px-4 mt-2 border-2 text-sm outline-[#007bff]" />
                         </div>
+                        
                         <div>
                             <label class="font-semibold text-sm">Company Email</label>
                             <input type='email' placeholder='Email'
@@ -29,6 +31,7 @@
                         <div>
                             <label class="font-semibold text-sm">Domain</label>
                             <input type='text' placeholder='Phone No.'
+                                 required
                                  v-model="domaine"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
@@ -56,6 +59,15 @@
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
+                            <label class="font-semibold text-sm">Description</label>
+                            <textarea
+                  v-model="description"
+                  required
+                  class="w-full rounded py-2.5 px-4 mt-2 border-2 text-sm outline-[#007bff]"
+                ></textarea>
+                        </div>
+                        
+                        <div>
     <label class="font-semibold text-sm">Cahier de charge</label>
     <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
         <div class="space-y-1 text-center">
@@ -73,16 +85,19 @@
         </div>
     </div>
 </div>
-
+<br><br><br>
 <div class="flex px-4 py-4 sm:px-6">
     <button type="submit"
         class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
         Save
     </button>
-    <button type="submit"
+    <router-link to="/OffersList">
+        <button type="button"
         class="inline-flex items-center ml-4 px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">     
 Cancel
     </button>
+    </router-link>
+    
 </div>
                      
 
@@ -115,13 +130,14 @@ Cancel
         idEntreprise:"",
         status:"en attente",
         titre:"",
-        description:"description test",
+        description:"",
         domaine:"",
         dateDebut:"",
         dateFin:"",
         typeOffre:"",
         cahierCharge:"test.pdf",
         email:"",
+        entrepriseName:"",
     };
   },
     components: {
@@ -149,13 +165,32 @@ Cancel
         cahierCharge:this.cahierCharge,
         }
         console.log(myjson);
+
+        const currentDate = new Date();
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const year = currentDate.getFullYear();
+        const formattedDate = `${day}-${month}-${year}`;
+        let myObj={
+          idEtudiant:0,
+          idEntreprise:this.idEntreprise,
+          message:this.entrepriseName+" a ajouté une nouvelle offre de stage en "+this.titre,
+          destination:"Entreprise",
+          type:"offre",
+          visibility:"shown",
+          date:formattedDate,
+        }
         
         try {
+
         const response = await axios.post(
             "http://localhost:8000/api/addOffre",
             myjson,
             
         );
+        const response2= await axios.post("http://localhost:8000/api/notification",myObj);
+        console.log(response2.data);
+
         if (response.data.check === true) {
             toast.success("Offre added succesfully !", {
             autoClose: 2000, 
@@ -173,12 +208,15 @@ Cancel
         getAccountData() {
             let storedData = localStorage.getItem("EntrepriseAccountInfo");
             this.email = JSON.parse(storedData).email;
+            this.entrepriseName=JSON.parse(storedData).name;
+            
             },
 
 },
     
   mounted() {
    this.getAccountData();
+   
   },
   }
   </script>

@@ -6,13 +6,17 @@ import SignupEntreprise from "../components/Auth/SignUpEntreprise.vue";
 import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue";
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
+
+
 import StudentDash from "../components/StudentDash/StudentDashboard.vue";
 import NavBarStd from "../components/StudentDash/NavBarStd.vue";
 import DetailsOffreStd from "../components/StudentDash/DetailsOffreStd.vue";
 import PostulerCondidature from "../components/StudentDash/PostulerCondidature.vue";
-import ListeStagesAcceptés from "../components/StudentDash/ListeStagesAcceptés.vue";
+import ListeStagesAcceptes from "../components/StudentDash/ListeStagesAcceptes.vue";
 import Consulternotif from "../components/StudentDash/Consulternotif.vue";
 import EtudiantAccount from "../components/StudentDash/EtudiantAccount.vue";
+import OffersListStd from "../components/StudentDash/OffersListStd.vue";
+
 
 import EntrepriseDash from "../components/EntrepriseDash/EntrepriseDashbord.vue";
 import OffersList from "../components/EntrepriseDash/OffersList.vue";
@@ -23,7 +27,11 @@ import TreatedRequest from "../components/EntrepriseDash/TreatedRequest.vue";
 import EntrepriseAccount from "../components/EntrepriseDash/Account.vue";
 import StudentsList from "../components/EntrepriseDash/StudentsList.vue";
 import DetailStudent from "../components/EntrepriseDash/DetailStudent.vue";
-import OffersListStd from "../components/StudentDash/OffersListStd.vue";
+import DetailDemande from "../components/EntrepriseDash/DetailDemande.vue";
+import EditDemande from "../components/EntrepriseDash/EditDemande.vue";
+
+
+
 const routes = [
    {
     path: "/",
@@ -31,43 +39,11 @@ const routes = [
     component: LandingPage,
     },
     {
-      path: "/EtudiantAccount",
-      name: "EtudiantAccount",
-      component: EtudiantAccount,
+      path: "/DetailDemande/:id",
+      name: "DetailDemande",
+      component: DetailDemande,
       },
 
-    {
-      path: "/Consulternotif",
-      name: "Consulternotif",
-      component: Consulternotif,
-      },
-    {
-      path: "/ListeStagesAcceptés",
-      name: "ListeStagesAcceptés",
-      component: ListeStagesAcceptés,
-      },
-    {
-      path: "/PostulerCondidature/:idoffre",
-      name: "PostulerCondidature",
-      component: PostulerCondidature,
-      },
-      {
-        path: "/DetailsOffreStd/:id",
-        name: "DetailsOffreStd",
-        component: DetailsOffreStd,
-      },
-      
-      
-    {
-      path: "/OffersListStd",
-      name: "OffersListStd",
-      component: OffersListStd,
-      },
-    {
-      path: "/NavBarStd",
-      name: "NavBarStd",
-      component: NavBarStd,
-      },
     {
       path: "/DetailStudent",
       name: "DetailStudent",
@@ -84,7 +60,7 @@ const routes = [
       component: StudentsList,
       },
     {
-      path: "/EditOffre",
+      path: "/EditOffre/:idEntreprise/:id",
       name: "EditOffre",
       component: EditOffre,
       },
@@ -93,16 +69,16 @@ const routes = [
         name: "TreatedRequest",
         component: TreatedRequest,
         },
-    {
-      path: "/StudentDash",
-      name: "StudentDash",
-      component: StudentDash,
-      },
       {
-        path: "/DetailOffre",
+        path: "/detailoffre/:id",
         name: "DetailOffre",
         component: DetailOffre,
         },
+        {
+          path: "/EditDemande/:id",
+          name: "EditDemande",
+          component: EditDemande,
+          },
         {
           path: "/AddOffer",
           name: "AddOffer",
@@ -148,6 +124,56 @@ const routes = [
     name: "signin",
     component: Signin,
   },
+
+
+{
+      path: "/StudentDash",
+      name: "StudentDash",
+      component: StudentDash,
+      },
+  {
+    path: "/EtudiantAccount",
+    name: "EtudiantAccount",
+    component: EtudiantAccount,
+    },
+
+  {
+    path: "/Consulternotif",
+    name: "Consulternotif",
+    component: Consulternotif,
+    },
+  {
+    path: "/ListeStagesAcceptes",
+    name: "ListeStagesAcceptés",
+    component: ListeStagesAcceptes,
+    },
+  {
+    path: "/PostulerCondidature/:id",
+    name: "PostulerCondidature",
+    component: PostulerCondidature,
+    },
+
+    {
+      path: "/DetailsOffreStd/:id",
+      name: "DetailsOffreStd",
+      component: DetailsOffreStd,
+    },
+    
+    
+  {
+    path: "/OffersListStd",
+    name: "OffersListStd",
+    component: OffersListStd,
+    },
+  {
+    path: "/NavBarStd",
+    name: "NavBarStd",
+    component: NavBarStd,
+    },
+
+
+
+
  
   
  

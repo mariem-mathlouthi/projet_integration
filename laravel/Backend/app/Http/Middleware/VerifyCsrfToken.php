@@ -17,16 +17,27 @@ class VerifyCsrfToken extends Middleware
         'api/signupEntreprise',
         'api/admin',
         'api/login',
-        'api/GetAllOffre',
-        'api/ GetoffreById',
-        'api/GetAllStage',
         'api/modifyStudent',
         'api/modifyEntreprise',
+        'api/getStudentDetail/{id}',
+        'api/updateSatutDemande/{id}',
         'api/addDemande',
+        'api/deleteDemande/{id}',
+        'api/getDemandes/{idEtudiant}',
+        'api/getDemandeByOfferId/{offerId}',
+        'api/getDemandeById/{id}',
+        'api/Demandes',
         'api/addOffre',
-        'api/UpdateOffre',
-        'api/DeleteOffre',
-        'api/acceptDemande'
+        'api/allOffres',
+        'api/getEntreprise/{idEntreprise}',
+        'api/getOffres/{idEntreprise}',
+        'api/offreDetail/{idEntreprise}/{id}',
+        'api/offreDetail2/{id}',
+        'api/updateOffre',
+        'api/deleteOffre',
+
+        'api/notification',
+        'api/getAllNotifications',
         
     ];
 }
