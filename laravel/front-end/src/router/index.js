@@ -32,6 +32,15 @@ import EditDemande from "../components/EntrepriseDash/EditDemande.vue";
 
 
 
+import AdminDashboard from "../components/Admin/AdminDash.vue";
+import UsersListEtudiants from "../components/Admin/UsersListEtudiants.vue";
+import OffresListAdmin from "../components/Admin/OffresListAdmin.vue";
+import MessagesList from "../components/Admin/MessagesList.vue";
+import DetailOffreAdmin from "../components/Admin/DetailOffreAdmin.vue";
+import UsersList from "../components/Admin/UsersList.vue";
+import AccountSetting from "../components/Admin/AccountSetting.vue";
+import AddOfferAdmin from "../components/Admin/AddOffer.vue";
+
 const routes = [
    {
     path: "/",
@@ -170,6 +179,46 @@ const routes = [
     name: "NavBarStd",
     component: NavBarStd,
     },
+    {
+      path: "/Admin", // Define the path for the admin page
+      name: "admin", // Define the name for the admin route
+      component: AdminDashboard, // Specify the component for the admin page
+    },
+    {
+      path: "/OffresListAdmin",
+      name: "OffresListAdmin",
+      component: OffresListAdmin, 
+    },
+    {
+      path: "/MessagesList",
+      name: "MessagesList",
+      component: MessagesList, 
+    },
+    {
+      path: "/UsersList",
+      name: "UsersList",
+      component: UsersList, 
+    },
+    {
+      path: "/AccountSetting",
+      name: "AccountSetting",
+      component: AccountSetting, 
+    },
+    {
+      path: "/AddOfferAdmin",
+      name: "AddOfferAdmin",
+      component: AddOfferAdmin,
+      },
+    {
+        path: "/DetailOffreAdmin/:id",
+        name: "DetailOffreAdmin",
+        component: DetailOffreAdmin,
+    },
+    {
+          path: "/UsersListEtudiants",
+          name: "UsersListEtudiants",
+          component: UsersListEtudiants,
+    }
 
 
 

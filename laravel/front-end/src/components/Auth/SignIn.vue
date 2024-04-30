@@ -105,7 +105,8 @@ export default {
             localStorage.setItem("StudentAccountInfo",JSON.stringify(StudentAccount));
             this.$router.push('/StudentDash');
             }
-            else if(response.data.role === "admin"){
+           else if(response.data.role === "admin"){
+              this.$router.push('/Admin');
               toast.success("Admin Account Exist !", {
               autoClose: 2000, 
             });
