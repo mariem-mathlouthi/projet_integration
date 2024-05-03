@@ -125,8 +125,8 @@
 
         console.log(myObj);
         
-        const response3= await axios.post("http://localhost:8000/api/notification",myObj);
-        console.log(response3.data);
+        /*const response3= await axios.post("http://localhost:8000/api/notification",myObj);
+        console.log(response3.data);*/
           let myjson ={
             idEtudiant:this.idEtudiant,
             idOffreDeStage:this.idOffreDeStage,

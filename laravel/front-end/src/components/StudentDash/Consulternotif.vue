@@ -14,7 +14,7 @@
             <div v-else>
               <div v-for="(notification, index) in notifications" :key="index" class="mb-4">
                 <h2 class="text-lg font-semibold">{{ notification.title }} </h2>
-                <p class="text-gray-600">{{ notification.message }}  <span class="text-blue-500">{{ notification.date }}</span> <router-link to="/OffersListStd" class="text-blue-600">consulter la</router-link></p>
+                <p class="text-gray-600">{{ notification.message }}  <span class="text-blue-500">{{ notification.date }}</span> <router-link v-if="notification.type=='offre'" to="/OffersListStd" class="text-blue-600">consulter la</router-link></p>
                 <hr class="my-2 border-gray-200">
               </div>
             </div>
@@ -35,6 +35,7 @@
     data() {
       return {
         notifications: [],
+        
 
       };
     },
@@ -55,10 +56,23 @@
                     title:"Nouvelle Offre de stage",
                     message:response.data.notifications[i].message,
                     date:response.data.notifications[i].date,
+                    type:"offre"
                   }
                   this.notifications.push(myObj);
 
                   }
+                  else if(response.data.notifications[i].type=="demande"){
+                    let myObj={
+                    title:"Notification de votre demande stage",
+                    message:response.data.notifications[i].message,
+                    date:response.data.notifications[i].date,
+                    type:"demande"
+                  }
+                  this.notifications.push(myObj);
+                  }
+
+
+
                 }
                 console.log(this.notifications);
                 let myJson ={

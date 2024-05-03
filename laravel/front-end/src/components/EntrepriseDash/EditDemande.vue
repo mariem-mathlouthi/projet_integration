@@ -75,6 +75,7 @@ Cancel
         return {
             demandeId:"",
             statut: "en attente",
+            idEntreprise:"",
           
         };
     },
@@ -84,6 +85,7 @@ Cancel
     },
     created() {      
         this.demandeId=this.$route.params.id;
+        this.getAccountData();
         
        
     },
@@ -91,6 +93,12 @@ Cancel
     selectedOption() {
       console.log(this.statut);
     },
+
+    getAccountData() {
+            let storedData = localStorage.getItem("EntrepriseAccountInfo");
+            this.entrepriseName=JSON.parse(storedData).name;
+            this.idEntreprise=JSON.parse(storedData).id;
+            },
         async updateDemandeStatut() {
           let myObject ={
             statut:this.statut
@@ -98,11 +106,54 @@ Cancel
         console.log(myObject);
           try {
           const response = await axios.post(`http://localhost:8000/api/updateSatutDemande/${this.demandeId}`,myObject);
+          const response2 = await axios.get(`http://localhost:8000/api/getDemandeById/${this.demandeId}`);
+          const response3 = await axios.get(`http://localhost:8000/api/getStudentDetail/${response2.data.demande[0].idEtudiant}`);
+          const response4 = await axios.get(`http://localhost:8000/api/offreDetail2/${response2.data.demande[0].idOffreDeStage}`);
+          console.log(response3.data);
+          console.log(response4.data);
+        
+          const currentDate = new Date();
+          const day = String(currentDate.getDate()).padStart(2, '0');
+          const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+          const year = currentDate.getFullYear();
+          const formattedDate = `${day}-${month}-${year}`;
           
+
+       
+
           if (response.data.update === true) {
             toast.success("Status updated succesfully !", {
             autoClose: 2000, 
             });
+            if(this.statut=="accepté"){
+              let myObj={
+              idEtudiant:response3.data.student.id,
+              idEntreprise:this.idEntreprise,
+              message:this.entrepriseName+" a accepté votre demande de stage en "+response4.data.offre.titre,
+              destination:"Etudiant",
+              type:"demande",
+              visibility:"shown",
+              date:formattedDate,
+            }
+            console.log(myObj);
+            const response5= await axios.post("http://localhost:8000/api/notification",myObj);
+            console.log(response5.data);
+
+            }
+            else if(this.statut=="rejeté"){
+              let myObj={
+              idEtudiant:response3.data.student.id,
+              idEntreprise:this.idEntreprise,
+              message:this.entrepriseName+" a rejeté votre demande de stage en "+response4.data.offre.titre,
+              destination:"Etudiant",
+              type:"demande",
+              visibility:"shown",
+              date:formattedDate,
+            }
+            console.log(myObj);
+            const response5= await axios.post("http://localhost:8000/api/notification",myObj);
+            console.log(response5.data);
+            }
 
               
           } else {
