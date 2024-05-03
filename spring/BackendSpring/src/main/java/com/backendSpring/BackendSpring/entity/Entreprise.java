@@ -1,5 +1,6 @@
 package com.backendSpring.BackendSpring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,10 @@ public class Entreprise extends User{
     private String logo;
     private String description;
     private String link;
-    @OneToMany(mappedBy = "entreprise")
+
+
+    @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("entreprise")
     private List<Offre> offres;
 
 }

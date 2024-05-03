@@ -1,9 +1,16 @@
 package com.backendSpring.BackendSpring.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "offres")
 public class Offre {
@@ -12,7 +19,7 @@ public class Offre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idEntreprise")
     private Entreprise entreprise;
 
@@ -25,6 +32,7 @@ public class Offre {
     private Date dateFin;
     private String typeOffre;
     private String cahierCharge;
+
 
 }
 
