@@ -7,13 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "entreprises")
 public class Entreprise extends User{
@@ -33,7 +33,16 @@ public class Entreprise extends User{
 
 
     @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("entreprise")
     private List<Offre> offres;
+
+    @ManyToMany
+    @JoinTable(name = "Notifications",
+            joinColumns =@JoinColumn(name = "idEntreprise"),
+            inverseJoinColumns = @JoinColumn(name = "idEtudiant"))
+    List<Etudiant> etudiants;
+
+
+
+
 
 }

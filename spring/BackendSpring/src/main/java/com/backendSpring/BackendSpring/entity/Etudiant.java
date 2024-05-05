@@ -6,11 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collection;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "etudiants")
 public class Etudiant extends User{
@@ -29,6 +31,21 @@ public class Etudiant extends User{
     private String specialite;
     private String etablissement;
     private String image;
+
+
+    @ManyToMany
+    @JoinTable(name = "listDemandes",
+    joinColumns =@JoinColumn(name = "idEtudiant"),
+    inverseJoinColumns = @JoinColumn(name = "idDemande"))
+    List<Demande> demandes;
+
+    @ManyToMany(mappedBy = "etudiants")
+    List<Entreprise> entreprises;
+
+    @ManyToMany(mappedBy = "etudiants")
+    List<Offre> offres;
+
+
 
 }
 

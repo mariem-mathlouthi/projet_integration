@@ -19,12 +19,6 @@ public class Notification {
     private String type;
     private String visibility;
     private Date date;
-    @ManyToOne
-    @JoinColumn(name = "idEntreprise")
-    private Entreprise entreprise;
 
-    @ManyToOne
-    @JoinColumn(name = "idEtudiant")
-    private Etudiant etudiant;
 
 }

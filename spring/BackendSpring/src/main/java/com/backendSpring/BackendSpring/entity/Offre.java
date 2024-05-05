@@ -1,5 +1,6 @@
 package com.backendSpring.BackendSpring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,10 +22,21 @@ public class Offre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idEntreprise")
+    @ManyToOne()
+    @JoinColumn(name = "idEntreprise",nullable = false)
     private Entreprise entreprise;
 
+    @OneToMany(mappedBy = "offre", cascade = CascadeType.ALL)
+    private List<Demande> demandes;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "offre_etudiant",
+            joinColumns = @JoinColumn(name = "idOffre"),
+            inverseJoinColumns = @JoinColumn(name = "idEtudiant")
+    )
+    private List<Etudiant> etudiants;
 
     private String status;
     private String titre;
