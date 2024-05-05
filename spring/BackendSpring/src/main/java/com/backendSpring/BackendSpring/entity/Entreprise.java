@@ -10,10 +10,14 @@ import lombok.Setter;
 import java.util.Collection;
 import java.util.List;
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+<<<<<<< HEAD
+=======
+@Getter
+>>>>>>> 70e909a57aac9180b4a1143289bcbd68089090a6
 @Entity
 @Table(name = "entreprises")
 public class Entreprise extends User{
@@ -35,6 +39,7 @@ public class Entreprise extends User{
     @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
     private List<Offre> offres;
 
+<<<<<<< HEAD
     @ManyToMany
     @JoinTable(name = "Notifications",
             joinColumns =@JoinColumn(name = "idEntreprise"),
@@ -42,6 +47,8 @@ public class Entreprise extends User{
     List<Etudiant> etudiants;
 
 
+=======
+>>>>>>> 70e909a57aac9180b4a1143289bcbd68089090a6
 
 
 

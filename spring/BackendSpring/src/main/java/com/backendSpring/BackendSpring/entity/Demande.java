@@ -31,5 +31,4 @@ public class Demande {
     private String statut;
     private Date DateSoumission;
     private String cv;
-
 }

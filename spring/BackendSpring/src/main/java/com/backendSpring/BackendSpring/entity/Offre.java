@@ -1,5 +1,8 @@
 package com.backendSpring.BackendSpring.entity;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70e909a57aac9180b4a1143289bcbd68089090a6
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "offres")
+@JsonIgnoreProperties({"entreprise"})
 public class Offre {
 
     @Id
