@@ -1,5 +1,5 @@
 package com.backendSpring.BackendSpring.entity;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "offres")
+@JsonIgnoreProperties({"entreprise"})
 public class Offre {
 
     @Id

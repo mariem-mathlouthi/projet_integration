@@ -9,11 +9,11 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Getter
 @Entity
 @Table(name = "entreprises")
 public class Entreprise extends User{
@@ -35,5 +35,8 @@ public class Entreprise extends User{
     @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("entreprise")
     private List<Offre> offres;
+
+
+
 
 }
