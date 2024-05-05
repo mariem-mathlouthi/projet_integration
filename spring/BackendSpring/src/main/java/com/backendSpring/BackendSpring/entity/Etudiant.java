@@ -33,10 +33,7 @@ public class Etudiant extends User{
     private String image;
 
 
-    @ManyToMany
-    @JoinTable(name = "listDemandes",
-    joinColumns =@JoinColumn(name = "idEtudiant"),
-    inverseJoinColumns = @JoinColumn(name = "idDemande"))
+    @ManyToMany(mappedBy = "etudiants")
     List<Demande> demandes;
 
     @ManyToMany(mappedBy = "etudiants")

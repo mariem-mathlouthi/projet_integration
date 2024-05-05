@@ -21,7 +21,7 @@ public class Demande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "etudiantList")
+    @ManyToMany
     private List<Etudiant> etudiants;
 
     @ManyToOne
@@ -32,4 +32,7 @@ public class Demande {
     private Date DateSoumission;
     private String cv;
 
+    public void setStatus(String status) {
+        this.statut=status;
+    }
 }

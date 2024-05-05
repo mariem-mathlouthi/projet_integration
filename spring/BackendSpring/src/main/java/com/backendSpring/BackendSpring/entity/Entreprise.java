@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.util.Collection;
 import java.util.List;
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +35,7 @@ public class Entreprise extends User{
     @OneToMany(mappedBy = "entreprise", cascade = CascadeType.ALL)
     private List<Offre> offres;
 
+
     @ManyToMany
     @JoinTable(name = "Notifications",
             joinColumns =@JoinColumn(name = "idEntreprise"),
@@ -42,7 +43,19 @@ public class Entreprise extends User{
     List<Etudiant> etudiants;
 
 
+    public String getNumeroSIRET() {
+        return this.numeroSIRET;
+    }
 
+    public String getName() {
+        return this.name;
+    }
 
+    public String getSecteur() {
+        return this.secteur;
+    }
 
+    public String getDescription() {
+        return description;
+    }
 }

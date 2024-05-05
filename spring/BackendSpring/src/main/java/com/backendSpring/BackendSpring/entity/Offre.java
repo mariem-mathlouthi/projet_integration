@@ -1,5 +1,4 @@
 package com.backendSpring.BackendSpring.entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,19 +15,20 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "offres")
+@JsonIgnoreProperties({"entreprise"})
+
 public class Offre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idEntreprise",nullable = false)
     private Entreprise entreprise;
 
-    @OneToMany(mappedBy = "offre", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "offreDeStage", cascade = CascadeType.ALL)
     private List<Demande> demandes;
-
 
     @ManyToMany
     @JoinTable(
