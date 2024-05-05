@@ -22,4 +22,5 @@ public class EntrepriseController {
         ResponseEntity<ApiResponse> responseEntity = entrepriseService.modifyEntrepriseInfo(entreprise);
         return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
     }
+
 }
