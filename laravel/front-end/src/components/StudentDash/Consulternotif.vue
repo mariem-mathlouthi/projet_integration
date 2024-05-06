@@ -35,6 +35,7 @@
     data() {
       return {
         notifications: [],
+        idEtudiant:"",
         
 
       };
@@ -44,13 +45,21 @@
       Navbar
     },
     methods:{
+      getAccountData(){
+        let storedData = localStorage.getItem("StudentAccountInfo"); 
+          this.idEtudiant = JSON.parse(storedData).id;
+          this.fullname= JSON.parse(storedData).fullname;
+          this.email= JSON.parse(storedData).email;
+      },
       async getNotifications(){
         try {
             const response = await axios.get(
                 "http://localhost:8000/api/getAllNotifications"
             );
+            console.log(response.data.notifications);
             if (response.data.check === true) {
                 for(let i=0;i<response.data.notifications.length;i++){
+                 if(response.data.notifications[i].idEtudiant==this.idEtudiant){
                   if(response.data.notifications[i].type=="offre"){
                     let myObj={
                     title:"Nouvelle Offre de stage",
@@ -70,9 +79,7 @@
                   }
                   this.notifications.push(myObj);
                   }
-
-
-
+                 }
                 }
                 console.log(this.notifications);
                 let myJson ={
@@ -91,6 +98,7 @@
     },
     mounted(){
       this.getNotifications();
+      this.getAccountData();
       
     }
   }

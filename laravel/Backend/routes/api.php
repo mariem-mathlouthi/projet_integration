@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'cors'], function () {
     Route::post('/singupEtudiant', [authController::class, 'signUpEtudiant']);
     Route::post('/signupEntreprise', [authController::class, 'signUpEntreprise']);
+    Route::post('/admin', [adminController::class, 'signUpAdmin']);
     Route::post('/login', [authController::class, 'LoginUser']);
     Route::post('/modifyStudent', [studentController::class, 'ModifyEtudiantInfo']);
     Route::post('/modifyEntreprise', [entrepriseController::class, 'ModifyEntrepriseInfo']);

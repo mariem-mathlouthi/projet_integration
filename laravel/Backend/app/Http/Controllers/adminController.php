@@ -7,7 +7,6 @@ use App\Models\Admin;
 use App\Models\Etudiant;
 use App\Models\Entreprise;
 use App\Models\Offre;
-
 class adminController extends Controller
 {
     //
@@ -31,11 +30,11 @@ class adminController extends Controller
         return response()->json([
             'message' => 'Account created successfully',
             'check' => true,
-            'role' => 'admin'
         ]);
     }
+
     public function states(){
-        $newOrders = offre::count();
+        $newOrders = Offre::count();
         $companies = Entreprise::count();
         $students  = Etudiant::count();    
     
@@ -156,5 +155,10 @@ class adminController extends Controller
         ]);
     }
     
+
+
+
+
+
 
 }

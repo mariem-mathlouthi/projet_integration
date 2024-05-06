@@ -39,7 +39,8 @@ class VerifyCsrfToken extends Middleware
         'api/notification',
         'api/getAllNotifications',
 
-        
+
+
         'api/states',
         'api/getAllOffreAdmin',
         'api/updateOfferStatus/{id}',
@@ -48,9 +49,6 @@ class VerifyCsrfToken extends Middleware
         'api/enterprisesAdmin/{id}',
         'api/studentsAdmin',
         'api/deleteStudentAdmin/{id}'
-        
-
-
         
     ];
 }
