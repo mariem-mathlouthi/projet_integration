@@ -1,12 +1,11 @@
 package com.backendSpring.BackendSpring.Controller;
 
 import com.backendSpring.BackendSpring.Service.EtudiantService;
+import com.backendSpring.BackendSpring.dto.ApiResponse;
+import com.backendSpring.BackendSpring.entity.Etudiant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/etudiant")
@@ -22,4 +21,12 @@ public class EtudiantController {
             return ResponseEntity.badRequest().body("Email already exists");
         }
     }
+
+    @PutMapping("/modify")
+    public ResponseEntity<ApiResponse> modifyEtudiantInfo(@RequestBody Etudiant etudiant) {
+        ResponseEntity<ApiResponse> responseEntity = etudiantService.modifyEtudiantInfo(etudiant);
+        return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
+    }
+
+
 }
