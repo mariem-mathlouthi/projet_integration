@@ -16,6 +16,10 @@ public class DemandeService {
         this.demandeRepository = demandeRepository;
     }
 
+    public Demande ajouterDemande(Demande demande) {
+        return demandeRepository.save(demande);
+    }
+
     public List<Demande> getAllDemandesDeStage() {
         return demandeRepository.findAll();
     }

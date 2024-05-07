@@ -17,6 +17,12 @@ public class DemandeController {
         this.demandeService = demandeService;
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<Demande> ajouterDemande(@RequestBody Demande demande) {
+        Demande nouvelleDemande = demandeService.ajouterDemande(demande);
+        return ResponseEntity.ok(nouvelleDemande);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Demande>> getAllDemandesDeStage() {
         List<Demande> demandes = demandeService.getAllDemandesDeStage();
