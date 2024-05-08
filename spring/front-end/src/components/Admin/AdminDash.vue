@@ -44,19 +44,7 @@ mounted() {
       // Add event listeners
      
 
-      if (searchButton) {
-        searchButton.addEventListener('click', (e) => {
-          if (window.innerWidth < 576 && searchForm) {
-            e.preventDefault();
-            searchForm.classList.toggle('show');
-            if (searchForm.classList.contains('show')) {
-              searchButtonIcon.classList.replace('bx-search', 'bx-x');
-            } else {
-              searchButtonIcon.classList.replace('bx-x', 'bx-search');
-            }
-          }
-        });
-      }
+      
 
       // Handle dark mode switch
       if (switchMode) {
@@ -66,18 +54,7 @@ mounted() {
       }
 
       // Handle sidebar menu items
-      const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
-      if (allSideMenu) {
-        allSideMenu.forEach(item => {
-          const li = item.parentElement;
-          item.addEventListener('click', () => {
-            allSideMenu.forEach(i => {
-              i.parentElement.classList.remove('active');
-            });
-            li.classList.add('active');
-          });
-        });
-      }
+      
     }
   }
 };

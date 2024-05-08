@@ -71,7 +71,7 @@ name: 'EntrepriseDashboard',
       email: "",
       secteur:"",
       description:"",
-      logo:"",
+      logoURL:"",
     };
   },
   components:{
