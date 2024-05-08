@@ -56,4 +56,23 @@ public class DemandeController {
         return ResponseEntity.ok("La demande a été mise en attente avec succès.");
     }
 
+
+    @GetMapping("/en-attente")
+    public ResponseEntity<List<Demande>> getDemandesEnAttente() {
+        List<Demande> demandes = demandeService.getDemandesEnAttente();
+        return ResponseEntity.ok(demandes);
+    }
+
+    @GetMapping("/acceptees")
+    public ResponseEntity<List<Demande>> getDemandesAcceptees() {
+        List<Demande> demandes = demandeService.getDemandesAcceptees();
+        return ResponseEntity.ok(demandes);
+    }
+
+    @GetMapping("/refusees")
+    public ResponseEntity<List<Demande>> getDemandesRefusees() {
+        List<Demande> demandes = demandeService.getDemandesRefusees();
+        return ResponseEntity.ok(demandes);
+    }
+
 }
