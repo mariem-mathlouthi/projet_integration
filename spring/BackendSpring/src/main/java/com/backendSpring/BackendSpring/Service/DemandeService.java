@@ -47,7 +47,7 @@ public class DemandeService {
         Optional<Demande> demandeOptional = demandeRepository.findById(demandeId);
         if (demandeOptional.isPresent()) {
             Demande demande = demandeOptional.get();
-            demande.setStatus(Statuts.accepté); // Assuming accepté is a valid value in Statuts enum
+            demande.setStatus(Statuts.refusé); // Assuming accepté is a valid value in Statuts enum
             demandeRepository.save(demande);
         } else {
             throw new DemandeNotFoundException("La demande avec l'ID " + demandeId + " n'a pas été trouvée.");
@@ -68,6 +68,17 @@ public class DemandeService {
         this.statut = statut;
     }
 
+    public List<Demande> getDemandesEnAttente() {
+        return demandeRepository.findByStatut(Statuts.en_attente);
+    }
+
+    public List<Demande> getDemandesAcceptees() {
+        return demandeRepository.findByStatut(Statuts.accepté);
+    }
+
+    public List<Demande> getDemandesRefusees() {
+        return demandeRepository.findByStatut(Statuts.refusé);
+    }
 
 
 
