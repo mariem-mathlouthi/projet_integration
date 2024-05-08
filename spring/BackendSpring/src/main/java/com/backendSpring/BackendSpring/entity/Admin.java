@@ -12,14 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "admins")
-public class Admin extends User{
-
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String email;
     private String password;
 
+   
+    // Constructors, getters, setters
 }
-

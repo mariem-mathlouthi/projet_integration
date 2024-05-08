@@ -1,5 +1,5 @@
 package com.backendSpring.BackendSpring.entity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,38 +7,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
 @Table(name = "offres")
-@JsonIgnoreProperties({"entreprise"})
-
+@EntityListeners(AuditingEntityListener.class)
 public class Offre {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idEntreprise",nullable = false)
+    @JoinColumn(name = "idEntreprise", referencedColumnName = "id")
     private Entreprise entreprise;
 
-    @OneToMany(mappedBy = "offreDeStage", cascade = CascadeType.ALL)
-    private List<Demande> demandes;
+    @Enumerated(EnumType.STRING)
+    private Statuts status;
 
-    @ManyToMany
-    @JoinTable(
-            name = "offre_etudiant",
-            joinColumns = @JoinColumn(name = "idOffre"),
-            inverseJoinColumns = @JoinColumn(name = "idEtudiant")
-    )
-    private List<Etudiant> etudiants;
-
-    private String status;
     private String titre;
     private String description;
     private String domaine;
@@ -47,6 +36,7 @@ public class Offre {
     private String typeOffre;
     private String cahierCharge;
 
-
+    // Constructors, getters, setters
 }
+
 

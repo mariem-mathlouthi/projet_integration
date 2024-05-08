@@ -5,34 +5,39 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.Date;
-import java.util.List;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
+
 @Entity
 @Table(name = "demandes")
+@EntityListeners(AuditingEntityListener.class)
 public class Demande {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
-    private List<Etudiant> etudiants;
+    @ManyToOne
+    @JoinColumn(name = "idEtudiant", referencedColumnName = "id")
+    private Etudiant etudiant;
 
     @ManyToOne
-    @JoinColumn(name = "idOffre")
+    @JoinColumn(name = "idOffreDeStage", referencedColumnName = "id")
     private Offre offreDeStage;
 
-    private String statut;
-    private Date DateSoumission;
-    private String cv;
+    @Enumerated(EnumType.STRING)
+    private Statuts statut;
 
-    public void setStatus(String status) {
-        this.statut=status;
+    private Date dateSoumission;
+    private String cv;
+    public void setStatus(Statuts statut) {
+        this.statut = statut;
     }
+
+    // Constructors, getters, setters
 }

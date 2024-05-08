@@ -1,6 +1,7 @@
 package com.backendSpring.BackendSpring.Controller;
 
 import com.backendSpring.BackendSpring.Service.AdminService;
+import com.backendSpring.BackendSpring.entity.Admin;
 import com.backendSpring.BackendSpring.entity.Entreprise;
 import com.backendSpring.BackendSpring.entity.Etudiant;
 import com.backendSpring.BackendSpring.entity.Offre;
@@ -8,59 +9,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
     @Autowired
     private AdminService adminService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpAdmin(@RequestParam String email, @RequestParam String password) {
-        if (adminService.signUpAdmin(email, password)) {
-            return ResponseEntity.ok("Account created successfully");
-        } else {
-            return ResponseEntity.badRequest().body("Email already exists");
-        }
+    public ResponseEntity<?> signUpAdmin(@RequestBody Admin request) {
+        String email = request.getEmail();
+        String password = request.getPassword();
+        Admin admin = adminService.signUpAdmin(email, password);
+        return ResponseEntity.ok(admin);
     }
 
-    @GetMapping("/stats")
-    public ResponseEntity<?> getStats() {
-        int newOrders = adminService.getNewOrdersCount();
-        int companies = adminService.getCompaniesCount();
-        int students = adminService.getStudentsCount();
-        return ResponseEntity.ok().body("New Orders: " + newOrders + ", Companies: " + companies + ", Students: " + students);
-    }
 
     @GetMapping("/offres")
-    public ResponseEntity<Iterable<Offre>> getAllOffresAdmin() {
-        return ResponseEntity.ok().body(adminService.getAllOffresAdmin());
+    public ResponseEntity<?> getAllOffresAdmin() {
+        List<Offre> offres = adminService.getAllOffresAdmin();
+        return ResponseEntity.ok(offres);
     }
 
-    @PutMapping("/offres/{id}/status")
+    @PatchMapping("/offres/{id}")
     public ResponseEntity<?> updateOfferStatus(@PathVariable Long id, @RequestParam String status) {
-        return ResponseEntity.ok().body(adminService.updateOfferStatus(id, status));
+        adminService.updateOfferStatus(id, status);
+        return ResponseEntity.ok("Offer status updated successfully");
     }
 
     @GetMapping("/students")
-    public ResponseEntity<Iterable<Etudiant>> getAllStudents() {
-        return ResponseEntity.ok().body(adminService.getAllStudents());
+    public ResponseEntity<?> getAllStudents() {
+        List<Etudiant> students = adminService.getAllStudents();
+        return ResponseEntity.ok(students);
     }
 
     @DeleteMapping("/students/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         adminService.deleteStudent(id);
-        return ResponseEntity.ok().body("Student deleted successfully");
+        return ResponseEntity.ok("Student deleted successfully");
     }
 
     @GetMapping("/enterprises")
-    public ResponseEntity<Iterable<Entreprise>> getAllEnterprises() {
-        return ResponseEntity.ok().body(adminService.getAllEnterprises());
+    public ResponseEntity<?> getAllEnterprises() {
+        List<Entreprise> enterprises = adminService.getAllEnterprises();
+        return ResponseEntity.ok(enterprises);
     }
 
     @DeleteMapping("/enterprises/{id}")
     public ResponseEntity<?> deleteEntreprise(@PathVariable Long id) {
         adminService.deleteEntreprise(id);
-        return ResponseEntity.ok().body("Enterprise deleted successfully");
+        return ResponseEntity.ok("Enterprise deleted successfully");
     }
 }
+

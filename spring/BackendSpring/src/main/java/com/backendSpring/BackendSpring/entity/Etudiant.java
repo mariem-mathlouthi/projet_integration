@@ -1,5 +1,5 @@
 package com.backendSpring.BackendSpring.entity;
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,17 +13,20 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
 @Table(name = "etudiants")
-public class Etudiant extends User{
-
+@EntityListeners(AuditingEntityListener.class)
+public class Etudiant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String fullname;
     private String niveau;
+    @Column(unique = true)
     private String cin;
+    @Column(unique = true)
     private String email;
     private String password;
     private String domaine;
@@ -32,17 +35,7 @@ public class Etudiant extends User{
     private String etablissement;
     private String image;
 
-
-    @ManyToMany(mappedBy = "etudiants")
-    List<Demande> demandes;
-
-    @ManyToMany(mappedBy = "etudiants")
-    List<Entreprise> entreprises;
-
-    @ManyToMany(mappedBy = "etudiants")
-    List<Offre> offres;
-
-
-
+    // Constructors, getters, setters
 }
+
 

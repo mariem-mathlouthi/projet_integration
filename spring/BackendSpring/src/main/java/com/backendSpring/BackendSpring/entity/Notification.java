@@ -1,24 +1,38 @@
 package com.backendSpring.BackendSpring.entity;
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+
 @Getter
 @Setter
+
 @Entity
 @Table(name = "notifications")
+@EntityListeners(AuditingEntityListener.class)
 public class Notification {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "idEtudiant", referencedColumnName = "id")
+    private Etudiant etudiant;
+
+    @ManyToOne
+    @JoinColumn(name = "idEntreprise", referencedColumnName = "id")
+    private Entreprise entreprise;
+
     private String message;
-    private String destination;
-    private String type;
-    private String visibility;
+    @Enumerated(EnumType.STRING)
+    private Destination destination;
+    @Enumerated(EnumType.STRING)
+    private Type type;
+    @Enumerated(EnumType.STRING)
+    private Visibility visibility;
     private Date date;
 
-
+    // Constructors, getters, setters
 }
