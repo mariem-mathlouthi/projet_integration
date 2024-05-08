@@ -57,7 +57,7 @@
 						<tbody>
 							<tr v-for="(offre, index) in offres" :key="index">
 								<td>
-									<img src="../../assets/people.png">
+									 <img :src="logoURL" >
 									<p>{{ offre.titre }}</p>
 								</td>
 								<td>{{ offre.domaine }}</td>
@@ -79,14 +79,21 @@ export default {
       newOrders: 0,
       students: 0,
       companies: 0,
-      offres: [] // Ajout de la liste des offres
+      offres: [] ,
+      logoURL:"https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
     };
   },
   mounted() {
     this.fetchDashboardData();
     this.getAllOffresAdmin();
+    this.getLogoUrl();
   },
-  methods: {
+  methods: {  getLogoUrl(){
+        let storedLogoUrl= localStorage.getItem("EntrepriseLogo");
+        if (storedLogoUrl) {
+          this.logoURL = JSON.parse(storedLogoUrl).logo;
+        }
+      },
     fetchDashboardData() {
       axios.get('http://localhost:8000/api/states') // Supposant que vous avez une route pour les données du tableau de bord
         .then(response => {
