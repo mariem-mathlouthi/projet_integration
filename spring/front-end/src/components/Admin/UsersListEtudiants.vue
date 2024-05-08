@@ -71,17 +71,29 @@ export default {
     this.fetchStudents();
   },
   methods: {
-    fetchStudents() {
-      axios.get('http://localhost:8000/api/studentsAdmin')
-        .then(response => {
-          this.students = response.data.students;
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des étudiants :', error);
-        });
+    async fetchStudents() {
+      try {
+        const response = await axios.get(
+          `http://localhost:8087/admin/students`, 
+          { 
+            headers: { 
+              'Cache-Control': 'no-cache' // Ensure no caching 
+            } 
+          }
+        );
+        
+          this.students = response.data;
+          console.log(this.students);
+          console.table(this.students);
+       
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        
+      }
     },
+  
     deleteStudent(id) {
-      axios.delete(`http://localhost:8000/api/deleteStudentAdmin/${id}`)
+      axios.delete(`http://localhost:8087/admin/students/${id}`)
         .then(response => {
           console.log('Étudiant supprimé avec succès:', response.data);
           // Actualiser la liste des étudiants après la suppression

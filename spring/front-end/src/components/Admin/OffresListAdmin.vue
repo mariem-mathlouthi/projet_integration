@@ -61,21 +61,18 @@ export default {
     async getAllOffresAdmin() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/getAllOffreAdmin`, 
+          `http://localhost:8087/admin/offres`, 
           { 
             headers: { 
               'Cache-Control': 'no-cache' // Ensure no caching 
             } 
           }
         );
-        if (response.data.check === true) {
-          this.offres = response.data.offres;
+        
+          this.offres = response.data;
+          console.log(this.offres);
           console.table(this.offres);
-        } else {
-          toast.error("Server returned invalid response", {
-            autoClose: 2000,
-          });
-        }
+       
       } catch (error) {
         console.error("Error fetching data:", error);
         

@@ -95,7 +95,7 @@ export default {
         }
       },
     fetchDashboardData() {
-      axios.get('http://localhost:8000/api/states') // Supposant que vous avez une route pour les données du tableau de bord
+      axios.get('http://localhost:8087/admin/states') // Supposant que vous avez une route pour les données du tableau de bord
         .then(response => {
           console.log(response);
           this.newOrders = response.data.newOrders;
@@ -109,21 +109,18 @@ export default {
     async getAllOffresAdmin() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/getAllOffreAdmin`, 
+          `http://localhost:8087/admin/offres`, 
           { 
             headers: { 
               'Cache-Control': 'no-cache' // Assurer qu'il n'y a pas de mise en cache
             } 
           }
         );
-        if (response.data.check === true) {
-          this.offres = response.data.offres;
+        
+          this.offres = response.data;
           console.table(this.offres);
-        } else {
-          toast.error("Le serveur a retourné une réponse invalide", {
-            autoClose: 2000,
-          });
-        }
+       
+        
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
         

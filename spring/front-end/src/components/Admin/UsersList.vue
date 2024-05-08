@@ -57,18 +57,28 @@ export default {
     this.fetchEnterprises();
   },
   methods: {
-    fetchEnterprises() {
-      axios.get('http://localhost:8000/api/enterprisesAdmin')
-        .then(response => {
-          this.enterprises = response.data.enterprises;
+    async fetchEnterprises() {
+      try {
+        const response = await axios.get(
+          `http://localhost:8087/admin/enterprises`, 
+          { 
+            headers: { 
+              'Cache-Control': 'no-cache' // Ensure no caching 
+            } 
+          }
+        );
+        
+          this.enterprises = response.data;
+          console.log(this.enterprises);
           console.table(this.enterprises);
-        })
-        .catch(error => {
-          console.error('Error fetching enterprises:', error);
-        });
+       
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        
+      }
     },
      deleteEnterprise(id) {
-      axios.delete(`http://localhost:8000/api/enterprisesAdmin/${id}`)
+      axios.delete(`http://localhost:8087/admin/enterprises/${id}`)
         .then(response => {
           console.log(response.data.message); // Afficher un message de confirmation
           this.fetchEnterprises(); // Recharger la liste des entreprises après la suppression

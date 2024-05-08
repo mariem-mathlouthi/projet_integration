@@ -24,16 +24,19 @@
 </router-link>
 
 <router-link to="/OffresListAdmin">
-    <button @click="updateOfferStatus('en attente')" class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-green-600 hover:bg-green-600  hover:text-white transition-all duration-300">Metter En Attente</button>
+    <button @click="updateOfferStatus('en_attente')" class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-green-600 hover:bg-green-600  hover:text-white transition-all duration-300">Metter En Attente</button>
 </router-link>
 <router-link to="/OffresListAdmin">
 <button @click="updateOfferStatus('refusé')" class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-300">Refuser</button>
 </router-link>
         
-        <form @submit.prevent="deleteOffre">
-          <button type="submit"
-            class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-300">Delete</button>
-        </form>
+       <form @submit.prevent="deleteOffer">
+ 
+    <button type="submit"
+      class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-300">Delete</button>
+ 
+</form>
+
        
     </div>
 </div>
@@ -91,95 +94,72 @@
   </div>
   </template>
   
-  <script>
-  
-import { toast } from "vue3-toastify";
+ <script>
 import "vue3-toastify/dist/index.css";
 import axios from "axios";
 import NavbarOne from "./NavbarOne.vue";
 import SidebarMenu from "./SidebarMenu.vue";
 
-  export default {
-    data() {
-        return {
-            offerDetails:"",
-            offerId:"",
-          
-        };
-    },
-    name: 'app',
-    components: {
+export default {
+  data() {
+    return {
+      offerDetails: "",
+      offerId: "",
+    };
+  },
+  name: 'app',
+  components: {
     NavbarOne,
     SidebarMenu,
+  },
+  created() {
+    this.fetchOfferDetails(this.$route.params.id);
+    this.offerId = this.$route.params.id;
+  },
+  methods: {
+    async fetchOfferDetails(id) {
+      try {
+        const response = await axios.get(`http://localhost:8087/admin/offres/${id}`);
+        this.offerDetails = response.data;
+        console.log(this.offerDetails);
+      } catch (error) {
+        console.error("Error fetching offer details:", error);
+      }
     },
+    async updateOfferStatus(status) {
+      try {
+        const response = await axios.put(`http://localhost:8087/admin/offres/${this.offerId}`, {
+          status: status
+        });
+        if (response.data.offer) {
+          this.offerDetails = response.data.offer;
+          console.log('Offer status updated successfully');
+        } else {
+          console.error('Error updating offer status:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error updating offer status:', error);
+      }
+    },
+   async deleteOffer() {
+  try {
+    const response = await axios.delete(`http://localhost:8087/admin/offres/${this.offerId}`);
     
-    created() {
-        // Fetch offer details based on route parameter (offer ID)
-        this.fetchOfferDetails(this.$route.params.id);
-        this.offerId=this.$route.params.id;
-    },
-    methods: {
-        async fetchOfferDetails(id) {
-          
-          try {
-          const response = await axios.get(`http://localhost:8000/api/offreDetail2/${id}`);
-          
-          if (response.data.check === true) {
-              this.offerDetails=response.data.offre;
-              console.log(this.offerDetails);
-          } else {
-              // Handle if check is false
-              console.error("Error fetching offer details:", response.data.message);
-          }
-      } catch (error) {
-          console.error("Error fetching offer details:", error);
-      }
-          
-        },
- async updateOfferStatus(status) {
-        try {
-            const response = await axios.post(`http://localhost:8000/api/updateOfferStatus/${this.offerId}`, {
-                status: status
-            });
-              
-            if (response.data.offer) {
-                this.offerDetails = response.data.offer;
-                console.log('Offer status updated successfully');
-            } else {
-                console.error('Error updating offer status:', response.data.message);
-            }
-        } catch (error) {
-            console.error('Error updating offer status:', error);
-        }
-    },
-      async deleteOffre(){
-        let myjson2 = {
-          id:this.offerId,
-        }
-        try {
-          const response = await axios.post("http://localhost:8000/api/deleteOffre",myjson2);
-          if (response.data.delete === true) {
-            this.$router.push('/OffresListAdmin');
-          } else {
-            toast.error("Something went wrong !", {
-            autoClose: 2000, 
-            });
-          }
-      } catch (error) {
-          console.error("Error", error);
-      }
-        
-      }
-
-
-    }
+    console.log('Offer deleted successfully');
+    this.$router.push('/OffresListAdmin');
+  } catch (error) {
+    console.error('Error deleting offer:', error);
   }
-  </script>
-  
-  <style>
-.bg-gray-500{
-    margin-right: 250px;
+},
+
+
+
+  }
 }
-  </style>
+</script>
 
-
+<style>
+.bg-gray-500 {
+  margin-right: 250px;
+}
+</style>
