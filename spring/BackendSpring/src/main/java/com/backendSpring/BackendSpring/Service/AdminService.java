@@ -7,9 +7,10 @@ import com.backendSpring.BackendSpring.Repository.OffreRepository;
 import com.backendSpring.BackendSpring.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -39,21 +40,25 @@ public class AdminService {
         // Fetch all offers
         return offreRepository.findAll();
     }
+    public Offre getOffreById(Long id) {
 
-    public void updateOfferStatus(Long id, String status) {
-        // Find the offer by id
-        Optional<Offre> optionalOffer = offreRepository.findById(id);
-        if (optionalOffer.isEmpty()) {
-            throw new RuntimeException("Offer not found");
-        }
-
-        Offre offer = optionalOffer.get();
-        // Convert the status String to the corresponding Statuts enum value
-        Statuts statut = Statuts.valueOf(status); // Assuming the status String matches the enum name
-        // Update offer status
-        offer.setStatus(statut);
-        offreRepository.save(offer);
+        return offreRepository.findById(id).get();
     }
+
+
+    public Offre updateOfferStatus(Long id, Statuts status) {
+        // Find the offer by id
+        Optional<Offre> optionalOffre = offreRepository.findById(id);
+        if (optionalOffre.isPresent()) {
+            Offre offre = optionalOffre.get();
+            offre.setStatus(status);
+            return offreRepository.save(offre);
+        } else {
+            return null; // Offer not found
+        }
+    }
+
+
 
 
     public List<Etudiant> getAllStudents() {
@@ -87,6 +92,33 @@ public class AdminService {
         // Delete the enterprise
         entrepriseRepository.delete(optionalEntreprise.get());
     }
+    public void deleteOffre(Long id) {
+        // Find the enterprise by id
+        Optional<Offre> optionalOffre = offreRepository.findById(id);
+        if (optionalOffre.isEmpty()) {
+            throw new RuntimeException("offre not found");
+        }
 
+        // Delete the enterprise
+        offreRepository.delete(optionalOffre.get());
+    }
+
+    public Map<String, Long> states() {
+        Map<String, Long> statesMap = new HashMap<>();
+
+        // Count the number of new orders
+        long newOrders = offreRepository.count();
+        statesMap.put("newOrders", newOrders);
+
+        // Count the number of companies
+        long companies = entrepriseRepository.count();
+        statesMap.put("companies", companies);
+
+        // Count the number of students
+        long students = etudiantRepository.count();
+        statesMap.put("students", students);
+
+        return statesMap;
+    }
 }
 

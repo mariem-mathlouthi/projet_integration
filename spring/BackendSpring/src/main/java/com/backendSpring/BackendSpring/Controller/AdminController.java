@@ -1,19 +1,12 @@
 package com.backendSpring.BackendSpring.Controller;
 
 import com.backendSpring.BackendSpring.Service.AdminService;
-import com.backendSpring.BackendSpring.entity.Admin;
-import com.backendSpring.BackendSpring.entity.Entreprise;
-import com.backendSpring.BackendSpring.entity.Etudiant;
-import com.backendSpring.BackendSpring.entity.Offre;
+import com.backendSpring.BackendSpring.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
@@ -35,12 +28,19 @@ public class AdminController {
         List<Offre> offres = adminService.getAllOffresAdmin();
         return ResponseEntity.ok(offres);
     }
-
-    @PatchMapping("/offres/{id}")
-    public ResponseEntity<?> updateOfferStatus(@PathVariable Long id, @RequestParam String status) {
-        adminService.updateOfferStatus(id, status);
-        return ResponseEntity.ok("Offer status updated successfully");
+    @GetMapping("/offres/{id}")
+    public Offre getOffreById(@PathVariable Long id) {
+        return adminService.getOffreById(id);
     }
+
+    @PutMapping("/offres/{id}")
+    public Offre updateOfferStatus(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
+        String statusValue = requestBody.get("status");
+        Statuts status = Statuts.valueOf(statusValue); // Convert the status string to enum
+        return adminService.updateOfferStatus(id, status);
+    }
+
+
 
     @GetMapping("/students")
     public ResponseEntity<?> getAllStudents() {
@@ -53,6 +53,11 @@ public class AdminController {
         adminService.deleteStudent(id);
         return ResponseEntity.ok("Student deleted successfully");
     }
+    @DeleteMapping("/offres/{id}")
+    public ResponseEntity<?> deleteOffre(@PathVariable Long id) {
+        adminService.deleteOffre(id);
+        return ResponseEntity.ok("offre deleted successfully");
+    }
 
     @GetMapping("/enterprises")
     public ResponseEntity<?> getAllEnterprises() {
@@ -64,6 +69,10 @@ public class AdminController {
     public ResponseEntity<?> deleteEntreprise(@PathVariable Long id) {
         adminService.deleteEntreprise(id);
         return ResponseEntity.ok("Enterprise deleted successfully");
+    }
+    @GetMapping("/states")
+    public Map<String, Long> getAdminStates() {
+        return adminService.states();
     }
 }
 
