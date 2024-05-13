@@ -4,10 +4,17 @@ import com.backendSpring.BackendSpring.Repository.EtudiantRepository;
 import com.backendSpring.BackendSpring.dto.ApiResponse;
 import com.backendSpring.BackendSpring.entity.Etudiant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
@@ -15,30 +22,31 @@ import java.util.Optional;
 public class EtudiantService {
     @Autowired
     private EtudiantRepository etudiantRepository;
+    @Value("${upload.directory}")
+    String uploadDirectory;
 
 
-    public boolean signUpEtudiant(String fullname, String niveau, String cin, String email, String password, String domaine, String typeStage, String specialite, String etablissement, String image) {
+    public boolean signUpEtudiant(Etudiant e) {
 
-        if (etudiantRepository.existsByEmail(email)) {
+        if (etudiantRepository.existsByEmail(e.getEmail())) {
             return false;
+        } else if (etudiantRepository.existsByCin(e.getCin())) {
+            return false;
+        } else {
+            Etudiant etudiant = new Etudiant();
+            etudiant.setFullname(e.getFullname());
+            etudiant.setNiveau(e.getNiveau());
+            etudiant.setCin(e.getCin());
+            etudiant.setEmail(e.getEmail());
+            etudiant.setPassword(e.getPassword());
+            etudiant.setDomaine(e.getDomaine());
+            etudiant.setTypeStage(e.getTypeStage());
+            etudiant.setSpecialite(e.getSpecialite());
+            etudiant.setEtablissement(e.getEtablissement());
+            etudiant.setImage(e.getImage());
+            etudiantRepository.save(etudiant);
+            return true;
         }
-
-
-        Etudiant etudiant = new Etudiant();
-        etudiant.setFullname(fullname);
-        etudiant.setNiveau(niveau);
-        etudiant.setCin(cin);
-        etudiant.setEmail(email);
-        etudiant.setPassword(password);
-        etudiant.setDomaine(domaine);
-        etudiant.setTypeStage(typeStage);
-        etudiant.setSpecialite(specialite);
-        etudiant.setEtablissement(etablissement);
-        etudiant.setImage(image);
-
-
-        etudiantRepository.save(etudiant);
-        return true;
     }
 
     public ResponseEntity<ApiResponse> modifyEtudiantInfo(Etudiant etudiant) {
@@ -61,6 +69,17 @@ public class EtudiantService {
         }
     }
 
+    public boolean uploadFile(MultipartFile file) throws IOException {
+        try {
+            File F = new File(uploadDirectory + File.separator + file.getOriginalFilename());
+            file.transferTo(F.toPath());
+            return true;
+        }
+        catch (IOException e) {
+            System.out.println(e);
+            return  false;
+        }
+    }
 
 
 }
