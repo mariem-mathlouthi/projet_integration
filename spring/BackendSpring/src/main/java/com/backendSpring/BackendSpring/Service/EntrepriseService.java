@@ -31,4 +31,10 @@ public class EntrepriseService {
         }
     }
 
+
+    public Entreprise getEntrepriseDetails(Long entrepriseId) {
+        return entrepriseRepository.findById(entrepriseId)
+                .orElseThrow(() -> new RuntimeException("Entreprise not found"));
+    }
+
 }
