@@ -54,4 +54,9 @@ public class OffreController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/find/{type}/{search}")
+    public ResponseEntity<?> findOffres(@PathVariable int type,@PathVariable String search) {
+        return ResponseEntity.ok(offreService.chercherDesOffres(type,search));
+    }
+
 }

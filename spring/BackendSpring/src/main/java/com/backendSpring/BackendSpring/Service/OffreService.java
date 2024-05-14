@@ -5,6 +5,8 @@ import com.backendSpring.BackendSpring.entity.Offre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +19,11 @@ public class OffreService {
     public Offre ajouterOffre(Offre offre) {
         return offreRepository.save(offre);
     }
+
     public List<Offre> getAllOffres() {
         return offreRepository.findAll();
     }
+
     public Offre modifierOffre(Long id, Offre offreModifiee) {
         Optional<Offre> optionalOffre = offreRepository.findById(id);
         if (optionalOffre.isPresent()) {
@@ -38,14 +42,28 @@ public class OffreService {
             return null;
         }
     }
+
     public void supprimerOffre(Long id) {
         offreRepository.deleteById(id);
     }
+
     public Offre getOffreDetails(Long offreId) {
         return offreRepository.findById(offreId)
                 .orElseThrow(() -> new RuntimeException("Offre not found"));
     }
 
-
+    public ArrayList<Offre> chercherDesOffres(int searchType, String StringToSearch) {
+        ArrayList<Offre> SearchResult = new ArrayList<>();
+        for (Offre e : offreRepository.findAll()) {
+            if (searchType == 1 && e.getTitre().contains(StringToSearch)) {
+                SearchResult.add(e);
+            } else if (searchType == 2 && e.getDescription().contains(StringToSearch)) {
+                SearchResult.add(e);
+            } else if (searchType == 3 && e.getEntreprise().getName().contains(StringToSearch)) {
+                SearchResult.add(e);
+            }
+        }
+        return SearchResult;
+    }
 
 }
