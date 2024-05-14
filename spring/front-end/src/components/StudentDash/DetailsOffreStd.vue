@@ -75,15 +75,19 @@ import axios from "axios";
     },
     methods: {
 
-      async getOfferDetail(id){
+      getOfferDetail(id){
 
         try {
-            const response = await axios.get(
-              `http://localhost:8000/api/offreDetail2/${id}`
-            );
-            if (response.data.check === true) {
+              axios.get(
+              `http://localhost:8087/api/offres/${id}`
+            ).then((res)=>{
+              this.offre = res.data;
+
+            })
+            
+           /* if (response.data.check === true) {
               const response2 = await axios.get(
-                `http://localhost:8000/api/getEntreprise/${response.data.offre.idEntreprise}`
+                `http://localhost:8087/api/entreprise/${response.data.offre.idEntreprise}`
                 );
                 console.log(response2.data.entreprise.name);
                 let myObject ={
@@ -100,7 +104,7 @@ import axios from "axios";
                   toast.error("Something went wrong !", {
                       autoClose: 2000,
                   });
-              }
+              }*/
               } catch (error) {
                   console.error("Error:", error);
               }
