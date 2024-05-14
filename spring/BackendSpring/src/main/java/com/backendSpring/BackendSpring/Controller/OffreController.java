@@ -1,7 +1,9 @@
 package com.backendSpring.BackendSpring.Controller;
 
 import com.backendSpring.BackendSpring.Service.OffreService;
+import com.backendSpring.BackendSpring.entity.Demande;
 import com.backendSpring.BackendSpring.entity.Offre;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,16 @@ public class OffreController {
     public ResponseEntity<List<Offre>> afficherTousOffres() {
         List<Offre> offres = offreService.getAllOffres();
         return ResponseEntity.ok(offres);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Offre> getDemandeDetails(@PathVariable Long id) {
+        Offre offre = offreService.getOffreDetails(id);
+        if (offre != null) {
+            return new ResponseEntity<>(offre, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<Offre> modifierOffre(@PathVariable Long id, @RequestBody Offre offreModifiee) {

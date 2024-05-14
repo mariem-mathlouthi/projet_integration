@@ -46,4 +46,6 @@ public class OffreService {
                 .orElseThrow(() -> new RuntimeException("Offre not found"));
     }
 
+
+
 }
