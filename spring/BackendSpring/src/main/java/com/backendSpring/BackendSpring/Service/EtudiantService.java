@@ -4,17 +4,9 @@ import com.backendSpring.BackendSpring.Repository.EtudiantRepository;
 import com.backendSpring.BackendSpring.dto.ApiResponse;
 import com.backendSpring.BackendSpring.entity.Etudiant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
@@ -22,9 +14,6 @@ import java.util.Optional;
 public class EtudiantService {
     @Autowired
     private EtudiantRepository etudiantRepository;
-    @Value("${upload.directory}")
-    String uploadDirectory;
-
 
     public boolean signUpEtudiant(Etudiant e) {
 
@@ -68,18 +57,5 @@ public class EtudiantService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Etudiant not found", false));
         }
     }
-
-    public boolean uploadFile(MultipartFile file) throws IOException {
-        try {
-            File F = new File(uploadDirectory + File.separator + file.getOriginalFilename());
-            file.transferTo(F.toPath());
-            return true;
-        }
-        catch (IOException e) {
-            System.out.println(e);
-            return  false;
-        }
-    }
-
 
 }

@@ -6,9 +6,6 @@ import com.backendSpring.BackendSpring.entity.Etudiant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/etudiant")
@@ -29,16 +26,6 @@ public class EtudiantController {
     public ResponseEntity<ApiResponse> modifyEtudiantInfo(@RequestBody Etudiant etudiant) {
         ResponseEntity<ApiResponse> responseEntity = etudiantService.modifyEtudiantInfo(etudiant);
         return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
-    }
-
-    @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        if(etudiantService.uploadFile(file)) {
-            return ResponseEntity.ok("File Uploaded successfully");
-        }
-        else {
-            return ResponseEntity.badRequest().body("Error occurred while uploading the file");
-        }
     }
 
 }
