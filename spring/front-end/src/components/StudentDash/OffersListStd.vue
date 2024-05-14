@@ -36,7 +36,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
-            v-for="offre in filteredOffres"
+            v-for="offre in offres"
             :key="offre.id"
             class="bg-white shadow rounded-lg p-4"
           >
@@ -88,18 +88,21 @@ export default {
     };
   },
   methods: {
-    async getAllOffre() {
+     getAllOffre() {
       try {
-            const response = await axios.get(
-                "http://localhost:8000/api/allOffres"
-            );
-            if (response.data.check === true) {
+              axios.get(
+                "http://localhost:8087/api/offres/all"
+            ).then((res)=>{
+              this.offres = res.data;
+            })
+            
+        /*    if (response.data.check === true) {
               console.log(response.data.offres);
               
               for(let i=0;i<response.data.offres.length;i++){
                 if(response.data.offres[i].status=='accepté'){
                   const response2 = await axios.get(
-                `http://localhost:8000/api/getEntreprise/${response.data.offres[i].idEntreprise}`
+                `http://localhost:8087/api/entreprise/${response.data.offres[i].idEntreprise}`
                 );
                 let myObject ={
                   id:response.data.offres[i].id,
@@ -119,7 +122,7 @@ export default {
                   toast.error("Something went wrong !", {
                       autoClose: 2000,
                   });
-              }
+              }*/
               } catch (error) {
                   console.error("Error:", error);
               }
