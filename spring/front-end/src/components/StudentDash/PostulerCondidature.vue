@@ -67,7 +67,7 @@
       return {
         idEtudiant: "",
         idOffreDeStage:"",
-        statut: "en attente",
+        statut: "en_attente",
         DateSoumission:"23-04-2024",
         cv: "test.pdf",
         fullname: "",
@@ -100,11 +100,12 @@
 
       async submitApplication() {
         try {
-        const response= await axios.get(`http://localhost:8000/api/offreDetail2/${this.idOffreDeStage}`);
+        const response= await axios.get(`http://localhost:8087/api/offres/${this.idOffreDeStage}`);
         console.log(response.data.offre)
-        this.idEntreprise=response.data.offre.idEntreprise;
-        const response2= await axios.get(`http://localhost:8000/api/getEntreprise/${this.idEntreprise}`);
-        this.entrepriseName=response2.data.entreprise.name;
+        this.idEntreprise=response.data.entreprise.id;
+        this.offretitle=response.data.entreprise.titre;
+        const response2= await axios.get(`http://localhost:8087/api/entreprise/${this.idEntreprise}`);
+        this.entrepriseName=response2.data.name;
         console.log(this.entrepriseName);
 
         const currentDate = new Date();
@@ -116,7 +117,7 @@
         let myObj={
           idEtudiant:this.idEtudiant,
           idEntreprise:this.idEntreprise,
-          message:this.fullname+" a déposer une demande de stage en "+response.data.offre.titre,
+          message:this.fullname+" a déposer une demande de stage en "+this.offretitle,
           destination:"Entreprise",
           type:"demande",
           visibility:"shown",
@@ -139,10 +140,11 @@
           console.log(this.idEntreprise);
           
             const response4 = await axios.post(
-                "http://localhost:8000/api/addDemande",myjson
+                "http://localhost:8087/api/demandes/add",myjson
             );
 
-            if (response4.data.check === true) {
+          /*  if (response4.data.check === true) {
+
               toast.success("demande posted successfully !", {
                       autoClose: 2000,
                   });
@@ -150,7 +152,7 @@
                   toast.error("Something went wrong !", {
                       autoClose: 2000,
                   });
-              }
+              }*/
               } catch (error) {
                   console.error("Error:", error);
               }
