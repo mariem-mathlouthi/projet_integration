@@ -121,7 +121,7 @@ export default {
   },
   methods: {
 
-    async signUp() {
+    signUp() {
 
       let storedData = localStorage.getItem("Etudiant");
       this.fullname = JSON.parse(storedData).fullname;
@@ -144,12 +144,15 @@ export default {
       }
       console.log(myjson);
         try {
-          const response = await axios.post(
-            "http://localhost:8000/api/singupEtudiant",
+           axios.post(
+            "http://localhost:8087/etudiant/signup",
             myjson,
             
-          );
-          if (response.data.check === true) {
+          ).then((res)=>{
+            console.log(res.data);
+            this.$router.push({name:"signin"});
+          })
+         /* if (response.data.check === true) {
             toast.success("Account created succesfully !", {
               autoClose: 2000, 
             });
@@ -158,7 +161,7 @@ export default {
             toast.error("Email or cin already exists!", {
               autoClose: 2000, 
             });
-          }
+          }*/
         } catch (error) {
           console.error("Error:", error);
         }
