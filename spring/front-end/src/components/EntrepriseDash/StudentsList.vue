@@ -119,15 +119,15 @@ export default {
         const storedData = localStorage.getItem("EntrepriseAccountInfo");
         const idEntreprise = JSON.parse(storedData).id;
 
-        const response = await axios.get(`http://localhost:8000/api/getOffres/${idEntreprise}`);
+        const response = await axios.get(`http://localhost:8087/api/offres/all/${idEntreprise}`);
 
         if (response.data.check) {
           for (const offre of response.data.offres) {
-            const demandeResponse = await axios.get(`http://localhost:8000/api/getDemandeByOfferId/${offre.id}`);
+            const demandeResponse = await axios.get(`http://localhost:8087/api/demandes/byOfferId/${offre.id}`);
 
             if (demandeResponse.data.check) {
               for (const demande of demandeResponse.data.demandes) {
-                const studentResponse = await axios.get(`http://localhost:8000/api/getStudentDetail/${demande.idEtudiant}`);
+                const studentResponse = await axios.get(`http://localhost:8087/etudiant/${demande.idEtudiant}`);
                 const student = studentResponse.data.student;
 
                 const myObject = {

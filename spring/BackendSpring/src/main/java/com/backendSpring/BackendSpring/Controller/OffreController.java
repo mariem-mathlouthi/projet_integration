@@ -1,13 +1,16 @@
 package com.backendSpring.BackendSpring.Controller;
 
 import com.backendSpring.BackendSpring.Service.OffreService;
+import com.backendSpring.BackendSpring.dto.OffreDTO;
 import com.backendSpring.BackendSpring.entity.Demande;
 import com.backendSpring.BackendSpring.entity.Offre;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/offres")
@@ -24,10 +27,20 @@ public class OffreController {
         Offre nouvelleOffre = offreService.ajouterOffre(offre);
         return ResponseEntity.ok(nouvelleOffre);
     }
-    @GetMapping("/all")
-    public ResponseEntity<List<Offre>> afficherTousOffres() {
-        List<Offre> offres = offreService.getAllOffres();
+
+    @GetMapping("/all/{entrepriseId}")
+    public ResponseEntity<List<Offre>> afficherOffresParEntreprise(@PathVariable("entrepriseId") long entrepriseId) {
+        List<Offre> offres = offreService.getOffresByEntrepriseId(entrepriseId);
         return ResponseEntity.ok(offres);
+    }
+
+
+
+    @GetMapping("/{entrepriseId}/{offreId}")
+    public ResponseEntity<Offre> getOffreDetailsForEntreprise(@PathVariable("entrepriseId") Long entrepriseId,
+                                                              @PathVariable("offreId") Long offreId) {
+        Offre offre = offreService.getOffreDetailsForEntreprise(entrepriseId, offreId);
+        return ResponseEntity.ok(offre);
     }
 
     @GetMapping("/{id}")
@@ -39,15 +52,22 @@ public class OffreController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Offre> modifierOffre(@PathVariable Long id, @RequestBody Offre offreModifiee) {
-        Offre offreModifieeResult = offreService.modifierOffre(id, offreModifiee);
-        if (offreModifieeResult != null) {
-            return ResponseEntity.ok(offreModifieeResult);
+    @PostMapping("/updateOffre")
+    public ResponseEntity<Map<String, Object>> updateOffre(@RequestBody OffreDTO offreDTO) {
+        boolean isUpdated = offreService.updateOffre(offreDTO);
+        Map<String, Object> response = new HashMap<>();
+
+        if (isUpdated) {
+            response.put("message", "Offre updated successfully");
+            response.put("update", true);
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.notFound().build();
+            response.put("message", "Offre not found");
+            response.put("update", false);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> supprimerOffre(@PathVariable Long id) {
         offreService.supprimerOffre(id);
@@ -57,6 +77,12 @@ public class OffreController {
     @GetMapping("/find/{type}/{search}")
     public ResponseEntity<?> findOffres(@PathVariable int type,@PathVariable String search) {
         return ResponseEntity.ok(offreService.chercherDesOffres(type,search));
+    }
+
+
+    @GetMapping("/offreDetail2/{id}")
+    public ResponseEntity<Map<String, Object>> getOffreDetail2(@PathVariable Long id) {
+        return offreService.getOffreDetailById(id);
     }
 
 }

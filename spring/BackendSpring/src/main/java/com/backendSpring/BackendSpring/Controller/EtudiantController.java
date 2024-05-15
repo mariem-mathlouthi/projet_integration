@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/etudiant")
 public class EtudiantController {
@@ -28,4 +30,9 @@ public class EtudiantController {
         return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getStudentDetail(@PathVariable Long id) {
+        return etudiantService.getStudentDetail(id);
+    }
 }

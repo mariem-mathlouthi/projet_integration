@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -55,6 +58,22 @@ public class EtudiantService {
             return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Etudiant not found", false));
+        }
+    }
+
+
+    public ResponseEntity<Map<String, Object>> getStudentDetail(Long id) {
+        Optional<Etudiant> optionalEtudiant = etudiantRepository.findById(id);
+
+        if (optionalEtudiant.isPresent()) {
+            Etudiant student = optionalEtudiant.get();
+            Map<String, Object> response = new HashMap<>();
+            response.put("student", student);
+            response.put("message", "Student detail fetched successfully");
+            response.put("check", true);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 

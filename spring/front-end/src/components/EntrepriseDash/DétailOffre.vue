@@ -124,7 +124,7 @@ import axios from "axios";
           console.log(this.idEntreprise);
           console.log(id);
           try {
-          const response = await axios.get(`http://localhost:8000/api/offreDetail/${this.idEntreprise}/${id}`);
+          const response = await axios.get(`http://localhost:8087/api/offres/${this.idEntreprise}/${id}`);
           
           if (response.data.check === true) {
               this.offerDetails=response.data.offre;

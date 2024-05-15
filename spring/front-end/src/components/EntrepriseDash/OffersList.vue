@@ -87,7 +87,7 @@ export default {
     console.log(this.idEntreprise);
     try {
         const response = await axios.get(
-            `http://localhost:8000/api/getOffres/${this.idEntreprise}`
+            `http://localhost:8087/api/offres/all/${this.idEntreprise}`
         );
         
         if (response.data.check === true) {

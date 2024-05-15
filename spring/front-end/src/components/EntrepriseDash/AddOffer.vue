@@ -184,7 +184,7 @@ Cancel
         try {
 
         const response = await axios.post(
-            "http://localhost:8000/api/addOffre",
+            "http://localhost:8087/api/offres/add",
             myjson,
             
         );

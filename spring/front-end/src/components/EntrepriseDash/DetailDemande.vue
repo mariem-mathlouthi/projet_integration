@@ -102,7 +102,8 @@ import axios from "axios";
     methods: {
         async fetchDemandeDetails(id) {
           try {
-          const response = await axios.get(`http://localhost:8000/api/getDemandeById/${id}`);
+            //get demande by id 
+          const response = await axios.get(`http://localhost:8087/api/demandes/${id}`);
           this.demandeId=response.data.demande[0].id;
           console.log(this.demandeId);
           

@@ -133,7 +133,7 @@ Cancel
           console.log(this.idEntreprise);
           console.log(this.offerId);
           try {
-          const response = await axios.get(`http://localhost:8000/api/offreDetail/${this.idEntreprise}/${this.offerId}`);
+          const response = await axios.get(`http://localhost:8087/api/offres/${this.idEntreprise}/${this.offerId}`);
           
           if (response.data.check === true) {
               this.offerDetails=response.data.offre;
@@ -170,7 +170,7 @@ Cancel
         cahierCharge: this.cahierCharge
       }
       try {
-      const response = await axios.post("http://localhost:8000/api/updateOffre",myjson);
+      const response = await axios.post("http://localhost:8087/api/offres/updateOffre",myjson);
       if(response.data.update==true){
         toast.success("Offre updated succesfully !", {
             autoClose: 2000, 

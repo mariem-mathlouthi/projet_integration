@@ -62,11 +62,11 @@
         const storedData = localStorage.getItem("EntrepriseAccountInfo");
         const idEntreprise = JSON.parse(storedData).id;
 
-        const response = await axios.get(`http://localhost:8000/api/getOffres/${idEntreprise}`);
+        const response = await axios.get(`http://localhost:8087/api/offres/all/${idEntreprise}`);
 
         if (response.data.check) {
           for (const offre of response.data.offres) {
-            const demandeResponse = await axios.get(`http://localhost:8000/api/getDemandeByOfferId/${offre.id}`);
+            const demandeResponse = await axios.get(`http://localhost:8087/api/demandes/${offre.id}`);
             console.log(demandeResponse.data);
             if (demandeResponse.data.check) {
               for (const demande of demandeResponse.data.demandes) {

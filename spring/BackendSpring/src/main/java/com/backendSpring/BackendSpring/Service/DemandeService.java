@@ -4,9 +4,12 @@ import com.backendSpring.BackendSpring.Exception.DemandeNotFoundException;
 import com.backendSpring.BackendSpring.Repository.DemandeRepository;
 import com.backendSpring.BackendSpring.entity.Demande;
 import com.backendSpring.BackendSpring.entity.Statuts;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,9 +28,8 @@ public class DemandeService {
     public List<Demande> getAllDemandesDeStage() {
         return demandeRepository.findAll();
     }
-    public Demande getDemandeDetails(Long id) {
-        Optional<Demande> demandeOptional = demandeRepository.findById(id);
-        return demandeOptional.orElse(null);
+    public List<Demande> getDemandeByOfferId(Long offerId) {
+        return demandeRepository.findByOffreDeStageId(offerId);
     }
 
     public void accepterEtudiant(Long demandeId, Long etudiantId) {
@@ -54,19 +56,23 @@ public class DemandeService {
         }
     }
 
-    public void mettreEnAttenteDemande(Long demandeId) {
-        Optional<Demande> demandeOptional = demandeRepository.findById(demandeId);
-        if (demandeOptional.isPresent()) {
-            Demande demande = demandeOptional.get();
-            demande.setStatus(Statuts.en_attente); // Assuming en_attente is a valid value in Statuts enum
-            demandeRepository.save(demande);
+    public ResponseEntity<Map<String, Object>> updateStatut(Long id, Statuts statut) {
+        Optional<Demande> optionalDemande = demandeRepository.findById(id);
+
+        if (optionalDemande.isPresent()) {
+            Demande existingDemande = optionalDemande.get();
+            existingDemande.setStatut(statut);
+            demandeRepository.save(existingDemande);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Demande updated successfully");
+            response.put("update", true);
+            return ResponseEntity.ok(response);
         } else {
-            throw new DemandeNotFoundException("La demande avec l'ID " + demandeId + " n'a pas été trouvée.");
+            return ResponseEntity.notFound().build();
         }
     }
-    public void setStatus(Statuts statut) {
-        this.statut = statut;
-    }
+
 
     public List<Demande> getDemandesEnAttente() {
         return demandeRepository.findByStatut(Statuts.en_attente);
