@@ -13,9 +13,10 @@
               v-model="searchCriteria"
               class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             >
-              <option value="title">Titre</option>
-              <option value="description">Description</option>
-              <option value="company">Entreprise</option>
+              <option value="0">Select</option>
+              <option value="1">Titre</option>
+              <option value="2">Description</option>
+              <option value="3">Entreprise</option>
             </select>
             <input
               type="text"
@@ -24,7 +25,7 @@
               class="ml-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             />
             <button
-              @click.prevent="search(searchQuery,searchCriteria)"
+              @click="search(searchQuery, searchCriteria)"
               class="ml-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Rechercher
@@ -42,10 +43,8 @@
           >
             <h3 class="text-lg font-semibold mb-2">{{ offre.titre }}</h3>
             <p class="text-gray-600 mb-4">{{ offre.description }}</p>
-            <p class="text-gray-600 mb-4">{{ offre.entrepriseName }}</p>
+            <p class="text-gray-600 mb-4">{{ offre.entreprise.name }}</p>
             <div class="flex items-center justify-between">
-             
-
               <router-link :to="'/DetailsOffreStd/' + offre.id">
                 <button
                   class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
@@ -62,14 +61,11 @@
 </template>
 
 <script>
-
-import Navbar from './NavBarStd.vue'
-import Sidebar from './Sidebar.vue'
+import Navbar from "./NavBarStd.vue";
+import Sidebar from "./Sidebar.vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import axios from "axios";
-
-
 
 export default {
   created() {
@@ -82,83 +78,43 @@ export default {
   data() {
     return {
       offres: [],
-      filteredOffres: [],
-      searchCriteria: "title",
+      AllOffres: [],
+      searchCriteria: "0",
       searchQuery: "",
     };
   },
   methods: {
-     getAllOffre() {
+    getAllOffre() {
       try {
-              axios.get(
-                "http://localhost:8087/api/offres/all"
-            ).then((res)=>{
-              this.offres = res.data;
-            })
-            
-        /*    if (response.data.check === true) {
-              console.log(response.data.offres);
-              
-              for(let i=0;i<response.data.offres.length;i++){
-                if(response.data.offres[i].status=='accepté'){
-                  const response2 = await axios.get(
-                `http://localhost:8087/api/entreprise/${response.data.offres[i].idEntreprise}`
-                );
-                let myObject ={
-                  id:response.data.offres[i].id,
-                  titre:response.data.offres[i].titre,
-                  description:response.data.offres[i].description,
-                  entrepriseName:response2.data.entreprise.name,
-
-                }
-                console.log(myObject);
-                this.offres.push(myObject);
-                console.log(this.offres);
-                this.filteredOffres=this.offres;
-              }
-              }
-                
-              } else {
-                  toast.error("Something went wrong !", {
-                      autoClose: 2000,
-                  });
-              }*/
-              } catch (error) {
-                  console.error("Error:", error);
-              }
-
-
-    
-    },
-  
-
-    search(searchQuery, searchCriteria) {
-    const query = searchQuery.toLowerCase();
-    const queryWords = query.split(" ");
-    
-    if (query === "all") {
-    this.filteredOffres = this.offres;
-    return;
-  }
-
-    this.filteredOffres = this.offres.filter((offre) => {
-      if (searchCriteria === "title") {
-        return queryWords.some((word) =>
-          offre.titre.toLowerCase().includes(word)
-        );
-      } else if (searchCriteria === "description") {
-        return queryWords.some((word) =>
-          offre.description.toLowerCase().includes(word)
-        );
-      } else if (searchCriteria === "company") {
-        return queryWords.some((word) =>
-          offre.entrepriseName.toLowerCase().includes(word)
-        );
+        axios.get("http://localhost:8087/api/offres/all").then((res) => {
+          this.AllOffres = res.data;
+          this.offres = res.data;
+        });
+      } catch (error) {
+        console.error("Error:", error);
       }
-      
-    });
-  },
-
+    },
+    search(searchQuery, searchCriteria) {
+      if (searchQuery == "") {
+        this.offres = this.AllOffres;
+      } else {
+        axios
+          .get(
+            "http://localhost:8087/api/offres/find/" +
+              searchCriteria +
+              "/" +
+              searchQuery
+          )
+          .then((res) => {
+            this.offres = res.data;
+          })
+          .catch(function (error) {
+            toast.error("Something went wrong !", {
+              autoClose: 2000,
+            });
+          });
+      }
+    },
   },
 };
 </script>

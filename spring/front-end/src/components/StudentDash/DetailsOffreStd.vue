@@ -34,8 +34,8 @@
                       d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
                       data-original="#000000" />
                   </svg>
-                  Télécharger Cahier de charge
-                  <input type="file" id="uploadFile1" class="hidden" />
+                  
+                  <button @click="telechargerCahierCharge(offre.cahierCharge)">Télécharger Cahier de charge</button>
                 </label>
               </div>
               <router-link :to="'/PostulerCondidature/'+ offre.id">
@@ -110,6 +110,19 @@ import axios from "axios";
               }
 
 
+      },
+      telechargerCahierCharge(filename) {
+        axios
+          .get(
+            "http://localhost:8087/file/download/" + filename)
+          .then((res) => {
+            toast.success("File is downlloading");
+          })
+          .catch(function (error) {
+            toast.error("Something went wrong !", {
+              autoClose: 2000,
+            });
+          });
       }
      
   
