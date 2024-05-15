@@ -91,110 +91,6 @@
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
-  </template>
-  
-  <script>
-  import Navbar from './NavBarStd.vue';
-  import Sidebar from './Sidebar.vue';
-  import { toast } from "vue3-toastify";
-  import "vue3-toastify/dist/index.css";
-  import axios from "axios";
-  export default {
-    data() {
-      return {
-        idEtudiant: "",
-        idOffreDeStage:"",
-        statut: "en_attente",
-        DateSoumission:"23-04-2024",
-        cv: "test.pdf",
-        fullname: "",
-        email: "",
-        idEntreprise:"",
-        entrepriseName:"",
-      };
-    },
-    components: {
-      Navbar,
-      Sidebar
-    },
-
-    created() {
-   this.idOffreDeStage=this.$route.params.id;
-   this.getAccountData();
-   
-  },
-    methods: {
-      handleFileUpload(event) {
-        this.cv = event.target.files[0];
-      },
-
-      getAccountData(){
-        let storedData = localStorage.getItem("StudentAccountInfo"); 
-          this.idEtudiant = JSON.parse(storedData).id;
-          this.fullname= JSON.parse(storedData).fullname;
-          this.email= JSON.parse(storedData).email;
-      },
-
-      async submitApplication() {
-        try {
-        const response= await axios.get(`http://localhost:8087/api/offres/${this.idOffreDeStage}`);
-        console.log(response.data.offre)
-        this.idEntreprise=response.data.entreprise.id;
-        this.offretitle=response.data.entreprise.titre;
-        const response2= await axios.get(`http://localhost:8087/api/entreprise/${this.idEntreprise}`);
-        this.entrepriseName=response2.data.name;
-        console.log(this.entrepriseName);
-
-        const currentDate = new Date();
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        const year = currentDate.getFullYear();
-        const formattedDate = `${day}-${month}-${year}`;
-        console.log(formattedDate);
-        let myObj={
-          idEtudiant:this.idEtudiant,
-          idEntreprise:this.idEntreprise,
-          message:this.fullname+" a déposer une demande de stage en "+this.offretitle,
-          destination:"Entreprise",
-          type:"demande",
-          visibility:"shown",
-          date:formattedDate,
-        }
-
-        console.log(myObj);
-        
-        /*const response3= await axios.post("http://localhost:8000/api/notification",myObj);
-        console.log(response3.data);*/
-          let myjson ={
-            idEtudiant:this.idEtudiant,
-            idOffreDeStage:this.idOffreDeStage,
-            statut:this.statut,
-            DateSoumission:this.DateSoumission,
-            cv:this.cv,
-          }
-          console.log(myjson);
-
-          console.log(this.idEntreprise);
-          
-            const response4 = await axios.post(
-                "http://localhost:8087/api/demandes/add",myjson
-            );
-
-          /*  if (response4.data.check === true) {
-
-              toast.success("demande posted successfully !", {
-                      autoClose: 2000,
-                  });
-              } else {
-                  toast.error("Something went wrong !", {
-                      autoClose: 2000,
-                  });
-              }*/
-              } catch (error) {
-                  console.error("Error:", error);
-              }
-=======
   </div>
 </template>
 
@@ -211,12 +107,11 @@ export default {
       idOffreDeStage: "",
       statut: "en attente",
       DateSoumission: "23-04-2024",
-      cv: "test.pdf",
+      cv: "",
       fullname: "",
       email: "",
       idEntreprise: "",
       entrepriseName: "",
->>>>>>> Stashed changes
 
       DemandeData : {
         cv: null,
