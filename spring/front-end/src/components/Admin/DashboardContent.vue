@@ -20,7 +20,7 @@
         <i class='bx bxs-calendar-check'></i>
         <span class="text">
           <h3>{{ newOrders }}</h3>
-          <p>New Order</p>
+          <p>New Request</p>
         </span>
       </li>
       <li>
@@ -42,7 +42,7 @@
    <div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>Recent Orders</h3>
+						<h3>Recent Requests</h3>
 						<i class='bx bx-search'></i>
 						<i class='bx bx-filter'></i>
 					</div>
