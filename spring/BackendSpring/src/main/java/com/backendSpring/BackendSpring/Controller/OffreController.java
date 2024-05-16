@@ -42,9 +42,14 @@ public class OffreController {
         Offre offre = offreService.getOffreDetailsForEntreprise(entrepriseId, offreId);
         return ResponseEntity.ok(offre);
     }
+    @GetMapping("/all")
+    public ResponseEntity<List<Offre>> afficherTousOffres() {
+        List<Offre> offres = offreService.getAllOffres();
+        return ResponseEntity.ok(offres);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Offre> getDemandeDetails(@PathVariable Long id) {
+    public ResponseEntity<Offre> getOffreDetails(@PathVariable Long id) {
         Offre offre = offreService.getOffreDetails(id);
         if (offre != null) {
             return new ResponseEntity<>(offre, HttpStatus.OK);

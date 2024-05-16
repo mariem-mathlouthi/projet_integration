@@ -22,6 +22,15 @@ public class OffreService {
     public List<Offre> getOffresByEntrepriseId(long entrepriseId) {
         return offreRepository.findByEntrepriseId(entrepriseId);
     }
+    public List<Offre> getAllOffres() {
+        return offreRepository.findAll();
+    }
+
+    public Offre getOffreDetails(Long offreId) {
+        return offreRepository.findById(offreId)
+                .orElseThrow(() -> new RuntimeException("Offre not found"));
+    }
+
 
     public boolean updateOffre(OffreDTO offreDTO) {
         Optional<Offre> optionalOffre = offreRepository.findById(offreDTO.getId());
@@ -48,10 +57,8 @@ public class OffreService {
         offreRepository.deleteById(id);
     }
 
-    public Offre getOffreDetails(Long offreId) {
-        return offreRepository.findById(offreId)
-                .orElseThrow(() -> new RuntimeException("Offre not found"));
-    }
+
+
     public Offre getOffreDetailsForEntreprise(Long entrepriseId, Long offreId) {
         Offre offre = offreRepository.findByIdAndEntrepriseId(offreId, entrepriseId)
                 .orElseThrow(() -> new RuntimeException("Offre not found for the specified entreprise"));
