@@ -3,6 +3,7 @@ package com.backendSpring.BackendSpring.Controller;
 import com.backendSpring.BackendSpring.Service.EntrepriseService;
 import com.backendSpring.BackendSpring.dto.ApiResponse;
 import com.backendSpring.BackendSpring.entity.Entreprise;
+import com.backendSpring.BackendSpring.entity.EntreprisePayload;
 import com.backendSpring.BackendSpring.entity.Offre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,12 @@ public class EntrepriseController {
 
     @Autowired
     private EntrepriseService entrepriseService;
+
+    @PostMapping("/Add")
+    public ResponseEntity<?> AddEntreprise(@RequestBody EntreprisePayload entreprise) {
+        entrepriseService.AddEntreprise(entreprise);
+        return ResponseEntity.ok().body("User Created");
+    }
 
     @PutMapping("/modify")
     public ResponseEntity<ApiResponse> modifyEntrepriseInfo(@RequestBody Entreprise entreprise) {

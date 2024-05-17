@@ -1,6 +1,6 @@
 package com.backendSpring.BackendSpring.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,9 @@ public class Admin {
 
     private String email;
     private String password;
-
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
    
-    // Constructors, getters, setters
+
 }

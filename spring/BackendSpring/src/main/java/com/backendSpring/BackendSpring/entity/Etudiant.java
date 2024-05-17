@@ -1,6 +1,6 @@
 package com.backendSpring.BackendSpring.entity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,14 +26,15 @@ public class Etudiant {
     private String niveau;
     @Column(unique = true)
     private String cin;
-    @Column(unique = true)
-    private String email;
-    private String password;
     private String domaine;
     private String typeStage;
     private String specialite;
     private String etablissement;
     private String image;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     // Constructors, getters, setters
 }

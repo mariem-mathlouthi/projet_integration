@@ -3,6 +3,7 @@ package com.backendSpring.BackendSpring.Controller;
 import com.backendSpring.BackendSpring.Service.EtudiantService;
 import com.backendSpring.BackendSpring.dto.ApiResponse;
 import com.backendSpring.BackendSpring.entity.Etudiant;
+import com.backendSpring.BackendSpring.entity.EtudiantPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class EtudiantController {
     private EtudiantService etudiantService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpEtudiant(@RequestBody Etudiant e) {
+    public ResponseEntity<?> signUpEtudiant(@RequestBody EtudiantPayload e) {
         if (etudiantService.signUpEtudiant(e)) {
             return ResponseEntity.ok("Account created successfully");
         } else {

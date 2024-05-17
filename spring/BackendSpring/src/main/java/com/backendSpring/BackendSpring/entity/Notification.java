@@ -1,7 +1,7 @@
 package com.backendSpring.BackendSpring.entity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.Date;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 

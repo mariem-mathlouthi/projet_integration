@@ -1,6 +1,6 @@
 package com.backendSpring.BackendSpring.entity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class Offre {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idEntreprise", referencedColumnName = "id")
+    @JoinColumn(name = "id_entreprise", referencedColumnName = "id")
     private Entreprise entreprise;
 
     @Enumerated(EnumType.STRING)

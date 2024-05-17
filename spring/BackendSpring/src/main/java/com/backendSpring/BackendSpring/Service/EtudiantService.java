@@ -1,8 +1,12 @@
 package com.backendSpring.BackendSpring.Service;
 
 import com.backendSpring.BackendSpring.Repository.EtudiantRepository;
+import com.backendSpring.BackendSpring.Repository.UserRepository;
+import com.backendSpring.BackendSpring.SpringSecurity.SecurityConfig;
 import com.backendSpring.BackendSpring.dto.ApiResponse;
 import com.backendSpring.BackendSpring.entity.Etudiant;
+import com.backendSpring.BackendSpring.entity.EtudiantPayload;
+import com.backendSpring.BackendSpring.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,38 +21,39 @@ import java.util.Optional;
 public class EtudiantService {
     @Autowired
     private EtudiantRepository etudiantRepository;
+    @Autowired
+    private SecurityConfig securityConfig;
 
-    public boolean signUpEtudiant(Etudiant e) {
-
-        if (etudiantRepository.existsByEmail(e.getEmail())) {
-            return false;
-        } else if (etudiantRepository.existsByCin(e.getCin())) {
-            return false;
-        } else {
+    @Autowired
+    private UserRepository UserRepo;
+    public boolean signUpEtudiant(EtudiantPayload e) {
+            User user=new User();
+            user.setEmail(e.getEmail());
+            user.setPassword(securityConfig.passwordEncoder().encode(e.getPassword()));
+            user.setRole("Etudiant");
             Etudiant etudiant = new Etudiant();
             etudiant.setFullname(e.getFullname());
             etudiant.setNiveau(e.getNiveau());
             etudiant.setCin(e.getCin());
-            etudiant.setEmail(e.getEmail());
-            etudiant.setPassword(e.getPassword());
             etudiant.setDomaine(e.getDomaine());
             etudiant.setTypeStage(e.getTypeStage());
             etudiant.setSpecialite(e.getSpecialite());
             etudiant.setEtablissement(e.getEtablissement());
             etudiant.setImage(e.getImage());
+            etudiant.setUser(UserRepo.save(user));
             etudiantRepository.save(etudiant);
             return true;
-        }
+
     }
 
     public ResponseEntity<ApiResponse> modifyEtudiantInfo(Etudiant etudiant) {
-        Optional<Etudiant> existingEtudiant = etudiantRepository.findByEmail(etudiant.getEmail());
+       /* Optional<Etudiant> existingEtudiant = etudiantRepository.findByEmail("dd");
         if (existingEtudiant.isPresent()) {
             Etudiant existing = existingEtudiant.get();
             existing.setFullname(etudiant.getFullname());
             existing.setNiveau(etudiant.getNiveau());
             existing.setCin(etudiant.getCin());
-            existing.setPassword(etudiant.getPassword());
+
             existing.setDomaine(etudiant.getDomaine());
             existing.setTypeStage(etudiant.getTypeStage());
             existing.setSpecialite(etudiant.getSpecialite());
@@ -58,7 +63,10 @@ public class EtudiantService {
             return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Etudiant not found", false));
-        }
+        }*/
+
+        return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
+
     }
 
 

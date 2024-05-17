@@ -1,9 +1,7 @@
 package com.backendSpring.BackendSpring.Service;
 
-import com.backendSpring.BackendSpring.Repository.AdminRepository;
-import com.backendSpring.BackendSpring.Repository.EntrepriseRepository;
-import com.backendSpring.BackendSpring.Repository.EtudiantRepository;
-import com.backendSpring.BackendSpring.Repository.OffreRepository;
+import com.backendSpring.BackendSpring.Repository.*;
+import com.backendSpring.BackendSpring.SpringSecurity.SecurityConfig;
 import com.backendSpring.BackendSpring.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,10 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
+
+    @Autowired
+    UserRepository userRepo;
+
     @Autowired
     private OffreRepository offreRepository;
 
@@ -25,14 +27,20 @@ public class AdminService {
     private EtudiantRepository etudiantRepository;
 
     @Autowired
+    SecurityConfig secuirtyConfig;
+
+    @Autowired
     private EntrepriseRepository entrepriseRepository;
 
     public Admin signUpAdmin(String email, String password) {
-
-        // Create a new admin
+        User user=new User();
+        user.setEmail(email);
+        user.setRole("Admin");
+        user.setPassword(secuirtyConfig.passwordEncoder().encode(password));
         Admin newAdmin = new Admin();
         newAdmin.setEmail(email);
-        newAdmin.setPassword(password); // Password hashing can be handled here if needed
+        newAdmin.setPassword(password);
+        newAdmin.setUser(userRepo.save(user));
         return adminRepository.save(newAdmin);
     }
 
