@@ -12,6 +12,12 @@ class studentController extends Controller
         // Check if email already exists
         $existingUser = Etudiant::where('email', $requestData['email'])->first();
         if ($existingUser) {
+            $image = $request->file('image');
+            // Generate a unique filename
+            $filename = time() . '_' . $image->getClientOriginalName();
+            // Move the uploaded logo file to the uploads folder
+            $image->move(public_path('storage/uploads'), $filename);
+            $url = asset('storage/uploads/'.$filename);
             // Update Account user
             $existingUser->fullname = $requestData['fullname'];
             $existingUser->niveau = $requestData['niveau'];
@@ -19,7 +25,7 @@ class studentController extends Controller
             $existingUser->typeStage = $requestData['typeStage'];
             $existingUser->specialite = $requestData['specialite']; // Corrected typo from 'specailite' to 'specialite'
             $existingUser->etablissement = $requestData['etablissement'];
-            $existingUser->image = $requestData['image'];
+            $existingUser->image = $url;
             $existingUser->save();
             return response()->json([
                 'message' => 'Account updated successfully',

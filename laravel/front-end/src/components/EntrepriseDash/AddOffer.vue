@@ -6,8 +6,6 @@
       <Sidebar />
     </div>
     <div class="col-span-9 mt-24 mr-24">
-  
-   
         <div class="font-[sans-serif] mt-12">
            
             <div class="-mt-28 mb-6 px-4">
@@ -77,7 +75,7 @@
             <div class="flex text-sm text-gray-600">
                 <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-[#007bff] hover:text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#007bff]">
                     <span>Upload a file</span>
-                    <input id="file-upload" name="file-upload"  type="file" class="sr-only">
+                    <input id="file-upload" name="file-upload"  type="file" class="sr-only" @change="handleFileUpload">
                 </label>
                 <p class="pl-1">or drag and drop</p>
             </div>
@@ -135,7 +133,7 @@ Cancel
         dateDebut:"",
         dateFin:"",
         typeOffre:"",
-        cahierCharge:"test.pdf",
+        cahierCharge:"",
         email:"",
         entrepriseName:"",
     };
@@ -145,10 +143,13 @@ Cancel
       Sidebar
     },
   methods: {
-
+     
+    handleFileUpload(event) {
+        this.cahierCharge = event.target.files[0];
+        console.log(this.cahierCharge);
+      },
 
     async addOffre() {
-        
         console.log("hello");
         let storedData = localStorage.getItem("EntrepriseAccountInfo");
         this.idEntreprise = JSON.parse(storedData).id;
@@ -180,12 +181,25 @@ Cancel
           visibility:"shown",
           date:formattedDate,
         }
+
+        let formData = new FormData();
+        formData.append('idEntreprise', this.idEntreprise);
+        formData.append('status', this.status);
+        formData.append('titre', this.titre);
+        formData.append('description', this.description);
+        formData.append('domaine', this.domaine);
+        formData.append('dateDebut', this.dateDebut);
+        formData.append('dateFin', this.dateFin);
+        formData.append('typeOffre', this.typeOffre);
+        formData.append('cahierCharge', this.cahierCharge);
+        console.log(formData);
+
         
         try {
 
         const response = await axios.post(
             "http://localhost:8000/api/addOffre",
-            myjson,
+            formData,
             
         );
         const response2= await axios.post("http://localhost:8000/api/notification",myObj);

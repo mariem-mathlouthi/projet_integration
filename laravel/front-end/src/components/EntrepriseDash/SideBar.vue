@@ -103,24 +103,42 @@
   </template>
   
   <script>
+  import axios from "axios";
+  import { toast } from "vue3-toastify";
+  import "vue3-toastify/dist/index.css";
   export default {
     name: 'Sidebar',
     data(){
       return{
+        idEntreprise:"",
         logoURL:"https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
       }
     },
     methods:{
-      getLogoUrl(){
-        let storedLogoUrl= localStorage.getItem("EntrepriseLogo");
-        if (storedLogoUrl) {
-          this.logoURL = JSON.parse(storedLogoUrl).logo;
+      
+      async getLogo(){
+        let storedData = localStorage.getItem("EntrepriseAccountInfo"); 
+        this.idEntreprise = JSON.parse(storedData).id;
+        console.log(this.idEntreprise);
+        try {
+        const response = await axios.get(
+          `http://localhost:8000/api/getEntreprise/${this.idEntreprise}`);
+        if (response.data.check==true) {
+          console.log(response.data);
+          this.logoURL = "http://localhost:8000"+response.data.entreprise.logo;
+        } else {
+          toast.error("error !", {
+            autoClose: 2000, 
+          });
         }
+      } catch (error) {
+        console.error("Error:", error);
+      }
       }
 
     },
     mounted(){
-      this.getLogoUrl();
+      this.getLogo();
     }
   }
   </script>

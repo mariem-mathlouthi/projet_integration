@@ -60,17 +60,7 @@
             if (response.data.check === true) {
                 for(let i=0;i<response.data.notifications.length;i++){
                  if(response.data.notifications[i].idEtudiant==this.idEtudiant){
-                  if(response.data.notifications[i].type=="offre"){
-                    let myObj={
-                    title:"Nouvelle Offre de stage",
-                    message:response.data.notifications[i].message,
-                    date:response.data.notifications[i].date,
-                    type:"offre"
-                  }
-                  this.notifications.push(myObj);
-
-                  }
-                  else if(response.data.notifications[i].type=="demande"){
+                  if(response.data.notifications[i].type=="demande"){
                     let myObj={
                     title:"Notification de votre demande stage",
                     message:response.data.notifications[i].message,
@@ -80,7 +70,24 @@
                   this.notifications.push(myObj);
                   }
                  }
+                 else{
+                  if(response.data.notifications[i].type=="offre"){
+                    let myObj={
+                    title:"Nouvelle Offre de stage",
+                    message:response.data.notifications[i].message,
+                    date:response.data.notifications[i].date,
+                    type:"offre"
+                  }
+                  console.log(myObj);
+                  this.notifications.push(myObj);
+                  console.log(this.notifications);
+
+                  } 
+                 }
                 }
+                
+                console.log(this.notifications);
+                this.notifications.reverse();
                 console.log(this.notifications);
                 let myJson ={
                   notifications:this.notifications,

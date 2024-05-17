@@ -1,5 +1,8 @@
-<template>
-  <header>
+<template >
+  <div class="flex flex-col full-height" :style="{
+        background: 'linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 121, 249, 0.26) 40.92%, rgba(204, 171, 238, 0) 70.35%)',
+      }">
+  <header >
     
       <nav class="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6">
         <a href="javascript:void(0)" data-aos="fade-left">
@@ -24,7 +27,7 @@
         </ul>
       </nav>
     </header>
-    <section  data-aos="fade-up">
+    <section  data-aos="fade-up" >
       <div class="max-w-screen-xl mx-auto px-4 py-28 gap-12 text-gray-600 md:px-8">
           <div class="space-y-5 max-w-4xl mx-auto text-center">
               <h2 class="text-4xl text-gray-800 font-extrabold mx-auto md:text-5xl">
@@ -45,6 +48,7 @@
          
       </div>
     </section>
+  </div>
   </template>
 <script>
 import "aos/dist/aos.css";
@@ -54,7 +58,7 @@ export default {
   data: function () {
     return {
       navigation: [
-        { title: "Teams", router: "#" },
+        { title: "Team", router: "/teams" },
         { title: "Contact", router: "/contact" },
       ]
     }
@@ -78,3 +82,17 @@ export default {
     },
 }
 </script>
+
+
+<style scoped>
+.full-height {
+  height: 100vh; 
+  min-height: 100%; 
+}
+
+html, body {
+  height: 100%; 
+  margin: 0; 
+  padding: 0;
+}
+</style>

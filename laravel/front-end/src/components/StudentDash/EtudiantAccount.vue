@@ -121,6 +121,7 @@
   export default {
     data() {
       return {
+        idEtudiant: "",
         fullname: "",
         niveau: "",
         email: "",
@@ -154,44 +155,46 @@
       },
       async handleImageChange(event) {
         const file = event.target.files[0];
-      if (file) {
-        // Read the file and set the logoURL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imageUrl = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
+        this.imageUrl = file;
       },
 
-      getImageUrl(){
-        let storedImageUrl= localStorage.getItem("EtudiantLogo");
-        if (storedImageUrl) {
-          this.imageUrl = JSON.parse(storedImageUrl).image;
+      async getImageUrl(){
+        let storedData = localStorage.getItem("StudentAccountInfo"); 
+        this.idEtudiant = JSON.parse(storedData).id;
+        console.log(this.idEtudiant);
+        try {
+        const response = await axios.get(
+          `http://localhost:8000/api/getStudentDetail/${this.idEtudiant}`);
+        if (response.data.check==true) {
+          console.log(response.data);
+          this.imageUrl = "http://localhost:8000"+response.data.student.image;
+          console.log(this.imageUrl);
+        } else {
+          toast.error("error !", {
+            autoClose: 2000, 
+          });
         }
+      } catch (error) {
+        console.error("Error:", error);
+      }
       },
 
-      async saveChanges() {
-        let jsonUrl ={
-        image:this.imageUrl,
-      }
-      localStorage.setItem("EtudiantLogo",JSON.stringify(jsonUrl));
-  
-        let myjson = {
-        fullname:this.fullname,
-        niveau:this.niveau,
-        email:this.email,
-        domaine:this.domaine,
-        typeStage:this.typeStage,
-        specialite:this.specialite,
-        etablissement:this.etablissement,
-        image:"test.jpg",
-      }
-      console.log(myjson);
+    async saveChanges() {
+
+      let formData = new FormData();
+      formData.append('fullname', this.fullname);
+      formData.append('niveau', this.niveau);
+      formData.append('email', this.email);
+      formData.append('domaine', this.domaine);
+      formData.append('typeStage', this.typeStage);
+      formData.append('specialite', this.specialite);
+      formData.append('etablissement', this.etablissement);
+      formData.append('image', this.imageUrl);
+      console.log(this.imageUrl);
         try {
           const response = await axios.post(
             "http://localhost:8000/api/modifyStudent",
-            myjson,
+            formData,
             
           );
           if (response.data.update === true) {

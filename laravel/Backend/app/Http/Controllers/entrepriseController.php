@@ -8,32 +8,42 @@ use App\Models\Entreprise;
 class entrepriseController extends Controller
 {
     //
-    public function ModifyEntrepriseInfo(Request $request){
-        $requestData = $request->all();
-        // Check if email already exists
-        $existingUser = Entreprise::where('email', $requestData['email'])->first();
-        if ($existingUser) {
-            // Update Account user
-            $existingUser->numeroSIRET= $requestData['numeroSIRET'];
-            $existingUser->name = $requestData['name'];
-            $existingUser->secteur = $requestData['secteur'];
-            $existingUser->description = $requestData['description'];
-            $existingUser->save();
-            return response()->json([
-                'message' => 'Account updated successfully',
-                'update' => true,
-               
-            ]);
-            
-        }else {
-            return response()->json([
-                'message' => 'Entreprise not found',
-                'update' => false,
-                
-            ], 404);
-        }
+    public function ModifyEntrepriseInfo(Request $request)
+{
+    $requestData = $request->all();
 
+    // Check if email already exists
+    $existingUser = Entreprise::where('email', $requestData['email'])->first();
+
+    if ($existingUser) {
+        // Check if a logo file is uploaded
+        $logo = $request->file('logo');
+        // Generate a unique filename
+        $filename = time() . '_' . $logo->getClientOriginalName();
+        // Move the uploaded logo file to the uploads folder
+        $logo->move(public_path('storage/uploads'), $filename);
+        $url = asset('storage/uploads/'.$filename);
+
+        // Update other fields of the existing user
+        $existingUser->numeroSIRET = $requestData['numeroSIRET'];
+        $existingUser->name = $requestData['name'];
+        $existingUser->secteur = $requestData['secteur'];
+        $existingUser->logo = $url;
+        $existingUser->description = $requestData['description'];
+        $existingUser->save();
+
+        return response()->json([
+            'message' => 'Account updated successfully',
+            'update' => true,
+        ]);
+    } else {
+        return response()->json([
+            'message' => 'Entreprise not found',
+            'update' => false,
+        ], 404);
     }
+}
+
 
     public function getEntreprise(Request $request, $idEntreprise)
     {
@@ -51,7 +61,7 @@ class entrepriseController extends Controller
         // Return the details of the offer
         return response()->json([
             'entreprise' => $entreprise,
-            'message' => 'Offer details fetched successfully',
+            'message' => 'Entreprises details fetched successfully',
             'check' => true,
         ]);
     }

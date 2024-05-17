@@ -20,7 +20,7 @@
         <i class='bx bxs-calendar-check'></i>
         <span class="text">
           <h3>{{ newOrders }}</h3>
-          <p>New Order</p>
+          <p>New Request</p>
         </span>
       </li>
       <li>
@@ -42,7 +42,7 @@
    <div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>Recent Orders</h3>
+						<h3>Recent Request</h3>
 						<i class='bx bx-search'></i>
 						<i class='bx bx-filter'></i>
 					</div>
@@ -50,14 +50,17 @@
 						<thead>
 							<tr>
 								<th>Company</th>
+                <th>Offer</th>
 								<th>domaine </th>
 								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr v-for="(offre, index) in offres" :key="index">
+                <td>
+									<img :src="'http://localhost:8000' + offre.logo" alt="">
+								</td>
 								<td>
-									 <img :src="logoURL" >
 									<p>{{ offre.titre }}</p>
 								</td>
 								<td>{{ offre.domaine }}</td>
@@ -79,21 +82,14 @@ export default {
       newOrders: 0,
       students: 0,
       companies: 0,
-      offres: [] ,
-      logoURL:"https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
+      offres: [] // Ajout de la liste des offres
     };
   },
   mounted() {
     this.fetchDashboardData();
     this.getAllOffresAdmin();
-    this.getLogoUrl();
   },
-  methods: {  getLogoUrl(){
-        let storedLogoUrl= localStorage.getItem("EntrepriseLogo");
-        if (storedLogoUrl) {
-          this.logoURL = JSON.parse(storedLogoUrl).logo;
-        }
-      },
+  methods: {
     fetchDashboardData() {
       axios.get('http://localhost:8000/api/states') // Supposant que vous avez une route pour les données du tableau de bord
         .then(response => {
@@ -117,13 +113,23 @@ export default {
           }
         );
         if (response.data.check === true) {
-          this.offres = response.data.offres;
+          console.log(response.data.offres);
+          for(let i=0; i < response.data.offres.length; i++){
+            const response2 = await axios.get(
+            `http://localhost:8000/api/getEntreprise/${response.data.offres[i].idEntreprise}`);
+            if (response2.data.check==true) {
+              console.log(response.data);
+              let logoURL = response2.data.entreprise.logo;
+            let myObject= {
+              logo:logoURL,
+              titre:response.data.offres[i].titre,
+              domaine:response.data.offres[i].domaine,
+              status:response.data.offres[i].status,
+            }
+            this.offres.push(myObject);
+          }
           console.table(this.offres);
-        } else {
-          toast.error("Le serveur a retourné une réponse invalide", {
-            autoClose: 2000,
-          });
-        }
+        } }
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
         

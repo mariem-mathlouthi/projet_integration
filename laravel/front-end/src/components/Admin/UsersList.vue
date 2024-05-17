@@ -9,7 +9,7 @@
       <NavbarOne></NavbarOne>
       <div class="col-span-9 mt-24 mr-24 ml-24">
         <h1 class="text-center font-weight-bold my-4">Liste des Entreprises</h1>
-        <table class="min-w-full divide-y divide-gray-200 font-[sans-serif]">
+        <table id="example" class="min-w-full divide-y divide-gray-200 font-[sans-serif]">
           <thead class="bg-gray-100 whitespace-nowrap">
             <tr>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NomEntreprise</th>

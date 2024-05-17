@@ -33,7 +33,7 @@
                 </svg>
                 <p class="text-gray-400 font-semibold text-sm">Drag & Drop or <span class="text-[#007bff]">Choose file</span> to
                   upload</p>
-                <input type="file" id='uploadFile1' class="hidden" />
+                <input type="file" id='uploadFile1' name="cv" class="hidden" @change="handleFileUpload"   />
                 <p class="text-xs text-gray-400 mt-2">PNG, JPG SVG, WEBP, and GIF are Allowed.</p>
               </label>
               </div>
@@ -69,7 +69,7 @@
         idOffreDeStage:"",
         statut: "en attente",
         DateSoumission:"23-04-2024",
-        cv: "test.pdf",
+        cv: "",
         fullname: "",
         email: "",
         idEntreprise:"",
@@ -99,6 +99,9 @@
       },
 
       async submitApplication() {
+        console.log("hello!");
+        console.log(this.cv);
+        
         try {
         const response= await axios.get(`http://localhost:8000/api/offreDetail2/${this.idOffreDeStage}`);
         console.log(response.data.offre)
@@ -125,21 +128,21 @@
 
         console.log(myObj);
         
-        /*const response3= await axios.post("http://localhost:8000/api/notification",myObj);
-        console.log(response3.data);*/
-          let myjson ={
-            idEtudiant:this.idEtudiant,
-            idOffreDeStage:this.idOffreDeStage,
-            statut:this.statut,
-            DateSoumission:this.DateSoumission,
-            cv:this.cv,
-          }
-          console.log(myjson);
+       const response3= await axios.post("http://localhost:8000/api/notification",myObj);
+      console.log(response3.data);
+        let formData = new FormData();
+        formData.append('idEtudiant', this.idEtudiant);
+        formData.append('idOffreDeStage', this.idOffreDeStage);
+        formData.append('statut', this.statut);
+        formData.append('DateSoumission', this.DateSoumission);
+        formData.append('cv', this.cv);
+        console.log(formData);
 
-          console.log(this.idEntreprise);
+          
+
           
             const response4 = await axios.post(
-                "http://localhost:8000/api/addDemande",myjson
+                "http://localhost:8000/api/addDemande",formData
             );
 
             if (response4.data.check === true) {

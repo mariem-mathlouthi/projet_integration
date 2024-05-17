@@ -34,8 +34,10 @@
                       d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
                       data-original="#000000" />
                   </svg>
+                  <button @click="telechargerCahierCharge(offre.cahierCharge)">
                   Télécharger Cahier de charge
-                  <input type="file" id="uploadFile1" class="hidden" />
+                </button>
+               
                 </label>
               </div>
               <router-link :to="'/PostulerCondidature/'+ offre.id">
@@ -46,6 +48,7 @@
             </div>
             <div v-else>
               <p>Chargement en cours...</p>
+             
             </div>
           </div>
         </div>
@@ -82,6 +85,9 @@ import axios from "axios";
               `http://localhost:8000/api/offreDetail2/${id}`
             );
             if (response.data.check === true) {
+              console.log(response.data.offre);
+             
+             
               const response2 = await axios.get(
                 `http://localhost:8000/api/getEntreprise/${response.data.offre.idEntreprise}`
                 );
@@ -91,6 +97,7 @@ import axios from "axios";
                   titre:response.data.offre.titre,
                   description:response.data.offre.description,
                   entrepriseName:response2.data.entreprise.name,
+                  cahierCharge:response.data.offre.cahierCharge,
                   
                 }
                 console.log(myObject);
@@ -106,7 +113,18 @@ import axios from "axios";
               }
 
 
-      }
+      },
+
+      telechargerCahierCharge(filename) {
+      console.log(filename);
+  // Construct the full URL of the file
+  const fileURL = `http://localhost:8000${filename}`;
+
+  // Open the file URL in a new tab to initiate the download
+  window.open(fileURL, '_blank');
+},
+
+
      
   
     },

@@ -21,12 +21,7 @@
 				</a>
 			</li>
 
-			<li>
-				<a href="#">
-					<i class='bx bxs-message-dots'></i>
-					<router-link to="/MessagesList"><span class="text">Messages</span></router-link>
-				</a>
-			</li>
+			
 			<li>
     <a href="#">
         <i class='bx bxs-building'></i> <!-- Changer la classe d'icône pour une icône d'entreprise -->

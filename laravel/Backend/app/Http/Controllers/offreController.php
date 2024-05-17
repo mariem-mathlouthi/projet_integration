@@ -4,38 +4,52 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Offre;
+use Illuminate\Support\Facades\Storage;
 
 class offreController extends Controller
 {
     //
     public function addOffre(Request $request){
         $requestData = $request->all();
+        
+        $cahierCharge = $request->file('cahierCharge');
+    
+        // Generate a unique filename
+        $filename = time().'_'.$cahierCharge->getClientOriginalName();
+    
+        // Move the uploaded file to the uploads folder
+        $cahierCharge->move(public_path('storage/uploads'), $filename);
+
+        // Get the URL of the uploaded file
+        $url = asset('storage/uploads/'.$filename);
+
+    
         $new = new Offre();
         $new->idEntreprise = $requestData['idEntreprise'];
         $new->status = $requestData['status'];
         $new->titre= $requestData['titre'];
         $new->description= $requestData['description'];
         $new->domaine= $requestData['domaine'];
-
+    
         $date = $requestData['dateDebut'];;
         $formattedDate = date('Y-m-d', strtotime($date));
         $new->dateDebut = $formattedDate;
-
+    
         $date2 = $requestData['dateFin'];;
         $formattedDate2 = date('Y-m-d', strtotime($date2));
         $new->dateFin = $formattedDate2;
-
+    
         $new->typeOffre= $requestData['typeOffre'];
-        $new->cahierCharge= $requestData['cahierCharge'];
-
+        $new->cahierCharge= $url; // Save filename or path
+    
         $new->save();
-
+    
         return response()->json([
             'message' => 'Offre Added successfully',
             'check' => true,
         ]);
-
-}
+    }
+    
 
 
 public function updateOffre(Request $request){
@@ -43,6 +57,16 @@ public function updateOffre(Request $request){
     // Check if email already exists
     $ExistingOffre = Offre::where('id', $requestData['id'])->first();
     if ($ExistingOffre) {
+        $cahierCharge = $request->file('cahierCharge');
+    
+        // Generate a unique filename
+        $filename = time().'_'.$cahierCharge->getClientOriginalName();
+    
+        // Move the uploaded file to the uploads folder
+        $cahierCharge->move(public_path('storage/uploads'), $filename);
+
+        // Get the URL of the uploaded file
+        $url = asset('storage/uploads/'.$filename);
         // Update Offre
         $ExistingOffre->status = $requestData['status'];
         $ExistingOffre->titre= $requestData['titre'];
@@ -58,7 +82,7 @@ public function updateOffre(Request $request){
         $ExistingOffre->dateFin = $formattedDate2;
 
         $ExistingOffre->typeOffre= $requestData['typeOffre'];
-        $ExistingOffre->cahierCharge= $requestData['cahierCharge'];
+        $ExistingOffre->cahierCharge= $url;
 
         $ExistingOffre->save();
         

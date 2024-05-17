@@ -6,7 +6,7 @@
           <Sidebar />
         </div>
         <div class="col-span-9 mt-24 mr-24">
-          <form class="font-sans text-[#333] max-w-4xl mx-auto px-6 my-6" @submit="handleSubmit">
+          <form class="font-sans text-[#333] max-w-4xl mx-auto px-6 my-6" @submit.prevent="handleSubmit">
             <div class="grid sm:grid-cols-2 gap-10">
               <div class="relative flex items-center">
                 <label class="text-[13px] absolute top-[-25px] left-0 font-semibold">Numero SIRET</label>
@@ -42,7 +42,7 @@
               <div class="relative flex items-center sm:col-span-2">
                 <label class="text-[13px] absolute top-[-10px] left-0 font-semibold">Logo</label>
           
-                <input type="file" accept="image/*"
+                <input type="file"  accept="image/*"
                 @change="handleLogoChange"
                   class="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333]  outline-none" />
               </div>
@@ -62,8 +62,9 @@ import AOS from "aos";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import axios from "axios";
+
 export default {
-name: 'EntrepriseDashboard',
+  name: 'EntrepriseDashboard',
   data() {
     return {
       numeroSIRET: "",
@@ -71,16 +72,15 @@ name: 'EntrepriseDashboard',
       email: "",
       secteur:"",
       description:"",
-      logoURL:"",
+      logo:"", // Change this to null
     };
   },
   components:{
     Navbar,
-      Sidebar,
+    Sidebar,
   },
 
   methods: {
-    
     getAccountData() {
       let storedData = localStorage.getItem("EntrepriseAccountInfo");
       this.numeroSIRET = JSON.parse(storedData).numeroSIRET;
@@ -90,51 +90,37 @@ name: 'EntrepriseDashboard',
       this.description = JSON.parse(storedData).description;
     },
     handleLogoChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        // Read the file and set the logoURL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.logoURL = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
+      // Read the file content and assign it to logo
+      this.logo = event.target.files[0];
     },
-    // Function to submit the form
-    async handleSubmit(event) {
-      event.preventDefault();
-      console.log("Logo URL:", this.logoURL);
-      let jsonLogo ={
-        logo:this.logoURL,
-      }
-      localStorage.setItem("EntrepriseLogo",JSON.stringify(jsonLogo));
-      let myjson = {
-      numeroSIRET:this.numeroSIRET,
-      email:this.email,
-      name:this.name,
-      secteur:this.secteur,
-      description:this.description,
-    }
-    console.log(myjson);
+    async handleSubmit() {
+     
+  let formData = new FormData();
+  formData.append('numeroSIRET', this.numeroSIRET);
+  formData.append('email', this.email);
+  formData.append('name', this.name);
+  formData.append('secteur', this.secteur);
+  formData.append('description', this.description);
+  formData.append('logo', this.logo);
+
+      
       try {
         const response = await axios.post(
           "http://localhost:8000/api/modifyEntreprise",
-          myjson,
-          
+          formData,
         );
         if (response.data.update === true) {
-          toast.success("Account updated succesfully !", {
+          toast.success("Account updated successfully !", {
             autoClose: 2000, 
           });
           let existingData = localStorage.getItem('EntrepriseAccountInfo');
           existingData = JSON.parse(existingData);
           existingData.numeroSIRET = this.numeroSIRET;
           existingData.name = this.name;
-          existingData.secteur= this.secteur;
+          existingData.secteur = this.secteur;
           existingData.description = this.description;
           const updatedData = JSON.stringify(existingData);
           localStorage.setItem('EntrepriseAccountInfo', updatedData);
-
         } else {
           toast.error("Email not found !", {
             autoClose: 2000, 
@@ -143,17 +129,10 @@ name: 'EntrepriseDashboard',
       } catch (error) {
         console.error("Error:", error);
       }
-
     },
-
-    
-   
-    
   },
   mounted() {
     this.getAccountData();
-  },
-  created() {
     this.$nextTick(() => {
       AOS.init({
         duration: 2500,

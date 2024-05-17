@@ -6,6 +6,7 @@ import SignupEntreprise from "../components/Auth/SignUpEntreprise.vue";
 import SignupEntreprisePart2 from "../components/Auth/SignUpEntreprisePart2.vue";
 import Contact from "../components/Contact.vue";
 import LandingPage from "../components/LandingPage.vue";
+import Teams from "../components/Teams.vue";
 
 
 import StudentDash from "../components/StudentDash/StudentDashboard.vue";
@@ -47,6 +48,11 @@ const routes = [
     name: "landingPage",
     component: LandingPage,
     },
+    {
+      path: "/teams",
+      name: "Teams",
+      component: Teams,
+      },
     {
       path: "/DetailDemande/:id",
       name: "DetailDemande",

@@ -5,6 +5,14 @@
                 
                 <div class="mt-5 space-y-2">
                     <h3 class="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
+                    <p class="">
+                Dont't you have an account?
+                <router-link
+                  to="/"
+                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  >Sign up </router-link>
+                
+              </p>
                     
                 </div>
             </div>

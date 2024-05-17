@@ -31,7 +31,9 @@
             <p class="text-gray-600 mb-4">{{ stage.description }}</p>
             <div class="flex items-center justify-between">
               <span class="text-gray-500">{{ stage.company }}</span>
-              <button @click="selectStage(stage)" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Affecter</button>
+              <div v-if="stage.statut=='accepté'" @click="selectStage(stage)" class="px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500">Affecter</div>
+              <div v-if="stage.statut=='en attente'" @click="selectStage(stage)" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">en attente</div>
+              <div v-if="stage.statut=='rejeté'" @click="selectStage(stage)" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500">rejeté</div>
             </div>
           </div>
         </div>
@@ -100,6 +102,7 @@ export default {
             this.stagesList.push(myobject);
           }
           console.table(this.stagesList);
+          console.log(this.stagesList);
           this.storedStages = this.stagesList;
         } else {
           toast.error("Something went wrong !", { autoClose: 2000 });

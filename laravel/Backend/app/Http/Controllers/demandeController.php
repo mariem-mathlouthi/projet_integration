@@ -4,30 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Demande;
+use Illuminate\Support\Facades\Storage;
 
 class demandeController extends Controller
 {
     //
     public function AddDemande(Request $request){
         $requestData = $request->all();
+    
+        // Get the uploaded file
+        $cv = $request->file('cv');
+    
+        // Generate a unique filename
+        $filename = time().'_'.$cv->getClientOriginalName();
+    
+        // Move the uploaded file to the uploads folder
+        $cv->move(public_path('storage/uploads'), $filename);
+
+        // Get the URL of the uploaded file
+        $url = asset('storage/uploads/'.$filename);
+    
+        // Create a new Demande instance
         $new = new Demande();
         $new->idEtudiant = $requestData['idEtudiant'];
         $new->idOffreDeStage = $requestData['idOffreDeStage'];
-        $new->statut= $requestData['statut'];
-        $date = $requestData['DateSoumission'];;
-        $formattedDate = date('Y-m-d', strtotime($date));
-        $new->DateSoumission = $formattedDate;
-        $new->cv = $requestData['cv'];
+        $new->statut = $requestData['statut'];
+        $new->DateSoumission = date('Y-m-d', strtotime($requestData['DateSoumission']));
+        $new->cv = $url; // Save the URL in the database
         $new->save();
-
+    
         return response()->json([
             'message' => 'Demande Added successfully',
             'check' => true,
         ]);
-        
-
     }
-
+    
     
 
 public function getAllDemandes(Request $request,$idEtudiant){
