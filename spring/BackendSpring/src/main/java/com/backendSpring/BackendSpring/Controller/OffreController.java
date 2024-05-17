@@ -21,7 +21,7 @@ public class OffreController {
     public OffreController(OffreService offreService) {
         this.offreService = offreService;
     }
-
+    @CrossOrigin(origins = "http://localhost:5174")
     @PostMapping("/add")
     public ResponseEntity<Offre> ajouterOffre(@RequestBody Offre offre) {
         Offre nouvelleOffre = offreService.ajouterOffre(offre);

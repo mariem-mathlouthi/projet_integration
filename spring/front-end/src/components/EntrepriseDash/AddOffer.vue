@@ -149,7 +149,7 @@ Cancel
 
     async addOffre() {
         
-        console.log("hello");
+        
         let storedData = localStorage.getItem("EntrepriseAccountInfo");
         this.idEntreprise = JSON.parse(storedData).id;
 

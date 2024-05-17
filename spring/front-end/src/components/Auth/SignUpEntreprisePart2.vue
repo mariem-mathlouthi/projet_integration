@@ -141,7 +141,7 @@ export default {
     console.log(myjson);
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/signupEntreprise",
+          "http://localhost:8087/api/entreprise/Add",
           myjson,
           
         );

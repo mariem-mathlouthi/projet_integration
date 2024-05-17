@@ -68,10 +68,10 @@ export default {
         email:this.email,
         password:this.password,
       }
-      console.log(myjson);
+      //console.log(myjson);
         try {
           const response = await axios.post(
-            "http://localhost:8000/api/login",
+            "http://localhost:8087/auth/login",
             myjson,
             
           );
