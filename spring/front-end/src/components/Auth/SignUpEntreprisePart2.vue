@@ -144,23 +144,26 @@ export default {
           "http://localhost:8087/api/entreprise/Add",
           myjson,
           
-        );
-        if (response.data.check === true) {
-          toast.success("Account created succesfully !", {
-            autoClose: 2000, 
-          });
+        ).then((res)=>{
+            console.log(res.data);
+            this.$router.push({name:"signin"});
+          })
+         /* if (response.data.check === true) {
+            toast.success("Account created succesfully !", {
+              autoClose: 2000, 
+            });
 
-        } else {
-          toast.error("Email already exists!", {
-            autoClose: 2000, 
-          });
+          } else {
+            toast.error("Email or cin already exists!", {
+              autoClose: 2000, 
+            });
+          }*/
+        } catch (error) {
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-      
-
-},
+        
+    
+    },
 
   },
   mounted() {
