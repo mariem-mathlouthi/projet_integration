@@ -78,12 +78,19 @@
         <div
           class="flex h-70 w-full flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-gray-300 p-5 text-center"
         >
-          <img
-            
+          <img  v-if="imageUrl!=''"
             class="h-16 w-16 rounded-full"
             :src="imageUrl"
             alt=""
           />
+          <img  v-if="imageUrl==''"
+            class="h-16 w-16 rounded-full"
+            src="https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg"
+            alt=""
+          />
+
+          
+          
           <p class="text-sm text-gray-600">
             Drop your desired image file here to start the upload
           </p>
@@ -131,7 +138,7 @@
         etablissement:"",
         update: false,
         storedImage: "",
-        imageUrl:"https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
+        imageUrl:"",
   
       };
     },
@@ -167,8 +174,16 @@
           `http://localhost:8000/api/getStudentDetail/${this.idEtudiant}`);
         if (response.data.check==true) {
           console.log(response.data);
-          this.imageUrl = "http://localhost:8000"+response.data.student.image;
-          console.log(this.imageUrl);
+          if( response.data.student.image=='test.jpg'){
+           this.imageUrl="";
+           console.log(this.imageUrl);
+          }
+          else{
+            this.imageUrl = "http://localhost:8000"+response.data.student.image;
+            console.log(this.imageUrl);
+          
+          }
+          
         } else {
           toast.error("error !", {
             autoClose: 2000, 

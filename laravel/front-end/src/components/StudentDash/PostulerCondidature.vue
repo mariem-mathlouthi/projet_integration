@@ -128,8 +128,8 @@
 
         console.log(myObj);
         
-       const response3= await axios.post("http://localhost:8000/api/notification",myObj);
-      console.log(response3.data);
+       //const response3= await axios.post("http://localhost:8000/api/notification",myObj);
+       //console.log(response3.data);
         let formData = new FormData();
         formData.append('idEtudiant', this.idEtudiant);
         formData.append('idOffreDeStage', this.idOffreDeStage);

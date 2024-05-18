@@ -13,6 +13,11 @@
               class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-green-600 hover:bg-green-300 hover:text-white transition-all duration-300 flex items-center mr-4">
               Approvées
             </button>
+            <button @click.prevent="filterByStatut('en execution')"
+              class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-400 hover:bg-orange-300 hover:text-white transition-all duration-300 flex items-center mr-4">
+              En execution
+            </button>
+            
             <button @click.prevent="filterByStatut('en attente')"
               class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-blue-600 hover:bg-blue-300 hover:text-white transition-all duration-300 flex items-center mr-4">
               En attente
@@ -34,6 +39,7 @@
               <div v-if="stage.statut=='accepté'" @click="selectStage(stage)" class="px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500">Affecter</div>
               <div v-if="stage.statut=='en attente'" @click="selectStage(stage)" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">en attente</div>
               <div v-if="stage.statut=='rejeté'" @click="selectStage(stage)" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500">rejeté</div>
+              <div v-if="stage.statut=='en execution'" @click="selectStage(stage)" class="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-400">en execution</div>
             </div>
           </div>
         </div>
