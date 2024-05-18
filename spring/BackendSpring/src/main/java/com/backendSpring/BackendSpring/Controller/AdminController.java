@@ -14,6 +14,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/signup")
     public ResponseEntity<?> signUpAdmin(@RequestBody Admin request) {
         String email = request.getEmail();

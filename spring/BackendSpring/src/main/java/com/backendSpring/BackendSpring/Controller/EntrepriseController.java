@@ -16,7 +16,7 @@ public class EntrepriseController {
 
     @Autowired
     private EntrepriseService entrepriseService;
-    @CrossOrigin(origins = "http://localhost:5174")
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/Add")
     public ResponseEntity<?> AddEntreprise(@RequestBody EntreprisePayload entreprise) {
         entrepriseService.AddEntreprise(entreprise);
