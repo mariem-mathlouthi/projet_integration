@@ -67,13 +67,14 @@ public class OffreService {
 
 
     public ArrayList<Offre> chercherDesOffres(int searchType, String StringToSearch) {
+        StringToSearch = StringToSearch.toLowerCase();
         ArrayList<Offre> SearchResult = new ArrayList<>();
         for (Offre e : offreRepository.findAll()) {
-            if (searchType == 1 && e.getTitre().contains(StringToSearch)) {
+            if (searchType == 1 && e.getTitre().toLowerCase().contains(StringToSearch)) {
                 SearchResult.add(e);
-            } else if (searchType == 2 && e.getDescription().contains(StringToSearch)) {
+            } else if (searchType == 2 && e.getDescription().toLowerCase().contains(StringToSearch)) {
                 SearchResult.add(e);
-            } else if (searchType == 3 && e.getEntreprise().getName().contains(StringToSearch)) {
+            } else if (searchType == 3 && e.getEntreprise().getName().toLowerCase().contains(StringToSearch)) {
                 SearchResult.add(e);
             }
         }

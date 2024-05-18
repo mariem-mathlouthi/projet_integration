@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.Clock;
 
 @RestController
 @RequestMapping("/file")
@@ -15,7 +16,7 @@ public class FileManagementController {
     @Autowired
     private FileManagementService FM;
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws IOException,Exception {
         if(FM.uploadFile(file)) {
             return ResponseEntity.ok("File Uploaded successfully");
         }
@@ -33,5 +34,10 @@ public class FileManagementController {
             System.out.println("Error occurred while downloading the file");
             return ResponseEntity.badRequest().body("Error occurred while downloading the file");
         }
+    }
+
+    @GetMapping("/get/{filename}")
+    public ResponseEntity<?> getAvatar(@PathVariable String filename) throws IOException {
+        return FM.ReadAvatarLogo(filename);
     }
 }
