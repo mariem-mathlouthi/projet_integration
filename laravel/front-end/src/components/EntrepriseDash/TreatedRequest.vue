@@ -6,7 +6,7 @@
           <Sidebar />
         </div>
         <div class="col-span-9 mt-24 mr-24">
-          <h2 class="text-2xl font-bold mb-8">Liste des demandes traitées</h2>
+          <h2 class="text-2xl font-bold mb-8">Liste des demandes</h2>
           <div class="overflow-x-auto">
       <ul class="divide-y divide-gray-200">
         <li v-for="(demande, index) in demandes" :key="index" class="py-6 flex justify-between items-center">

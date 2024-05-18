@@ -1,100 +1,93 @@
 <template>
-    <Navbar/>
-    <div class="grid grid-cols-12 gap-4">
+  <Navbar />
+  <div class="grid grid-cols-12 gap-4">
     <div class="col-span-3">
       <Sidebar />
     </div>
     <div class="col-span-9 mt-24 mr-24">
-      <!-- Ajoutez des boutons pour choisir le type de liste -->
+      <!-- Boutons de filtrage -->
       <div class="flex justify-end mb-4 font-sans text-center">
         <button @click.prevent="filterByStatut('accepté')"
-    class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-green-600 hover:bg-green-300 hover:text-white transition-all duration-300 flex items-center mr-4">
-    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-    </svg>
-   Approvées
-  </button>
-  <button
-  @click.prevent="filterByStatut('en execution')"
-    class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-400 hover:bg-orange-300 hover:text-white transition-all duration-300 flex items-center mr-4">
-    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-    </svg>
-  En execution
-  </button>
-  <button
-  @click.prevent="filterByStatut('en attente')"
-    class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-blue-600 hover:bg-blue-300 hover:text-white transition-all duration-300 flex items-center mr-4">
-    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-    </svg>
-  En attente
-  </button>
-  
-  
-  <button
-  @click.prevent="filterByStatut('rejeté')"
-    class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-red-600 hover:bg-red-300 hover:text-white transition-all duration-300 flex items-center">
-    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-    </svg>
-    Rejetées
-  </button>
-</div>
-      
-          <h2 class="text-2xl font-bold mb-8 mt-8">Liste des demandes des étudiants</h2>
-          
+                class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-green-600 hover:bg-green-300 hover:text-white transition-all duration-300 flex items-center mr-4">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Approvées
+        </button>
+        <button @click.prevent="filterByStatut('en execution')"
+                class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-orange-400 hover:bg-orange-300 hover:text-white transition-all duration-300 flex items-center mr-4">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          En execution
+        </button>
+        <button @click.prevent="filterByStatut('en attente')"
+                class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-blue-600 hover:bg-blue-300 hover:text-white transition-all duration-300 flex items-center mr-4">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          En attente
+        </button>
+        <button @click.prevent="filterByStatut('rejeté')"
+                class="px-6 py-2 rounded text-black text-sm tracking-wider font-medium outline-none border-2 border-red-600 hover:bg-red-300 hover:text-white transition-all duration-300 flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Rejetées
+        </button>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-8 mt-8">Liste des demandes des étudiants</h2>
 
       <!-- Liste des demandes d'étudiants -->
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom et Prénom</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Étudiant</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Offre</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type de Stage Demandé</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom et Prénom
+            </th>
+            <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Étudiant
+            </th>
+            <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Offre
+            </th>
+            <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type de Stage
+                Demandé
+            </th>
+            <th scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             <!-- Boucle à travers les demandes d'étudiants -->
             <tr v-for="(demande, index) in storedDemands" :key="index">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ demande.fullname }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ demande.idEtudiant }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ demande.offerId}}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ demande.offerId }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ demande.typeStage }}</td>
               <td class="px-6 py-4 text-sm text-[#333]">
-            <button class="text-green-500 hover:text-green-700 mr-4">
-            
-            </button>
         
-            <form @submit.prevent="deleteDemande(demande.demandeId)">
-              <button  type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-            </form>
-         
-        </td>
-
-              <!-- Ajoutez d'autres colonnes pour afficher d'autres informations sur les demandes -->
-            </tr>  
-           
-           
+               
+              
+                <!-- Formulaire de suppression avec confirmation -->
+                <form @submit.prevent="confirmDelete(demande.demandeId)">
+                  <button type="submit" class="text-red-500 hover:text-red-700">Supprimer</button>
+                </form>
+              </td>
+            </tr>
           </tbody>
         </table>
-      
+      </div>
     </div>
-    
-</div>
-
-
-
-
   </div>
-  </template>
-  
-  <script>
+</template>
+
+<script>
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import axios from "axios";
@@ -104,9 +97,9 @@ import Sidebar from './SideBar.vue';
 export default {
   data() {
     return {
-      demands: [],
-      filteredDemands: [],
-      storedDemands:[],
+      demands: [], // Liste de toutes les demandes
+      filteredDemands: [], // Liste filtrée de demandes
+      storedDemands: [], // Liste de demandes à afficher après filtrage
     };
   },
   components: {
@@ -114,29 +107,28 @@ export default {
     Sidebar
   },
   methods: {
-
-    filterByStatut(statut){
-      this.storedDemands=[];
-      for(let i=0;i<this.filteredDemands.length;i++){
-        if( this.filteredDemands[i].statut==statut){
-          this.storedDemands.push(this.filteredDemands[i]);
-        }
-      }
+    // Filtrer les demandes par statut
+    filterByStatut(statut) {
+      this.storedDemands = this.filteredDemands.filter(demande => demande.statut === statut);
     },
 
+    // Récupérer toutes les demandes
     async getAllDemandes() {
       try {
         const storedData = localStorage.getItem("EntrepriseAccountInfo");
         const idEntreprise = JSON.parse(storedData).id;
 
+        // Récupérer toutes les offres de stage de l'entreprise
         const response = await axios.get(`http://localhost:8000/api/getOffres/${idEntreprise}`);
 
         if (response.data.check) {
           for (const offre of response.data.offres) {
+            // Récupérer toutes les demandes liées à chaque offre
             const demandeResponse = await axios.get(`http://localhost:8000/api/getDemandeByOfferId/${offre.id}`);
 
             if (demandeResponse.data.check) {
               for (const demande of demandeResponse.data.demandes) {
+                // Récupérer les détails de l'étudiant pour chaque demande
                 const studentResponse = await axios.get(`http://localhost:8000/api/getStudentDetail/${demande.idEtudiant}`);
                 const student = studentResponse.data.student;
 
@@ -152,33 +144,40 @@ export default {
                 this.demands.push(myObject);
               }
             } else {
-              toast.error("Something went wrong with fetching demandes!", { autoClose: 2000 });
+              toast.error("Une erreur s'est produite lors de la récupération des demandes!", { autoClose: 2000 });
             }
           }
           this.filteredDemands = [...this.demands];
-          this.storedDemands=this.filteredDemands;
-          console.table(this.filteredDemands);
+          this.storedDemands = [...this.filteredDemands];
         } else {
-          toast.error("Something went wrong with fetching offres!", { autoClose: 2000 });
+          toast.error("Une erreur s'est produite lors de la récupération des offres!", { autoClose: 2000 });
         }
       } catch (error) {
-        console.error("Error:", error);
-        toast.error("An error occurred while fetching data!", { autoClose: 2000 });
+        console.error("Erreur:", error);
+        toast.error("Une erreur s'est produite lors de la récupération des données!", { autoClose: 2000 });
       }
     },
 
+    // Supprimer une demande par son ID
     async deleteDemande(id) {
       try {
         const response = await axios.delete(`http://localhost:8000/api/deleteDemande/${id}`);
         if (response.data.delete === true) {
           this.demands = this.demands.filter(demande => demande.demandeId !== id);
-          window.location.reload();
+          toast.success("La demande a été supprimée avec succès!", { autoClose: 2000 });
         } else {
-          toast.error("Failed to delete the demande!", { autoClose: 2000 });
+          toast.error("Échec de la suppression de la demande!", { autoClose: 2000 });
         }
       } catch (error) {
-        console.error("Error", error);
-        toast.error("An error occurred while deleting the demande!", { autoClose: 2000 });
+        console.error("Erreur", error);
+        toast.error("Une erreur s'est produite lors de la suppression de la demande!", { autoClose: 2000 });
+      }
+    },
+
+    // Confirmer la suppression avec une boîte de dialogue
+    confirmDelete(id) {
+      if (window.confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')) {
+        this.deleteDemande(id);
       }
     }
   },
@@ -188,7 +187,7 @@ export default {
   }
 };
 </script>
-  
-  <style>
-  </style>
-  
+
+<style>
+  /* Styles spécifiques au composant si nécessaire */
+</style>

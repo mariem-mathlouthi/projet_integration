@@ -8,34 +8,34 @@
     <div class="col-span-9 mt-24 mr-24">
         <div class="font-[sans-serif] mt-12">
            
-            <div class="-mt-28 mb-6 px-4">
+            <div class="-mt-16 mb-6 px-4">
                 <div class="mx-auto max-w-6xl shadow-lg py-8 px-6 relative bg-white rounded">
-                    <h2 class="text-xl text-[#333] font-bold">Product or Service Inquiry</h2>
+                    <h2 class="text-2xl text-blue-900 font-bold">Entrer les informations de l'offre</h2>
                     <form class="mt-8 grid sm:grid-cols-2 gap-6" @submit.prevent="addOffre">
                         <div>
-                            <label class="font-semibold text-sm">Offer titre</label>
-                            <input type='text' placeholder='Enter Name'
+                            <label class="font-semibold text-sm">Titre de l'offre</label>
+                            <input type='text' placeholder='enter le titre de loffre'
                                required
                                 v-model="titre"
                                 class="w-full rounded py-2.5 px-4 mt-2 border-2 text-sm outline-[#007bff]" />
                         </div>
                         
                         <div>
-                            <label class="font-semibold text-sm">Company Email</label>
+                            <label class="font-semibold text-sm">Email de l'entreprise</label>
                             <input type='email' placeholder='Email'
                                 v-model="email"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
-                            <label class="font-semibold text-sm">Domain</label>
-                            <input type='text' placeholder='Phone No.'
+                            <label class="font-semibold text-sm">Domaine</label>
+                            <input type='text' placeholder='Domain.'
                                  required
                                  v-model="domaine"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
-                            <label class="font-semibold text-sm">Website</label>
-                            <input type='text' placeholder='Website'
+                            <label class="font-semibold text-sm">site web</label>
+                            <input type='text' placeholder='site web'
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
@@ -51,16 +51,16 @@
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
-                            <label class="font-semibold text-sm">TypeOffre</label>
+                            <label class="font-semibold text-sm">Type Offre</label>
                             <input type='text' placeholder='Subject'
                                 v-model="typeOffre"
                                 class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]" />
                         </div>
                         <div>
-                            <label class="font-semibold text-sm">Description</label>
+                            <label class="font-semibold text-sm" >Description</label>
                             <textarea
                   v-model="description"
-                  required
+                  required placeholder='entrer la description de loffre ici'
                   class="w-full rounded py-2.5 px-4 mt-2 border-2 text-sm outline-[#007bff]"
                 ></textarea>
                         </div>
@@ -74,10 +74,10 @@
             </svg>
             <div class="flex text-sm text-gray-600">
                 <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-[#007bff] hover:text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#007bff]">
-                    <span>Upload a file</span>
+                    <span>Télécharger fichier</span>
                     <input id="file-upload" name="file-upload"  type="file" class="sr-only" @change="handleFileUpload">
                 </label>
-                <p class="pl-1">or drag and drop</p>
+                <p class="pl-1">glisser-déposer</p>
             </div>
             <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
         </div>

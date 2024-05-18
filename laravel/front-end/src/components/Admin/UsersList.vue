@@ -67,15 +67,17 @@ export default {
           console.error('Error fetching enterprises:', error);
         });
     },
-     deleteEnterprise(id) {
-      axios.delete(`http://localhost:8000/api/enterprisesAdmin/${id}`)
-        .then(response => {
-          console.log(response.data.message); // Afficher un message de confirmation
-          this.fetchEnterprises(); // Recharger la liste des entreprises après la suppression
-        })
-        .catch(error => {
-          console.error('Erreur lors de la suppression de l\'entreprise :', error);
-        });
+    deleteEnterprise(id) {
+      if (window.confirm("Êtes-vous sûr de vouloir supprimer cette entreprise ?")) {
+        axios.delete(`http://localhost:8000/api/enterprisesAdmin/${id}`)
+          .then(response => {
+            console.log(response.data.message); // Afficher un message de confirmation
+            this.fetchEnterprises(); // Recharger la liste des entreprises après la suppression
+          })
+          .catch(error => {
+            console.error('Erreur lors de la suppression de l\'entreprise :', error);
+          });
+      }
     }
   }
 }

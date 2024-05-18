@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <!-- SIDEBAR -->
+   
     <SidebarMenu></SidebarMenu>
 
-    <!-- CONTENT -->
+   
     <section id="content">
       <!-- NAVBAR -->
       <NavbarOne></NavbarOne>
@@ -39,7 +39,7 @@
               <td class="px-6 py-4 text-sm text-[#333]">{{ student.specialite }}</td>
               <td class="px-6 py-4 text-sm text-[#333]">{{ student.cin }}</td>
               <td class="px-6 py-4 text-sm text-[#333]">
-                <button class="text-red-500 hover:text-red-700" @click="deleteStudent(student.id)">Supprimer</button>
+                <button class="text-red-500 hover:text-red-700" @click="confirmDeleteStudent(student.id)">Supprimer</button>
               </td>
             </tr>
           </tbody>
@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      students: [] // pour stocker les étudiants récupérés
+      students: [] 
     };
   },
   mounted() {
@@ -80,11 +80,16 @@ export default {
           console.error('Erreur lors de la récupération des étudiants :', error);
         });
     },
+    confirmDeleteStudent(id) {
+      if (window.confirm("Êtes-vous sûr de vouloir supprimer cet étudiant ?")) {
+        this.deleteStudent(id);
+      }
+    },
     deleteStudent(id) {
       axios.delete(`http://localhost:8000/api/deleteStudentAdmin/${id}`)
         .then(response => {
           console.log('Étudiant supprimé avec succès:', response.data);
-          // Actualiser la liste des étudiants après la suppression
+     
           this.fetchStudents();
         })
         .catch(error => {
@@ -96,5 +101,5 @@ export default {
 </script>
 
 <style scoped>
-/* Vos styles spécifiques ici */
+
 </style>

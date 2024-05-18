@@ -8,14 +8,14 @@
         </div>
         
         <div class="col-span-9 mt-24  mr-12">
-            <h2 class="text-2xl font-bold mb-8 mt-8">Offers List</h2>
+            <h2 class="text-2xl font-bold mb-8 mt-8">Liste des offres</h2>
             <div class="overflow-x-auto">
                 <div class="flex justify-end mb-4">
                 <router-link to="/AddOffer">
                     <button type="button"
                             class="px-6 py-2 rounded-full text-black text-sm tracking-wider font-medium outline-none border-2 border-purple-600 hover:bg-purple-300 hover:text-white transition-all duration-300 flex items-center gap-2">
-                        <i class="fas fa-plus"></i> <!-- Add icon -->
-                        <span>Add new Offer</span>
+                        <i class="fas fa-plus"></i>
+                        <span>Ajouter une nouvelle offre</span>
                     </button>
                 </router-link>
 
@@ -49,7 +49,7 @@
               <td class="px-6 py-4 text-sm text-[#333]">{{ offre.description }}</td>
               <td class="px-6 py-4 text-sm text-[#333]">
                   <button class="text-green-500 hover:text-green-700 mr-4">
-                      <router-link :to="'/detailoffre/' + offre.id">Details</router-link>
+                      <router-link :to="'/detailoffre/' + offre.id">Dtails</router-link>
                   </button>
               </td>
           </tr>

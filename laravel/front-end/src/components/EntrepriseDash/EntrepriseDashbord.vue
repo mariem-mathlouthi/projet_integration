@@ -9,9 +9,9 @@
       <div class="grid md:grid-cols-2 items-center md:gap-8 gap-6">
         <div class="max-md:order-1 max-md:text-center">
           <p class="mt-4 text-sm font-bold text-blue-600"><span class="rotate-90 inline-block mr-2 mb-2">|</span> ENTREPRISE </p>
-          <h2 class="md:text-5xl text-3xl font-extrabold mb-4 md:!leading-[55px]">Hello and welcome to your dashboard</h2>
-          <p class="mt-4 text-base text-gray-500 leading-relaxed">We're delighted to have you here. How can we assist you today?</p>
-        
+          <h2 class="md:text-5xl text-3xl font-extrabold mb-4 md:!leading-[55px]">Bonjour et bienvenue sur votre tableau de bord</h2>
+<p class="mt-4 text-base text-gray-500 leading-relaxed">Nous sommes ravis de vous accueillir ici. Comment pouvons-nous vous aider aujourd'hui ?</p>
+
           <div class="flex items-center mt-10">
             <input id="checkbox3" type="checkbox" class="hidden peer" checked />
             <label for="checkbox3"

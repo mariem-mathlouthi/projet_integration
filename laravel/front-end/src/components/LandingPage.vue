@@ -30,12 +30,13 @@
     <section  data-aos="fade-up" >
       <div class="max-w-screen-xl mx-auto px-4 py-28 gap-12 text-gray-600 md:px-8">
           <div class="space-y-5 max-w-4xl mx-auto text-center">
-              <h2 class="text-4xl text-gray-800 font-extrabold mx-auto md:text-5xl">
-                welcome aboard! <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-[#E114E5]">! Let's embark on this exciting journey together</span>
-              </h2>
-              <p class="max-w-2xl mx-auto">
-                  Sed ut perspiciatis unde omnis iste natus voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-              </p>
+            <h2 class="text-4xl text-gray-800 font-extrabold mx-auto md:text-5xl">
+  Bonjour ! <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-[#E114E5]">Bienvenue sur notre plateforme de gestion de stages</span>
+</h2>
+<p class="max-w-2xl mx-auto">
+  Découvrez toutes les opportunités et ressources pour votre stage ici.
+</p>
+
               <div class="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
                   <router-link to="/signupEntreprise" class="flex items-center justify-center gap-x-2 py-2 px-4 text-white font-medium text-sm bg-gray-800 duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg md:inline-flex">
                       Entreprise

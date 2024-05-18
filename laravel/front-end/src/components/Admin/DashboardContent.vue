@@ -5,7 +5,7 @@
         <h1>Dashboard</h1>
         <ul class="breadcrumb">
           <li>
-            <a href="#">Dashboard</a>
+            <a href="#">Tableau de bord</a>
           </li>
           <li><i class='bx bx-chevron-right'></i></li>
           <li>
@@ -20,21 +20,21 @@
         <i class='bx bxs-calendar-check'></i>
         <span class="text">
           <h3>{{ newOrders }}</h3>
-          <p>New Request</p>
+          <p>Les nouvelles demandes</p>
         </span>
       </li>
       <li>
         <i class='bx bxs-group'></i>
         <span class="text">
           <h3>{{ students }}</h3>
-          <p>Students</p>
+          <p>Les étudiants</p>
         </span>
       </li>
       <li>
         <i class='bx bxs-briefcase'></i>
         <span class="text">
           <h3>{{ companies }}</h3>
-          <p>Companies</p>
+          <p>Les entreprises</p>
         </span>
       </li>
     </ul>
@@ -42,16 +42,16 @@
    <div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>Recent Request</h3>
+						<h3>Les demandes récentes</h3>
 						<i class='bx bx-search'></i>
 						<i class='bx bx-filter'></i>
 					</div>
 					<table>
 						<thead>
 							<tr>
-								<th>Company</th>
-                <th>Offer</th>
-								<th>domaine </th>
+								<th>Entreprise</th>
+                <th>Offre</th>
+								<th>Domaine </th>
 								<th>Status</th>
 							</tr>
 						</thead>
