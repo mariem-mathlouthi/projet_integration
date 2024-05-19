@@ -129,9 +129,7 @@
                       </label>
                       <p class="pl-1">or drag and drop</p>
                     </div>
-                    <p class="text-xs text-gray-500">
-                      only PDF is Allowed.
-                    </p>
+                    <p class="text-xs text-gray-500">only PDF is Allowed.</p>
                   </div>
                 </div>
               </div>
@@ -196,22 +194,25 @@ export default {
       // upload cahierCharge
       var FileData = new FormData();
       FileData.append("file", this.cahierCharge);
-      try {
-        axios
-          .post("http://localhost:8087/file/upload", FileData)
-          .then(function (response) {
-            setTimeout(() => {
-              toast.success("Cahier de Charge uploaded succesfully !", {
-                autoClose: 2000,
-              });
+
+      axios
+        .post("http://localhost:8087/file/upload", FileData)
+        .then(function (response) {
+          setTimeout(() => {
+            toast.success("Cahier de Charge uploaded succesfully !", {
+              autoClose: 2000,
             });
           });
-      } catch (error) {
-        toast.error("Something went wrong !", {
-          autoClose: 2000,
+        })
+        .catch(function (error) {
+          setTimeout(() => {
+            toast.error("failed to upload file !" + error.message, {
+              autoClose: 2000,
+            });
+          }, "500");
+          console.log(error);
         });
-        console.log(error);
-      }
+
       // add offre
       let storedData = localStorage.getItem("EntrepriseAccountInfo");
       this.idEntreprise = JSON.parse(storedData).id;
@@ -255,7 +256,7 @@ export default {
               toast.success("Offre added succesfully !", {
                 autoClose: 2000,
               });
-            }, "1000");
+            }, "500");
             router.push({ name: "OffersList" });
           });
       } catch (error) {

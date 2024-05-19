@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface EntrepriseRepository extends JpaRepository<Entreprise, Long> {
-    //Optional<Entreprise> findByEmail(String email);
 
     @Query(value="select * from entreprises where user_id=:id",nativeQuery=true)
     Entreprise getEntrepriseByIdUser(Long id);

@@ -47,7 +47,7 @@ public class EtudiantService {
     }
 
     public ResponseEntity<ApiResponse> modifyEtudiantInfo(Etudiant etudiant) {
-       /* Optional<Etudiant> existingEtudiant = etudiantRepository.findByEmail("dd");
+        Optional<Etudiant> existingEtudiant = etudiantRepository.findById(etudiant.getId());
         if (existingEtudiant.isPresent()) {
             Etudiant existing = existingEtudiant.get();
             existing.setFullname(etudiant.getFullname());
@@ -63,10 +63,7 @@ public class EtudiantService {
             return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Etudiant not found", false));
-        }*/
-
-        return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
-
+        }
     }
 
 

@@ -43,20 +43,19 @@ public class EntrepriseService {
 return  true;
     }
     public ResponseEntity<ApiResponse> modifyEntrepriseInfo(Entreprise entreprise) {
-       /*Optional<Entreprise> existingEntreprise = entrepriseRepository.findByEmail("ddd");
+       Optional<Entreprise> existingEntreprise = entrepriseRepository.findById(entreprise.getId());
         if (existingEntreprise.isPresent()) {
             Entreprise existing = existingEntreprise.get();
             existing.setNumeroSIRET(entreprise.getNumeroSIRET());
             existing.setName(entreprise.getName());
             existing.setSecteur(entreprise.getSecteur());
             existing.setDescription(entreprise.getDescription());
+            existing.setLogo(entreprise.getLogo());
             entrepriseRepository.save(existing);
             return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Entreprise not found", false));
-        }*/
-        return ResponseEntity.ok().body(new ApiResponse("Account updated successfully", true));
-
+        }
     }
 
 

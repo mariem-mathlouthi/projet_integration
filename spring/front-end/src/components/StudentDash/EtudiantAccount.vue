@@ -125,7 +125,9 @@ export default {
       specialite: "",
       typeStage: "",
       etablissement: "",
+      cin: "",
       update: false,
+      image:"",
       imageUrl: "",
       file: null,
     };
@@ -157,23 +159,24 @@ export default {
       this.specialite = etudiantData.specialite;
       this.typeStage = etudiantData.typeStage;
       this.etablissement = etudiantData.etablissement;
-      this.imageUrl = etudiantData.image;
+      this.image = etudiantData.image;
+      this.cin = etudiantData.cin;
 
-      if (this.imageUrl == "test.jpg") {
+      if (this.image == "test.jpg") {
         this.imageUrl =
           "https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg";
       } else {
-        this.imageUrl = "http://localhost:8087/file/get/" + this.imageUrl;
+        this.imageUrl = "http://localhost:8087/file/get/" + this.image;
       }
     },
 
-    async handleImageChange(event) {
+    handleImageChange(event) {
       this.file = event.target.files[0];
       this.update = true;
       console.log(this.file);
     },
 
-    async saveChanges() {
+    saveChanges() {
       if (this.update) {
         var Avatar = new FormData();
         Avatar.append("file", this.file);
@@ -195,18 +198,34 @@ export default {
           });
       }
 
-      const etudiant = new FormData();
-      etudiant.append("fullname", this.fullname);
-      etudiant.append("niveau", this.niveau);
-      etudiant.append("domaine", this.domaine);
-      etudiant.append("specialite", this.specialite);
-      etudiant.append("type_stage", this.typeStage);
-      etudiant.append("etablissement", this.etablissement);
+      // let etudiant = new FormData();
+      // etudiant.append("id", this.id);
+      // etudiant.append("fullname", this.fullname);
+      // etudiant.append("niveau", this.niveau);
+      // etudiant.append("domaine", this.domaine);
+      // etudiant.append("specialite", this.specialite);
+      // etudiant.append("type_stage", this.typeStage);
+      // etudiant.append("etablissement", this.etablissement);
+      // etudiant.append("image", this.imageUrl);
+      let etudiant = {
+        id: this.id,
+        fullname: this.fullname,
+        niveau: this.niveau,
+        cin: this.cin,
+        domaine: this.domaine,
+        typeStage: this.typeStage,
+        specialite: this.specialite,
+        etablissement: this.etablissement,
+        image: this.image,
+      };
+      if (this.update) {
+        etudiant.image = this.file.name;
+      }
 
       axios
         .post("http://localhost:8087/etudiant/modify", etudiant)
         .then(function (response) {
-          toast.success("avatar uploaded succesfully !", {
+          toast.success("Account modified succesfully !", {
             autoClose: 2000,
           });
         })

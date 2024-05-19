@@ -100,6 +100,7 @@ export default {
   name: "EntrepriseDashboard",
   data() {
     return {
+      id: null,
       numeroSIRET: "",
       name: "",
       email: "",
@@ -135,6 +136,7 @@ export default {
       this.name = entrepriseData.name;
       this.secteur = entrepriseData.secteur;
       this.description = entrepriseData.description;
+      this.logo = entrepriseData.logo;
     },
 
     handleLogoChange(event) {
@@ -166,44 +168,33 @@ export default {
           });
       }
 
-      console.log("Logo URL:", this.logoURL);
-      let jsonLogo = {
-        logo: this.logoURL,
-      };
-      localStorage.setItem("EntrepriseLogo", JSON.stringify(jsonLogo));
       let myjson = {
         numeroSIRET: this.numeroSIRET,
-        email: this.email,
         name: this.name,
         secteur: this.secteur,
         description: this.description,
+        logo: this.logo,
+        id: this.id,
       };
+      if (this.update) {
+        myjson.logo = this.file.name;
+      }
+
       console.log(myjson);
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/api/modifyEntreprise",
-          myjson
-        );
-        if (response.data.update === true) {
+      const response = await axios
+        .post("http://localhost:8087/api/entreprise/modify", myjson)
+        .then(function (response) {
           toast.success("Account updated succesfully !", {
             autoClose: 2000,
           });
-          let existingData = localStorage.getItem("EntrepriseAccountInfo");
-          existingData = JSON.parse(existingData);
-          existingData.numeroSIRET = this.numeroSIRET;
-          existingData.name = this.name;
-          existingData.secteur = this.secteur;
-          existingData.description = this.description;
-          const updatedData = JSON.stringify(existingData);
-          localStorage.setItem("EntrepriseAccountInfo", updatedData);
-        } else {
-          toast.error("Email not found !", {
+          console.log(response);
+        })
+        .catch(function (error) {
+          toast.error("something went wrong !", {
             autoClose: 2000,
           });
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+          console.error("Error:", error);
+        });
     },
   },
   mounted() {

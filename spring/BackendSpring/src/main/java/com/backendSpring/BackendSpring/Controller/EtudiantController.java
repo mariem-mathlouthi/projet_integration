@@ -25,7 +25,7 @@ public class EtudiantController {
         }
     }
 
-    @PutMapping("/modify")
+    @PostMapping("/modify")
     public ResponseEntity<ApiResponse> modifyEtudiantInfo(@RequestBody Etudiant etudiant) {
         ResponseEntity<ApiResponse> responseEntity = etudiantService.modifyEtudiantInfo(etudiant);
         return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());

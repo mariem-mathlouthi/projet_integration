@@ -10,10 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
-  /*  boolean existsByEmail(String email);
     boolean existsByCin(String cin);
-    Optional<Etudiant> findByEmail(String email);
-*/
+
     @Query(value="select * from etudiants where user_id=:id",nativeQuery=true)
-    Etudiant getEtudianteByIdUser(Long id);
+    Etudiant getEtudiantByIdUser(Long id);
 }

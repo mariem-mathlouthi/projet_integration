@@ -61,7 +61,7 @@ public class AuthController {
         {
             return  ResponseEntity.ok().body(EntreRepo.getEntrepriseByIdUser(user.getId()));
         }else{
-            return  ResponseEntity.ok().body(EtudRepo.getEtudianteByIdUser(user.getId()));
+            return  ResponseEntity.ok().body(EtudRepo.getEtudiantByIdUser(user.getId()));
         }
 
 

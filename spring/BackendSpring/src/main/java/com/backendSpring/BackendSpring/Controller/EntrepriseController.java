@@ -23,8 +23,8 @@ public class EntrepriseController {
         return ResponseEntity.ok().body("User Created");
     }
 
-    @PutMapping("/modify")
-    public ResponseEntity<ApiResponse> modifyEntrepriseInfo(@RequestBody Entreprise entreprise) {
+    @PostMapping("/modify")
+    public ResponseEntity<?> modifyEntrepriseInfo(@RequestBody Entreprise entreprise) {
         ResponseEntity<ApiResponse> responseEntity = entrepriseService.modifyEntrepriseInfo(entreprise);
         return ResponseEntity.status(responseEntity.getStatusCode()).body(responseEntity.getBody());
     }
