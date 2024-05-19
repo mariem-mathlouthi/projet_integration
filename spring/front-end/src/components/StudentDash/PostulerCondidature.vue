@@ -34,6 +34,7 @@
               v-model="email"
               placeholder="Entrez votre adresse e-mail"
               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              disabled
             />
           </div>
           <label for="fullname" class="block text-sm font-medium text-gray-700"
@@ -66,6 +67,7 @@
                 type="file"
                 id="uploadFile1"
                 class="hidden"
+                accept=".pdf"
                 @change="handleFileUpload"
               />
               <p class="text-xs text-gray-400 mt-2">only PDF is Allowed.</p>
@@ -113,13 +115,13 @@ export default {
       idEntreprise: "",
       entrepriseName: "",
 
-      DemandeData : {
+      DemandeData: {
         cv: null,
         date_soumission: null,
         statut: "en_attente",
         id_etudiant: 5,
         id_offre_de_stage: this.idOffreDeStage,
-      }
+      },
     };
   },
   components: {

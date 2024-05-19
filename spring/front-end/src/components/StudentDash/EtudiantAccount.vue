@@ -37,6 +37,7 @@
               v-model="email"
               placeholder="your.email@domain.com"
               class="w-full rounded-md border bg-white px-2 py-2 outline-none ring-gray-600 focus:ring-1"
+              disabled
             />
           </div>
 
@@ -84,6 +85,7 @@
               </p>
               <input
                 type="file"
+                accept=".png, .jpeg, .jpg"
                 @change="handleImageChange"
                 class="max-w-full rounded-lg px-2 font-medium text-blue-600 outline-none ring-blue-600 focus:ring-1"
               />
@@ -115,6 +117,7 @@ import Sidebar from "./Sidebar.vue";
 export default {
   data() {
     return {
+      id: null,
       fullname: "",
       niveau: "",
       email: "",
@@ -133,16 +136,29 @@ export default {
   },
 
   methods: {
-    getAccountData() {
+    async getAccountData() {
       let storedData = localStorage.getItem("StudentAccountInfo");
-      this.fullname = JSON.parse(storedData).fullname;
-      this.niveau = JSON.parse(storedData).niveau;
+      this.id = JSON.parse(storedData).id;
       this.email = JSON.parse(storedData).email;
-      this.domaine = JSON.parse(storedData).domaine;
-      this.specialite = JSON.parse(storedData).specialite;
-      this.typeStage = JSON.parse(storedData).typeStage;
-      this.etablissement = JSON.parse(storedData).etablissement;
-      this.imageUrl = JSON.parse(storedData).image;
+      // get etudiant data using id
+      let etudiantData = await axios
+        .get("http://localhost:8087/etudiant/" + this.id)
+        .then((response) => {
+          return response.data.student;
+        })
+        .catch((error) => {
+          toast.error("Error fetching data! Please try to reLogin", {
+            autoClose: 3000,
+          });
+        });
+      this.fullname = etudiantData.fullname;
+      this.niveau = etudiantData.niveau;
+      this.domaine = etudiantData.domaine;
+      this.specialite = etudiantData.specialite;
+      this.typeStage = etudiantData.typeStage;
+      this.etablissement = etudiantData.etablissement;
+      this.imageUrl = etudiantData.image;
+
       if (this.imageUrl == "test.jpg") {
         this.imageUrl =
           "https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg";
@@ -150,6 +166,7 @@ export default {
         this.imageUrl = "http://localhost:8087/file/get/" + this.imageUrl;
       }
     },
+
     async handleImageChange(event) {
       this.file = event.target.files[0];
       this.update = true;

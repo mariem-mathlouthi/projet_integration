@@ -35,6 +35,7 @@
                   placeholder="Email"
                   v-model="email"
                   class="w-full rounded py-2.5 px-4 border-2 mt-2 text-sm outline-[#007bff]"
+                  disabled
                 />
               </div>
               <div>
@@ -122,12 +123,14 @@
                           name="file-upload"
                           type="file"
                           class="sr-only"
+                          accept=".pdf"
+                          @change="handleFileUpload"
                         />
                       </label>
                       <p class="pl-1">or drag and drop</p>
                     </div>
                     <p class="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
+                      only PDF is Allowed.
                     </p>
                   </div>
                 </div>
@@ -185,7 +188,31 @@ export default {
     Sidebar,
   },
   methods: {
-    async addOffre() {
+    handleFileUpload(event) {
+      this.cahierCharge = event.target.files[0];
+      console.log(this.cahierCharge);
+    },
+    addOffre() {
+      // upload cahierCharge
+      var FileData = new FormData();
+      FileData.append("file", this.cahierCharge);
+      try {
+        axios
+          .post("http://localhost:8087/file/upload", FileData)
+          .then(function (response) {
+            setTimeout(() => {
+              toast.success("Cahier de Charge uploaded succesfully !", {
+                autoClose: 2000,
+              });
+            });
+          });
+      } catch (error) {
+        toast.error("Something went wrong !", {
+          autoClose: 2000,
+        });
+        console.log(error);
+      }
+      // add offre
       let storedData = localStorage.getItem("EntrepriseAccountInfo");
       this.idEntreprise = JSON.parse(storedData).id;
 
@@ -198,27 +225,27 @@ export default {
         dateDebut: this.dateDebut,
         dateFin: this.dateFin,
         typeOffre: this.typeOffre,
-        cahierCharge: this.cahierCharge,
+        cahierCharge: this.cahierCharge.name,
       };
       console.log(myjson);
 
-      const currentDate = new Date();
-      const day = String(currentDate.getDate()).padStart(2, "0");
-      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-      const year = currentDate.getFullYear();
-      const formattedDate = `${day}-${month}-${year}`;
-      let myObj = {
-        idEtudiant: 0,
-        idEntreprise: this.idEntreprise,
-        message:
-          this.entrepriseName +
-          " a ajouté une nouvelle offre de stage en " +
-          this.titre,
-        destination: "Entreprise",
-        type: "offre",
-        visibility: "shown",
-        date: formattedDate,
-      };
+      // const currentDate = new Date();
+      // const day = String(currentDate.getDate()).padStart(2, "0");
+      // const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      // const year = currentDate.getFullYear();
+      // const formattedDate = `${day}-${month}-${year}`;
+      // let myObj = {
+      //   idEtudiant: 0,
+      //   idEntreprise: this.idEntreprise,
+      //   message:
+      //     this.entrepriseName +
+      //     " a ajouté une nouvelle offre de stage en " +
+      //     this.titre,
+      //   destination: "Entreprise",
+      //   type: "offre",
+      //   visibility: "shown",
+      //   date: formattedDate,
+      // };
 
       try {
         axios

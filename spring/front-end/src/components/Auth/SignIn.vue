@@ -66,7 +66,7 @@ export default {
 
         if (response.data.user.role === "Entreprise") {
           const EntrepriseAccount = {
-            id: response.data.user.id,
+            id: response.data.id,
             numeroSIRET: response.data.user.numerosiret,
             email: response.data.user.email,
             name: response.data.user.name,
@@ -77,7 +77,7 @@ export default {
           this.$router.push('/EntrepriseDash');
         } else if (response.data.user.role === "Etudiant") {
           const StudentAccount = {
-            id: response.data.user.id,
+            id: response.data.id,
             fullname: response.data.user.fullname,
             email: response.data.user.email,
             niveau: response.data.user.niveau,
