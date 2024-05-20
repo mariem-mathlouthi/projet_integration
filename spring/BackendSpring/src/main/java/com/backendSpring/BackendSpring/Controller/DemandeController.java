@@ -51,22 +51,9 @@ public class DemandeController {
 
 
 
-    @GetMapping("/en-attente")
-    public ResponseEntity<List<Demande>> getDemandesEnAttente() {
-        List<Demande> demandes = demandeService.getDemandesEnAttente();
-        return ResponseEntity.ok(demandes);
-    }
-
-    @GetMapping("/acceptees")
-    public ResponseEntity<List<Demande>> getDemandesAcceptees() {
-        List<Demande> demandes = demandeService.getDemandesAcceptees();
-        return ResponseEntity.ok(demandes);
-    }
-
-    @GetMapping("/refusees")
-    public ResponseEntity<List<Demande>> getDemandesRefusees() {
-        List<Demande> demandes = demandeService.getDemandesRefusees();
-        return ResponseEntity.ok(demandes);
+    @GetMapping("/get/{idEtudiant}")
+    public ResponseEntity<?> getDemandesEtudiant(@PathVariable Long idEtudiant) {
+        return ResponseEntity.ok(demandeService.getDemandesEtudiant(idEtudiant));
     }
 
 }

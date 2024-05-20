@@ -12,6 +12,6 @@ public interface DemandeRepository extends JpaRepository<Demande, Long> {
 
 
     List<Demande> findByStatut(Statuts statuts);
-
+    List<Demande> findByEtudiantId(long id);
     List<Demande> findByOffreDeStageId(Long offerId);
 }

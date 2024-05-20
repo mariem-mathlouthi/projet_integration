@@ -73,7 +73,7 @@ public class OffreController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<?> supprimerOffre(@PathVariable Long id) {
         offreService.supprimerOffre(id);
         return ResponseEntity.ok().build();

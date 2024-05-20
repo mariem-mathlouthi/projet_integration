@@ -157,8 +157,7 @@
       >
         <img :src="logoURL" class="w-9 h-9 rounded-full border-white" />
         <div class="ml-4">
-          <p class="text-sm text-[#333]">Entreprise</p>
-          <p class="text-xs text-gray-400 mt-1">Active free account</p>
+          <p class="text-sm text-[#333]">{{ entreprise }}</p>
         </div>
       </div>
     </div>
@@ -174,6 +173,7 @@ export default {
       id: null,
       logoURL:
         "https://i.postimg.cc/mDWkzGDv/istockphoto-1200064810-170667a.jpg",
+      entreprise: "",
     };
   },
   methods: {
@@ -193,6 +193,7 @@ export default {
       if (Data.logo != "test.jpg") {
         this.logoURL = "http://localhost:8087/file/get/" + Data.logo;
       }
+      this.entreprise = Data.name;
     },
   },
   mounted() {

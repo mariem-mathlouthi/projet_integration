@@ -73,18 +73,13 @@ public class DemandeService {
         }
     }
 
-
-    public List<Demande> getDemandesEnAttente() {
-        return demandeRepository.findByStatut(Statuts.en_attente);
+    public List<Demande>getDemandesEtudiant(Long id) {
+        List<Demande> response = demandeRepository.findByEtudiantId(id);
+        return response;
     }
 
-    public List<Demande> getDemandesAcceptees() {
-        return demandeRepository.findByStatut(Statuts.accepté);
-    }
 
-    public List<Demande> getDemandesRefusees() {
-        return demandeRepository.findByStatut(Statuts.refusé);
-    }
+
 
 
 
