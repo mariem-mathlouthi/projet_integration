@@ -67,7 +67,7 @@
                 data-original="#000000"
               />
             </svg>
-            <span> Treated Request</span>
+            <span> Stages List</span>
           </router-link>
         </li>
 

@@ -56,4 +56,14 @@ public class DemandeController {
         return ResponseEntity.ok(demandeService.getDemandesEtudiant(idEtudiant));
     }
 
+    @GetMapping("/delete/{idDemande}")
+    public ResponseEntity<?> deleteDemande(@PathVariable Long idDemande) {
+        if (!demandeService.deleteDemande(idDemande)) {
+            return ResponseEntity.ok("demande est supprimée");
+        }
+        else {
+            return ResponseEntity.ok("error!");
+        }
+    }
+
 }

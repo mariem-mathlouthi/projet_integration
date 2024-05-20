@@ -6,5 +6,6 @@ import lombok.Getter;
 public enum Statuts {
     en_attente,
     accepté,
-    refusé
+    refusé,
+    en_execution
 }

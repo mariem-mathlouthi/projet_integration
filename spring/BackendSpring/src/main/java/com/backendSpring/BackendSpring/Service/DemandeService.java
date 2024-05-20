@@ -78,6 +78,11 @@ public class DemandeService {
         return response;
     }
 
+    public Boolean deleteDemande(Long idDemande) {
+        demandeRepository.deleteById(idDemande);
+        return demandeRepository.existsById(idDemande);
+    }
+
 
 
 

@@ -105,22 +105,16 @@ import axios from "axios";
 export default {
   data() {
     return {
-      idEtudiant: "",
-      idOffreDeStage: "",
-      statut: "en attente",
-      DateSoumission: "23-04-2024",
       cv: "",
       fullname: "",
       email: "",
-      idEntreprise: "",
-      entrepriseName: "",
 
       DemandeData: {
         cv: null,
-        date_soumission: null,
+        dateSoumission: new Date(),
         statut: "en_attente",
-        id_etudiant: 5,
-        id_offre_de_stage: this.idOffreDeStage,
+        etudiant: { id: null },
+        offreDeStage: { id: null },
       },
     };
   },
@@ -130,7 +124,7 @@ export default {
   },
 
   created() {
-    this.idOffreDeStage = this.$route.params.id;
+    this.DemandeData.offreDeStage.id = this.$route.params.id;
     this.getAccountData();
   },
   methods: {
@@ -141,8 +135,7 @@ export default {
 
     getAccountData() {
       let storedData = localStorage.getItem("StudentAccountInfo");
-      this.idEtudiant = JSON.parse(storedData).id;
-      this.fullname = JSON.parse(storedData).fullname;
+      this.DemandeData.etudiant.id = JSON.parse(storedData).id;
       this.email = JSON.parse(storedData).email;
     },
 
