@@ -121,8 +121,9 @@ public class FileManagementService {
         Document document = new Document();
         try {
             PdfWriter.getInstance(document, new FileOutputStream("BackendSpring/src/main/resources/attestation.pdf"));
-            Path EntrepriseLogoPath = Paths.get(ClassLoader.getSystemResource("uploads/" +
-                    demande.getOffreDeStage().getEntreprise().getLogo()).toURI());
+            
+            Path EntrepriseLogoPath = Paths.get(uploadDirectory + File.separator +demande.getOffreDeStage().getEntreprise().getLogo());
+
             Image Logo = Image.getInstance(EntrepriseLogoPath.toAbsolutePath().toString());
             Logo.scaleAbsolute(250, 150);
             Logo.setAlignment(Element.ALIGN_RIGHT);
@@ -179,9 +180,6 @@ public class FileManagementService {
             e.printStackTrace();
             return false;
         } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return false;
-        } catch (URISyntaxException e) {
             e.printStackTrace();
             return false;
         } catch (IOException e) {
