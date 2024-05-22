@@ -179,6 +179,14 @@ export default {
       cahierCharge: "test.pdf",
       email: "",
       entrepriseName: "",
+      NotificationData: {
+        date: new Date(),
+        message: "",
+        titre: "Nouveau offre !",
+        type: "offre",
+        visibility: "shown",
+        entreprise: { id: null },
+      },
     };
   },
   components: {
@@ -230,24 +238,25 @@ export default {
       };
       console.log(myjson);
 
-      // const currentDate = new Date();
-      // const day = String(currentDate.getDate()).padStart(2, "0");
-      // const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-      // const year = currentDate.getFullYear();
-      // const formattedDate = `${day}-${month}-${year}`;
-      // let myObj = {
-      //   idEtudiant: 0,
-      //   idEntreprise: this.idEntreprise,
-      //   message:
-      //     this.entrepriseName +
-      //     " a ajouté une nouvelle offre de stage en " +
-      //     this.titre,
-      //   destination: "Entreprise",
-      //   type: "offre",
-      //   visibility: "shown",
-      //   date: formattedDate,
-      // };
+      // add notification
+      this.NotificationData.message =
+        "Nouveau offre est postulée par l'entreprise N°(" +
+        this.idEntreprise +
+        ")";
+      this.NotificationData.entreprise.id = this.idEntreprise;
 
+      axios
+        .post(
+          "http://localhost:8087/api/notification/add",
+          this.NotificationData
+        )
+        .then(function (response) {
+          console.log("offre notifiée");
+        })
+        .catch(function (error) {
+          console.log("something went wrong!");
+        });
+      // upload offre data
       try {
         axios
           .post("http://localhost:8087/api/offres/add", myjson)

@@ -20,14 +20,12 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "idEtudiant", referencedColumnName = "id")
     private Etudiant etudiant;
-
     @ManyToOne
     @JoinColumn(name = "idEntreprise", referencedColumnName = "id")
     private Entreprise entreprise;
 
+    private  String titre;
     private String message;
-    @Enumerated(EnumType.STRING)
-    private Destination destination;
     @Enumerated(EnumType.STRING)
     private Type type;
     @Enumerated(EnumType.STRING)

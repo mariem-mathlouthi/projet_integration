@@ -116,6 +116,15 @@ export default {
         etudiant: { id: null },
         offreDeStage: { id: null },
       },
+
+      NotificationData: {
+        date: new Date(),
+        message: "",
+        titre: "Demande envoyée",
+        type: "demande",
+        visibility: "shown",
+        etudiant: { id: null },
+      },
     };
   },
   components: {
@@ -171,6 +180,24 @@ export default {
           toast.error("Something went wrong !", {
             autoClose: 2000,
           });
+        });
+
+      this.NotificationData.message =
+        "demande du stage est envoyée pour l'offre N°(" +
+        this.DemandeData.offreDeStage.id +
+        ")";
+      this.NotificationData.etudiant.id = this.DemandeData.etudiant.id;
+
+      axios
+        .post(
+          "http://localhost:8087/api/notification/add",
+          this.NotificationData
+        )
+        .then(function (response) {
+          console.log("demande ajoutée");
+        })
+        .catch(function (error) {
+          console.log("something went wrong!");
         });
     },
   },

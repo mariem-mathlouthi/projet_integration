@@ -25,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service
@@ -138,9 +140,10 @@ public class FileManagementService {
             Font Keywordfont = FontFactory.getFont(FontFactory.COURIER, 15, BaseColor.BLACK);
             Keywordfont.setStyle(Keywordfont.BOLDITALIC);
             // document elements
+              // title
             Paragraph title = new Paragraph("Attestation de Stage", Titlefont);
             title.setAlignment(Element.ALIGN_CENTER);
-
+              // paragraphs
             Paragraph Parag = new Paragraph(50, "Je Soussignée, gérant de l'entreprise ", Paragraphfont);
             Parag.setAlignment(Element.ALIGN_MIDDLE);
             Parag.setSpacingBefore(20);
@@ -152,10 +155,10 @@ public class FileManagementService {
             Chunk Parag4 = new Chunk(" a effectuée son stage ", Paragraphfont);
             Chunk EtudiantStage = new Chunk(demande.getEtudiant().getTypeStage(), Keywordfont);
             Chunk Parag5 = new Chunk(" au sein de mon entreprise pendant la periode de : ", Paragraphfont);
-            Chunk DateDebut = new Chunk(demande.getOffreDeStage().getDateDebut().toString() + " -> ", Paragraphfont);
-            Chunk DateFin = new Chunk(demande.getOffreDeStage().getDateFin().toString(), Paragraphfont);
+            Chunk DateDebut = new Chunk(this.FormatDate(demande.getOffreDeStage().getDateDebut().toString()) + " -> ", Paragraphfont);
+            Chunk DateFin = new Chunk(this.FormatDate(demande.getOffreDeStage().getDateFin().toString()), Paragraphfont);
             Chunk Parag6 = new Chunk(".\nCette attestation est délivrée à l'intéressé(e) pour servir et valoir ce que de droit.\n", Paragraphfont);
-            Chunk DateCreation_Cachet = new Chunk("Fait le : " + new Date() + ".\nSignature:\nCachet entreprise\n", ParagraphfontUnderlined);
+            Chunk DateCreation_Cachet = new Chunk("Fait le : " + this.FormatDate(new Date().toString()) + ".\nSignature:\nCachet entreprise\n", ParagraphfontUnderlined);
             // append the elements to paragraph
             Parag.add(companyName);
             Parag.add(Parag2);
@@ -186,5 +189,11 @@ public class FileManagementService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private String FormatDate(String date) {
+        LocalDateTime oldDate = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy"));
+        String outputDate = oldDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        return outputDate;
     }
 }
