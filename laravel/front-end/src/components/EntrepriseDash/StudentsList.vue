@@ -75,8 +75,13 @@
                
               
                 <!-- Formulaire de suppression avec confirmation -->
-                <form @submit.prevent="confirmDelete(demande.demandeId)">
+                <form @submit.prevent="confirmDelete(demande.demandeId)" class="d-flex space-x-10">
                   <button type="submit" class="text-red-500 hover:text-red-700">Supprimer</button>
+                  <div class="mb-4">
+                <label for="uploadFile1" class="text-[#007bff] relative top-3" >Importer Attestation</label>
+                <input type="file" id='uploadFile1' name="cv" class="hidden" @change="handleFileUpload"   />
+              </div>
+              <button @click.prevent="envoyer(demande.idEtudiant,demande.offerId)" class="text-green-500">envoyer</button>
                 </form>
               </td>
             </tr>
@@ -100,6 +105,7 @@ export default {
       demands: [], // Liste de toutes les demandes
       filteredDemands: [], // Liste filtrée de demandes
       storedDemands: [], // Liste de demandes à afficher après filtrage
+      attestation:"",
     };
   },
   components: {
@@ -110,6 +116,35 @@ export default {
     // Filtrer les demandes par statut
     filterByStatut(statut) {
       this.storedDemands = this.filteredDemands.filter(demande => demande.statut === statut);
+    },
+    handleFileUpload(event) {
+        this.attestation = event.target.files[0];
+      },
+
+    async envoyer(idEtudiant,offerId){
+      const storedData = localStorage.getItem("EntrepriseAccountInfo");
+      const idEntreprise = JSON.parse(storedData).id;
+      const entrepriseName=JSON.parse(storedData).name;
+      const currentDate = new Date();
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const year = currentDate.getFullYear();
+      const formattedDate = `${day}-${month}-${year}`;
+      const offerResponse = await axios.get(`http://localhost:8000/api/offreDetail2/${offerId}`);
+      let offerName= offerResponse.data.offre.titre;
+      let message=entrepriseName + " a envoyer une attestation en " + offerName;
+      let formData = new FormData();
+        formData.append('idEtudiant', idEtudiant);
+        formData.append('idEntreprise', idEntreprise);
+        formData.append('idOffreDeStage', offerId);
+        formData.append('message', message);
+        formData.append('date', formattedDate);
+        formData.append('attestation', this.attestation);
+        console.log(formData);
+        const response = await axios.post("http://localhost:8000/api/attestation",formData);
+        if (response.data.check === true) {
+          toast.success("attestation envoyer  avec succès!", { autoClose: 2000 });
+        } 
     },
 
     // Récupérer toutes les demandes
@@ -152,6 +187,10 @@ export default {
         } else {
           toast.error("Une erreur s'est produite lors de la récupération des offres!", { autoClose: 2000 });
         }
+        
+
+
+
       } catch (error) {
         console.error("Erreur:", error);
         toast.error("Une erreur s'est produite lors de la récupération des données!", { autoClose: 2000 });

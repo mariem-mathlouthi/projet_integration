@@ -38,6 +38,8 @@ class VerifyCsrfToken extends Middleware
 
         'api/notification',
         'api/getAllNotifications',
+        'api/attestation',
+        'api/getAttestation/{idEtudiant}',
 
 
 

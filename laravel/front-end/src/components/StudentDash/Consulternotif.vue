@@ -14,7 +14,9 @@
             <div v-else>
               <div v-for="(notification, index) in notifications" :key="index" class="mb-4">
                 <h2 class="text-lg font-semibold">{{ notification.title }} </h2>
-                <p class="text-gray-600">{{ notification.message }}  <span class="text-blue-500">{{ notification.date }}</span> <router-link v-if="notification.type=='offre'" to="/OffersListStd" class="text-blue-600">consulter la</router-link></p>
+                <p class="text-gray-600">{{ notification.message }}  <span class="text-blue-500">{{ notification.date }}</span> <router-link v-if="notification.type=='offre'" to="/OffersListStd" class="text-blue-600">consulter la</router-link> 
+                  <button v-if="notification.type=='attestation'" class="text-orange-500 ml-2" @click="voirAttestation(notification.attestation)"> voir votre attestation</button>
+                </p>
                 <hr class="my-2 border-gray-200">
               </div>
             </div>
@@ -86,22 +88,49 @@
                  }
                 }
                 
-                console.log(this.notifications);
-                this.notifications.reverse();
-                console.log(this.notifications);
-                let myJson ={
-                  notifications:this.notifications,
-                }
-                localStorage.setItem("notifications",JSON.stringify(myJson));
               } else {
                   toast.error("Something went wrong !", {
                       autoClose: 2000,
                   });
               }
+
+              const response2 = await axios.get(
+                `http://localhost:8000/api/getAttestation/${this.idEtudiant}`
+              );
+              if(response2.data.check==true) {
+                for(let i=0;i<response2.data.attestation.length;i++){
+                  let myObj={
+                    title:"Notification d'attestation de  stage",
+                    message:response2.data.attestation[i].message,
+                    date:response2.data.attestation[i].date,
+                    attestation:response2.data.attestation[i].attestation,
+                    type:"attestation"
+                  }
+                  this.notifications.push(myObj);
+                }
+                
+              }
+              console.log(this.notifications);
+                this.notifications.reverse();
+                console.table(this.notifications);
+                let myJson ={
+                  notifications:this.notifications,
+                }
+                localStorage.setItem("notifications",JSON.stringify(myJson));
+
               } catch (error) {
                   console.error("Error:", error);
               }
+              
       },
+      voirAttestation(filename) {
+       console.log(filename);
+      // Construct the full URL of the file
+      const fileURL = `http://localhost:8000${filename}`;
+
+      // Open the file URL in a new tab to initiate the download
+      window.open(fileURL, '_blank');
+},
     },
     mounted(){
       this.getNotifications();
