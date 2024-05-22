@@ -157,7 +157,14 @@
                   class="text-green-500 hover:text-red-700"
                   @click="downloadCV(demande.cv)"
                 >
-                  Télécharger CV
+                  Télécharger CV</button
+                ><br />
+                <button
+                  v-if="this.currentStatus == 'en_execution'"
+                  class="text-green-500 hover:text-red-700"
+                  @click="generateAttestation(demande)"
+                >
+                  valider Stage
                 </button>
               </td>
 
@@ -180,6 +187,7 @@ import Sidebar from "./SideBar.vue";
 export default {
   data() {
     return {
+      currentStatus: "",
       demands: [],
       filteredDemands: [],
       storedDemands: [],
@@ -192,6 +200,7 @@ export default {
   methods: {
     filterByStatut(statut) {
       this.filteredDemands = [];
+      this.currentStatus = statut;
       this.storedDemands.forEach((demande) => {
         if (demande.statut == statut) {
           this.filteredDemands.push(demande);
@@ -223,7 +232,7 @@ export default {
       this.filteredDemands = this.storedDemands;
     },
     async downloadCV(CVname) {
-      axios
+      await axios
         .get("http://localhost:8087/file/download/" + CVname, {
           responseType: "blob",
         })
@@ -243,6 +252,37 @@ export default {
           document.body.removeChild(HyperLink);
 
           toast.success("File is downlloading", {
+            autoClose: 2000,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+          toast.error("Something went wrong !", {
+            autoClose: 2000,
+          });
+        });
+    },
+    async generateAttestation(demande) {
+      await axios
+        .post("http://localhost:8087/file/generateAtt", demande, {
+          responseType: "blob",
+        })
+        .then((res) => {
+          const FileData = new Blob([res.data], {
+              type: res.headers["content-type"],
+            }),
+            FileURL = window.URL.createObjectURL(FileData),
+            HyperLink = document.createElement("a");
+
+          HyperLink.href = FileURL;
+          HyperLink.setAttribute("download", "attestation.pdf");
+          document.body.appendChild(HyperLink);
+          HyperLink.click();
+          // remove unused constants
+          window.URL.revokeObjectURL(FileURL);
+          document.body.removeChild(HyperLink);
+
+          toast.success("Attestation Generated", {
             autoClose: 2000,
           });
         })

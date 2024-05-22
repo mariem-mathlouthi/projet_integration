@@ -1,6 +1,7 @@
 package com.backendSpring.BackendSpring.Controller;
 
 import com.backendSpring.BackendSpring.Service.FileManagementService;
+import com.backendSpring.BackendSpring.entity.Demande;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,16 @@ public class FileManagementController {
     @GetMapping("/get/{filename}")
     public ResponseEntity<?> getAvatar(@PathVariable String filename) throws IOException {
         return FM.ReadAvatarLogo(filename);
+    }
+
+    @PostMapping("/generateAtt")
+    public ResponseEntity<?> generateAttestation(@RequestBody Demande demande, HttpServletResponse response) throws IOException {
+        if (FM.GenerateAttestation(demande)) {
+            FM.downloadFile("attestation.pdf",response,"BackendSpring/src/main/resources/");
+            return ResponseEntity.ok("Attestation Generated");
+        }
+        else {
+            return ResponseEntity.badRequest().body("Error generating Attestation");
+        }
     }
 }
